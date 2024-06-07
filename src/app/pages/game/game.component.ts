@@ -1,11 +1,12 @@
 import { Component, HostListener, OnInit, inject } from '@angular/core';
 import { TextGenerationAPIService } from '../../services/text-generation-api.service';
 import { Router } from '@angular/router';
+import { NgClass } from '@angular/common';
 
 @Component({
   selector: 'app-game',
   standalone: true,
-  imports: [],
+  imports: [NgClass],
   templateUrl: './game.component.html',
   styleUrl: './game.component.css'
 })
@@ -13,6 +14,10 @@ export class GameComponent implements OnInit{
   text: string = '';
 
   wordsLists: string[] = [];
+
+  letterActive: number = 0;
+
+  juegoTerminado = false;
 
   private _apiService = inject(TextGenerationAPIService);
   private _router = inject(Router);
@@ -27,13 +32,26 @@ export class GameComponent implements OnInit{
     const {key} = event;
     // console.log(`Key pressed: "${key}"`);
 
+    if(this.juegoTerminado) return;
+
     if(this.isAValidWord(key)){
-      // console.log("key valida");
+      console.log("key valida");
+      // Si la letra activa es igual a la letra pulsada se pasa a la siguiente
+      console.log("key === this.wordsLists[this.letterActive]: "+key === this.wordsLists[this.letterActive]);
+      
+      if(key === this.wordsLists[this.letterActive]){
+        if(this.letterActive === this.wordsLists.length-1){
+          this.juegoTerminado = true;
+          return;
+        }
+
+        this.letterActive++;
+      }
     }
   }
 
   isAValidWord(key: string): boolean {
-    const regexString: string = `^[a-zA-Z0-9\s.,;:?!'"()-]$`;
+    const regexString: string = `^[a-zA-Z0-9\\s.,;:?!'"()\\-áéíóúÁÉÍÓÚñÑüÜ]$`;
     const regex: RegExp = new RegExp(regexString);
     return regex.test(key) || key === ' ';
   }

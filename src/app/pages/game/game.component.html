@@ -1,8 +1,11 @@
 <div class="board-container">
     @for (word of wordsLists; track $index) {
-        <div>
+        <div [ngClass]="{'active': $index === letterActive}">
             <p>{{word}}</p>
         </div>
     }
-    
 </div>
+@if (juegoTerminado) {
+    <div>Juego copletado</div>
+}
+<!-- [ngClass]="{ 'red-color': product.price > 200 }" -->
