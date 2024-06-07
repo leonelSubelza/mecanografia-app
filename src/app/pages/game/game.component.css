@@ -1,0 +1,22 @@
+.board-container{
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    height: auto;
+    
+}
+
+.board-container div{
+    display: flex;
+    border:1px solid black;
+    margin: 10px;
+    width: 30px;
+    height: 30px;
+    
+    
+}
+
+.board-container div p{
+    margin: auto;
+    text-align: center;
+}
