@@ -1,11 +1,33 @@
+<!-- <div class="board-container">
+  @for (word of wordsLists; track $index) {
+    <app-word 
+    letter="{{ word }}"
+    isLetterActive="{{ $index === letterActive }}"
+    index="{{ $index }}"
+    />
+  }
+</div> -->
 <div class="board-container">
-    @for (word of wordsLists; track $index) {
-        <div [ngClass]="{'active': $index === letterActive}">
-            <p>{{word}}</p>
-        </div>
-    }
-</div>
-@if (juegoTerminado) {
-    <div>Juego copletado</div>
+  <!-- <app-word
+    *ngFor="let word of wordsLists; let i = index"
+    [letter]="word"
+    [isLetterActive]="i === letterActive"
+    [index]="i"
+  />-->
+
+  <app-word
+    *ngFor="let word of wordList; let i = index"
+    [word] = "word"
+    [wordIndex]="i"
+    [isWordActive] = "i === indexWordActive"
+  />
+
+</div> 
+@if (gameOver) {
+<div>Juego copletado</div>
 }
-<!-- [ngClass]="{ 'red-color': product.price > 200 }" -->
+<!--
+[class.active]="i === letterActive"
+
+
+[ngClass]="{ 'red-color': product.price > 200 }" -->

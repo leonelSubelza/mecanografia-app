@@ -1,1 +1,5 @@
-<p>word works!</p>
+<app-letter 
+*ngFor="let letter of wordSplit; let i = index"
+[letter] = "letter"
+[isLetterActive] = "i === indexLetterActive && indexWordActive===wordIndex"
+/>
