@@ -60,14 +60,16 @@ export class GameHandlerService {
     return regex.test(key) || key === ' ';
   }
 
-  generateBoard() {
-    // this.text.split("").forEach(w => {
+  getWordsWithSpaces(texto: string): string[] {
+    const regex = /[^\s]+[\s,.?!]*/g;
+    const matches = texto.match(regex);
+    return matches ? matches : [];
+}
 
-    // })
-    //save all the characters
-    // this.letterList = this.text.split('');
+  generateBoard() {
     //save all the word including the spaces
-    this.wordList = this.text.split(/(\s)/);
+    // this.wordList = this.text.split(/(\s)/);
+    this.wordList = this.getWordsWithSpaces(this.text);
 
     //set the first word
     // this.indexWordActive = 0;
@@ -80,8 +82,6 @@ export class GameHandlerService {
   }
 
   setIndexLetterActive(newValue: number) {
-    console.log("se setea nuevo valor para index letter: "+newValue);
-    
     this.indexLetterActiveSubject.next(newValue);
   }
 

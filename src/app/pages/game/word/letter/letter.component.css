@@ -1,14 +1,14 @@
 div {
     display: flex;
-    border:1px solid black;
-    margin: 10px;
-    width: 30px;
-    height: 30px;
+    border:1px solid transparent;
+    min-width: 15px;
+    min-height: 100%;
+    
 }
 
 
 div.active {
-    border: 2px solid blue;
+    border: 1px solid blue;
     box-shadow: rgba(0, 0, 0, 0.35) 0 5px 15px;
 }
 

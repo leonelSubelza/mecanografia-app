@@ -112,7 +112,6 @@ export class GameComponent implements OnInit, OnDestroy {
     }
   }
 
-
   setRandomWord() {
     // this._apiService.getRandomWord(1, 5).subscribe((data: any) => {
     //   console.log(data);

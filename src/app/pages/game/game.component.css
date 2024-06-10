@@ -1,13 +1,20 @@
 .board-container{
     display: flex;
     flex-wrap: wrap;
-    width: 100%;
+    width: 80%;
     height: auto;
-    
+    border-radius: 20px;
+    margin: auto;
+    padding: 20px;
+    border:1px solid rgb(220, 213, 182);
+    background-color: rgb(253, 244, 206);
 }
 
 app-word {
     display: flex;
+    border: 1px solid lightblue;
+    margin:5px 0;
+
 }
 
 /* app-word {
