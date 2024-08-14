@@ -1,32 +1,29 @@
+.game-screen-container {
+    display: flex;
+    flex-direction: column;
+}
+
+h1{
+    margin:auto 15px;
+    font-size: 25px;
+}
+
 .board-container{
     display: flex;
     flex-wrap: wrap;
-    width: 80%;
+    margin: auto;
+    /* width: 80%; */
+    width: 100%;
     height: auto;
     border-radius: 20px;
-    margin: auto;
     padding: 20px;
-    border:1px solid rgb(220, 213, 182);
-    background-color: rgb(253, 244, 206);
+    /* border:1px solid rgb(220, 213, 182); */
+    background-color: #fff;
 }
 
 app-word {
     display: flex;
-    border: 1px solid lightblue;
     margin:5px 0;
-
+    border-bottom: 1px solid oklch(0.9175 0.004 301.42);
 }
 
-/* app-word {
-    display: flex;
-    border:1px solid black;
-    margin: 10px;
-    width: 30px;
-    height: 30px;
-}
-
-
-app-word.active {
-    border: 2px solid blue;
-    box-shadow: rgba(0, 0, 0, 0.35) 0 5px 15px;
-} */

@@ -1,131 +1,130 @@
-import { Component, HostListener, OnDestroy, OnInit, inject } from '@angular/core';
-import { TextGenerationAPIService } from '../../services/text-generation-api.service';
-import { Router } from '@angular/router';
-import { NgClass, NgFor } from '@angular/common';
-import { WordComponent } from './word/word.component';
+import { Component, HostListener, OnInit, inject } from '@angular/core';
 import { GameHandlerService } from '../../services/game.handler.service';
-import { Subscription } from 'rxjs';
+import { WordComponent } from '../../shared/word/word.component';
+import { Letter, LetterStatus, TextContent, Word } from '../../interfaces/entities';
+import { texts } from '../../shared/mock/texts.mock';
 
 @Component({
   selector: 'app-game',
   standalone: true,
-  imports: [NgClass, WordComponent, NgFor],
+  imports: [WordComponent],
   templateUrl: './game.component.html',
   styleUrl: './game.component.css',
 })
-export class GameComponent implements OnInit, OnDestroy {
+export class GameComponent implements OnInit {
+  _gameHandlerService = inject(GameHandlerService);
 
-  private _gameHandlerService = inject(GameHandlerService);
-  private _apiService = inject(TextGenerationAPIService);
-  private _router = inject(Router);
-
-  // private subscription?: Subscription;
-  private subscriptions = new Subscription();
-
-  wordList: string[] = [];
-  wordSplit: string[] = [];
-  indexWordActive: number = 0;;
-  indexLetterActive: number = 0;
-  gameOver?: boolean;
+  constructor() {}
 
   ngOnInit(): void {
-    this.setRandomWord();
-    // this.gameOver = this._gameHandlerService.gameOver$;
-    this.wordList = this._gameHandlerService.wordList;
-
-    this.subscriptions.add(
-      this._gameHandlerService.wordSplit$.subscribe(value => {
-        this.wordSplit = value;
-      })
-    );
-
-    this.subscriptions.add(
-      this._gameHandlerService.indexWordActive$.subscribe(index => {
-        this.indexWordActive = index;
-      })
-    );
-   
-    this.subscriptions.add(
-      this._gameHandlerService.indexLetterActive$.subscribe(index => {
-        this.indexLetterActive = index;
-      })
-    );
-    
-
-    this.subscriptions.add(
-      this._gameHandlerService.gameOver$.subscribe(value => {
-        this.gameOver = value;
-      })
-    );
-
-    // this.indexWordActive = this._gameHandlerService.indexWordActive;
-    // this.subscription = this._gameHandlerService.indexWordActive$.subscribe(index => {
-    //   this.indexWordActive = index;
-    // });
-
+    this.startNewGame();
   }
 
   @HostListener('document:keydown', ['$event'])
   handleKeyboardEvent(event: KeyboardEvent) {
+    if (this._gameHandlerService.gameOver()) return;
+
     const { key } = event;
-    // console.log(`Key pressed: "${key}"`);
-    
-    if (this.gameOver) return;
+    console.log(`Key pressed: "${key}"`);
 
     if (this._gameHandlerService.isAValidWord(key)) {
       // Si la letra activa es igual a la letra pulsada se pasa a la siguiente
-
-      let correctLetter: string = this.wordSplit[this.indexLetterActive];
-
+      let correctLetter: Letter = this._gameHandlerService.getCorrectLetter();
       // console.log("letra correcta: "+correctLetter);
 
-      if (key === correctLetter) {
+      if (key === correctLetter.letter) {
         // console.log("la letra es correcta");
-        
-        //if its the last letter in the word
-        if (this.indexLetterActive === this.wordSplit.length - 1) {
-          // console.log("if its the last letter in the word");
-          
-          //if it is the last word in the game
-          if (this.indexWordActive === this.wordList.length - 1) {
-            // console.log("is the last word, we pass to the next");
-            
-            this._gameHandlerService.setGameOver(true)
-            return;
-          }
-          //we pass to the next word
-          // this.indexWordActive++;
-          this._gameHandlerService.setIndexWordActive(this.indexWordActive+1);
-          // this.indexLetterActive = 0;
-          this._gameHandlerService.setIndexLetterActive(0);
-          this._gameHandlerService.setWordSplit(this.wordList[this.indexWordActive].split(''));
-          return;
-        }
-        // console.log("we pass to the next letter");
-        
-        this._gameHandlerService.setIndexLetterActive(this.indexLetterActive+1);
-        // console.log("indexLetterActive: "+this.indexLetterActive);
-        // console.log("indexWordActive: "+this.indexWordActive);
-        
-        
+        this._gameHandlerService.setLetterActiveStatus(LetterStatus.CORRECT);
+      } else {
+        this._gameHandlerService.setLetterActiveStatus(LetterStatus.INCORRECT);
       }
+
+      this.moveNextLetter();
+    }
+    if (key === "Backspace") {
+      this.movePrevLetter();
+      return;
     }
   }
 
-  setRandomWord() {
-    // this._apiService.getRandomWord(1, 5).subscribe((data: any) => {
-    //   console.log(data);
-    //   this.text=data.text;
-    // });
-    this._gameHandlerService.text =
-      'Red Dead Redemption 2 es un videojuego de acción-aventura de mundo abierto desarrollado y publicado por Rockstar Games. El juego es la tercera entrada de la serie Red Dead y una precuela del juego de 2010 Red Dead Redemption.';
-    this._gameHandlerService.generateBoard();
+  movePrevLetter() {
+    this._gameHandlerService.setActualLetterActive(false);
+    let actualLetter: Letter = this._gameHandlerService.getActualLetter()
+    actualLetter.status = LetterStatus.DEFAULT;
+    if (this._gameHandlerService.indexLetterActive() === 0) {
+      if(this._gameHandlerService.indexWordActive()===0){
+        return;
+      }
+      this.setNextWord(false);
+      return;
+    }
+    this.setNextLetter(false);
   }
 
-  ngOnDestroy() {
-    // if (this.subscription) {
-    //   this.subscription.unsubscribe();
-    // }
-    this.subscriptions.unsubscribe();
+  moveNextLetter() {
+    this._gameHandlerService.setActualLetterActive(false);
+    let actualWord: Word = this._gameHandlerService.board()[this._gameHandlerService.indexWordActive()];
+    //if its the last letter in the word
+    if (this._gameHandlerService.indexLetterActive() === actualWord.word.length - 1) {
+      //if it is the last word in the game
+      if (this._gameHandlerService.isGameCompleted()) {
+        this._gameHandlerService.setGameOver(true);
+        return;
+      }
+      //we pass to the next word
+      this.setNextWord(true);
+      return;
+    }
+      //we pass to the next LETTER
+    this.setNextLetter(true);
+  }
+
+  setNextLetter(isNextLetter: boolean) {
+    let indexLetterActive = this._gameHandlerService.indexLetterActive();
+
+    if(isNextLetter){
+      this._gameHandlerService.setIndexLetterActive(indexLetterActive + 1);
+    }else{
+      this._gameHandlerService.setIndexLetterActive(indexLetterActive - 1);
+    }
+    const actualLetter: Letter = this._gameHandlerService.getActualLetter();
+    actualLetter.status = LetterStatus.DEFAULT
+  }
+
+  // We know in advance that there is a next or previous letter
+  setNextWord(isNextWord: boolean) {
+    this._gameHandlerService.setActualWordActive(false);
+
+    let actualWordIndex = this._gameHandlerService.indexWordActive();
+
+    if (isNextWord) {
+      this._gameHandlerService.setIndexWordActive(actualWordIndex + 1);
+      this._gameHandlerService.setIndexLetterActive(0);
+    } else {
+      this._gameHandlerService.setIndexWordActive(actualWordIndex - 1);
+      let actualWord = this._gameHandlerService.getActualWord();
+      this._gameHandlerService.setIndexLetterActive(actualWord.word.length-1);
+    }
+    
+    this._gameHandlerService.setActualWordActive(true);
+    this._gameHandlerService.setActualLetterActive(true);
+    const actualLetter: Letter = this._gameHandlerService.getActualLetter();
+    actualLetter.status = LetterStatus.DEFAULT
+  }
+
+  startNewGame() {
+    this.setRandomWord();
+    this._gameHandlerService.setIndexWordActive(0);
+    this._gameHandlerService.setIndexLetterActive(0);
+    this._gameHandlerService.setActualWordActive(true);
+    this._gameHandlerService.setActualLetterActive(true);
+  }
+
+  setRandomWord() {
+    const indexRandomText: number = Math.floor(Math.random() * texts.length);
+    const randomText: TextContent = texts[indexRandomText];
+
+    this._gameHandlerService.generateBoard(randomText.text);
+    this._gameHandlerService.setTextContent(randomText);
   }
 }

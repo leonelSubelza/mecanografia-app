@@ -1,33 +1,16 @@
-<!-- <div class="board-container">
-  @for (word of wordsLists; track $index) {
-    <app-word 
-    letter="{{ word }}"
-    isLetterActive="{{ $index === letterActive }}"
-    index="{{ $index }}"
-    />
+<div class="game-screen-container">
+  <h1>{{this._gameHandlerService.textContent().title}}</h1>
+  <div class="board-container">
+    @for (word of this._gameHandlerService.board(); track $index) {
+      <app-word 
+      [index] = "$index"
+      [word] = "word"
+      [isWordActive]="$index === this._gameHandlerService.indexWordActive()"
+      />
+    }
+  </div>
+  @if (this._gameHandlerService.gameOver()) {
+  <div>Juego completado</div>
   }
-</div> -->
-<div class="board-container">
-  <!-- <app-word
-    *ngFor="let word of wordsLists; let i = index"
-    [letter]="word"
-    [isLetterActive]="i === letterActive"
-    [index]="i"
-  />-->
+</div>
 
-  <app-word
-    *ngFor="let word of wordList; let i = index"
-    [word] = "word"
-    [wordIndex]="i"
-    [isWordActive] = "i === indexWordActive"
-  />
-
-</div> 
-@if (gameOver) {
-<div>Juego copletado</div>
-}
-<!--
-[class.active]="i === letterActive"
-
-
-[ngClass]="{ 'red-color': product.price > 200 }" -->

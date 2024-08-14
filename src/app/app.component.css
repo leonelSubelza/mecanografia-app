@@ -1,5 +1,16 @@
-app-game{
-    display: flex;
-    height: 100%;
-    width: 100%;
+.mat-toolbar {
+  background-color: #d7e3ff;
+  width: 100%;
+  /* color: #005cbb; */
+}
+
+.mat-mdc-card {
+  width: 80%;
+  margin: auto;
+}
+
+app-game {
+  display: flex;
+  height: 100%;
+  width: 100%;
 }
