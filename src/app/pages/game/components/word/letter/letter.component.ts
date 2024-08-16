@@ -1,7 +1,7 @@
 import { NgClass } from '@angular/common';
 import { Component, inject, input, OnInit } from '@angular/core';
-import { Letter } from '../../../interfaces/entities';
-import { GameHandlerService } from '../../../services/game.handler.service';
+import { Letter } from '../../../../../interfaces/entities';
+import { GameHandlerService } from '../../../../../services/game.handler.service';
 
 @Component({
   selector: 'app-letter',
@@ -12,7 +12,6 @@ import { GameHandlerService } from '../../../services/game.handler.service';
 })
 export class LetterComponent implements OnInit {
   letter = input.required<Letter>();
-  isLetterActive = input<boolean>(false);
   index? = input<number>();
 
   _gameHandlerService = inject(GameHandlerService);

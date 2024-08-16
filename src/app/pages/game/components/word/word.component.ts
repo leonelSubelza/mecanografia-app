@@ -1,7 +1,7 @@
 import { Component, OnInit, effect, inject, input } from '@angular/core';
 import { LetterComponent } from './letter/letter.component';
-import { GameHandlerService } from '../../services/game.handler.service';
-import { Word } from '../../interfaces/entities';
+import { GameHandlerService } from '../../../../services/game.handler.service';
+import { Word } from '../../../../interfaces/entities';
 
 @Component({
   selector: 'app-word',
@@ -13,7 +13,6 @@ import { Word } from '../../interfaces/entities';
 export class WordComponent implements OnInit{
   index = input.required<number>();
   word = input.required<Word>();
-  isWordActive = input<boolean>(false);
 
   _gameHandlerService = inject(GameHandlerService);
 

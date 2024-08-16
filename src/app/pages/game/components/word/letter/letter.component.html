@@ -1,0 +1,4 @@
+<div class="{{this.letter().status}}" [ngClass]="{'active': this.letter().isActive &&!this._gameHandlerService.gameOver()}">
+    <p>{{ letter().letter }}</p>
+</div>
+  

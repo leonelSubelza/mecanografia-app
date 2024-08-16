@@ -1,5 +1,0 @@
-@for (letter of this.word().letterList; track $index) {
-<app-letter 
-[letter]="letter" 
-[isLetterActive]="$index === this._gameHandlerService.indexLetterActive() && isWordActive()" />
-}
