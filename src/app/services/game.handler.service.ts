@@ -1,38 +1,15 @@
-import { Injectable, signal } from '@angular/core';
+import { inject, Injectable, signal } from '@angular/core';
 import { Letter, LetterStatus, TextContent, Word } from '../interfaces/entities';
 import { texts } from '../shared/mock/texts.mock';
+import { AppStateService } from './app-state.service';
 
-const CORRECT_LETTER_DEFAULT_VALUE = {
-  letter: '',
-  isActive: false,
-  status: LetterStatus.DEFAULT
-}
-
-const ACTUAL_WORD_DEFAULT_VALUE = {
-  word: '',
-  letterList: [],
-  indexLetterActive: 0,
-  isActive: false
-}
 
 @Injectable({
   providedIn: 'root',
 })
 export class GameHandlerService {
-  board = signal<Word[]>([]);
-  gameOver = signal<boolean>(false);
-  textContent = signal<TextContent>(texts[0]);
 
-  indexActualWord = signal<number>(0);
-  indexActualLetter = signal<number>(0);
-  // actualWord = signal<Word>(ACTUAL_WORD_DEFAULT_VALUE);
-  // actualLetter = signal<Letter>(CORRECT_LETTER_DEFAULT_VALUE);
-
-  indexCorrectWord = signal<number>(0);
-  indexCorrectLetter = signal<number>(0);
-  correctLetter = signal<Letter>(CORRECT_LETTER_DEFAULT_VALUE);
-
-  valueUserWriting = signal<string>('');
+  private _appStateService = inject(AppStateService);
 
   isAValidWord(key: string): boolean {
     const regexString: string = `^[a-zA-Z0-9\\s.,;:?!'"()\\-áéíóúÁÉÍÓÚñÑüÜ]$`;
@@ -73,14 +50,14 @@ export class GameHandlerService {
     
     wordsList.forEach( (word: string) => {
       const newWord: Word = this.generateWord(word);
-      this.board().push(newWord)
+      this._appStateService.board().push(newWord)
     })
   }
 
     // esto cambiarlo
   areAllLettersCorrect(): boolean {
     let allLettersAreCorrect: boolean = true;
-    this.board().forEach( (word: Word) => {
+    this._appStateService.board().forEach( (word: Word) => {
       const letterCorrect = word.letterList.find( (letter: Letter) => letter.status === LetterStatus.CORRECT);
       allLettersAreCorrect = allLettersAreCorrect && letterCorrect!==undefined;
     })
@@ -88,76 +65,28 @@ export class GameHandlerService {
   }
 
   isGameCompleted(): boolean {
-    let actualLetter: Letter = this.getActualLetter();
-    return this.indexActualWord() === this.board().length - 1
+    let actualLetter: Letter = this._appStateService.getActualLetter();
+    return this._appStateService.indexActualWord() === this._appStateService.board().length - 1
     && actualLetter.status === LetterStatus.CORRECT;
   }
   
   isLastLetterInTheGame(): boolean {
-    let actualWord: Word = this.getActualWord();
-    return this.indexActualWord() === this.board().length-1
-    && this.indexActualLetter() === actualWord.letterList.length-1;
-  }
-
-  setActualLetterStatus = (status: LetterStatus) => {
-    this.board()[this.indexActualWord()].letterList[this.indexActualLetter()].status = status;
-  }
-
-  setIndexWordActive(newValue: number) {
-    this.indexActualWord.set(newValue);
-  }
-
-  setIndexLetterActive(newValue: number) {
-    this.indexActualLetter.set(newValue);
-  }
-
-  // setWordSplit(newValue: Word[]) {
-  //   this.wordSplit.set(newValue);
-  // }
-  setTextContent(textContent: TextContent) {
-    this.textContent.set(textContent);
-  }
-
-  setGameOver(newValue: boolean) {
-    this.gameOver.set(newValue);
-  }
-
-
-  getActualWord(): Word {
-    return this.board()[this.indexActualWord()];
-  }
-
-  getActualLetter(): Letter {
-    return this.board()[this.indexActualWord()].letterList[this.indexActualLetter()];
-  }
-
-  setActualLetterIsActive(status: boolean) {
-    this.board()[this.indexActualWord()].letterList[this.indexActualLetter()].isActive = status;
-  }
-
-  setActualWordIsActive(status: boolean) {
-    this.board()[this.indexActualWord()].isActive = status;
-  }
-
-  setValueUserWriting(newValue: string): void {
-    this.valueUserWriting.set(newValue);
+    let actualWord: Word = this._appStateService.getActualWord();
+    return this._appStateService.indexActualWord() === this._appStateService.board().length-1
+    && this._appStateService.indexActualLetter() === actualWord.letterList.length-1;
   }
 
   updateCorrectLetter() {
-    const correctLetter = this.board()[this.indexActualWord()].letterList[this.indexActualLetter()];
-    this.correctLetter.set(correctLetter);
-    this.indexCorrectLetter.set(this.indexActualLetter());
-    this.indexCorrectWord.set(this.indexActualWord());
+    const correctLetter = this._appStateService.board()[this._appStateService.indexActualWord()].letterList[this._appStateService.indexActualLetter()];
+    this._appStateService.setCorrectLetter(correctLetter);
+    this._appStateService.setIndexCorrectLetter(this._appStateService.indexActualLetter());
+    this._appStateService.setIndexCorrectWord(this._appStateService.indexActualWord());
   }
 
   isCorrectLetter(letter: string) {
-    return letter === this.correctLetter().letter
-    && this.indexActualWord() === this.indexCorrectWord()
-    && this.indexActualLetter() === this.indexCorrectLetter()
+    return letter === this._appStateService.correctLetter().letter
+    && this._appStateService.indexActualWord() === this._appStateService.indexCorrectWord()
+    && this._appStateService.indexActualLetter() === this._appStateService.indexCorrectLetter()
   }
 
-  showFirstWords(){
-    console.log(this.board()[0]);
-    console.log(this.board()[1]);
-  }
 }

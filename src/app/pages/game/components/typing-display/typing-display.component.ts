@@ -2,6 +2,7 @@ import { Component, effect, inject, OnInit, signal } from '@angular/core';
 import { GameHandlerService } from '../../../../services/game.handler.service';
 import { MatCardModule } from '@angular/material/card';
 import { Word } from '../../../../interfaces/entities';
+import { AppStateService } from '../../../../services/app-state.service';
 
 @Component({
   selector: 'app-typing-display',
@@ -13,18 +14,20 @@ import { Word } from '../../../../interfaces/entities';
 export class TypingDisplayComponent implements OnInit{
 
   _gameHandlerService = inject(GameHandlerService);
+  _appStateService = inject(AppStateService);
+
   currentWord!: string;
 
   constructor(){
     effect(()=> {
-      if(this._gameHandlerService.indexCorrectWord()) {
-        this._gameHandlerService.setValueUserWriting('');
-        this.currentWord = this._gameHandlerService.getActualWord().word;
+      if(this._appStateService.indexCorrectWord()) {
+        this._appStateService.setValueUserWriting('');
+        this.currentWord = this._appStateService.getActualWord().word;
       }
     }, {allowSignalWrites: true})
   }
   ngOnInit(): void {
-    let correctWord: Word = this._gameHandlerService.getActualWord();
+    let correctWord: Word = this._appStateService.getActualWord();
     if(correctWord){
       this.currentWord = correctWord.word;
     }

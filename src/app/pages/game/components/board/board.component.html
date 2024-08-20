@@ -1,7 +1,7 @@
 <div class="words-board">
   <!-- <mat-card appearance="outlined"> -->
     <!-- <mat-card-content> -->
-      @for (word of this._gameHandlerService.board(); track $index) {
+      @for (word of this._appStateService.board(); track $index) {
       <app-word [index]="$index" [word]="word"/>
       }
     <!-- </mat-card-content> -->

@@ -2,6 +2,7 @@ import { NgClass } from '@angular/common';
 import { Component, effect, inject, input, OnInit } from '@angular/core';
 import { Letter } from '../../../../../../interfaces/entities';
 import { GameHandlerService } from '../../../../../../services/game.handler.service';
+import { AppStateService } from '../../../../../../services/app-state.service';
 
 @Component({
   selector: 'app-letter',
@@ -17,13 +18,15 @@ export class LetterComponent implements OnInit {
   isValidPosition: boolean = false;
   _gameHandlerService = inject(GameHandlerService);
 
+  _appStateService = inject(AppStateService);
+
   constructor(){
     effect(()=>{
-      if(this._gameHandlerService.gameOver()){
+      if(this._appStateService.gameOver()){
         return;
       }
 
-      if(this._gameHandlerService.indexActualLetter()){
+      if(this._appStateService.indexActualLetter()){
         if(this.letter().isActive){
           this.isValidPosition = this._gameHandlerService.isCorrectLetter(this.letter().letter)
         }else{

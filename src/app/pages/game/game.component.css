@@ -6,8 +6,10 @@
     background-color: #fff;
 }
 
-.game-info-container {
+app-game-info {
     height: 10%;
+    width: 95%;
+    margin: auto;
 }
 
 .board-container{

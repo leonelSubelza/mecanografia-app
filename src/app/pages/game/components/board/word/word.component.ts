@@ -3,6 +3,7 @@ import { LetterComponent } from './letter/letter.component';
 import { GameHandlerService } from '../../../../../services/game.handler.service';
 import { Word } from '../../../../../interfaces/entities';
 import { NgClass } from '@angular/common';
+import { AppStateService } from '../../../../../services/app-state.service';
 
 @Component({
   selector: 'app-word',
@@ -16,14 +17,15 @@ export class WordComponent implements OnInit{
   word = input.required<Word>();
 
   _gameHandlerService = inject(GameHandlerService);
+  _appStateService = inject(AppStateService);
 
   constructor() {
     effect(()=>{
-      if(this._gameHandlerService.gameOver()){
+      if(this._appStateService.gameOver()){
         return;
       }
 
-      if(this._gameHandlerService.indexActualWord()){
+      if(this._appStateService.indexActualWord()){
         
       }
     }, {allowSignalWrites: true})

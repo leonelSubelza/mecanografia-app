@@ -5,16 +5,19 @@ import { texts } from '../../shared/mock/texts.mock';
 import { TypingDisplayComponent } from "./components/typing-display/typing-display.component";
 import { BoardComponent } from "./components/board/board.component";
 import { WordComponent } from './components/board/word/word.component';
+import { GameInfoComponent } from "./components/game-info/game-info.component";
+import { AppStateService } from '../../services/app-state.service';
 
 @Component({
   selector: 'app-game',
   standalone: true,
-  imports: [WordComponent, TypingDisplayComponent, BoardComponent],
+  imports: [WordComponent, TypingDisplayComponent, BoardComponent, GameInfoComponent],
   templateUrl: './game.component.html',
   styleUrl: './game.component.css',
 })
 export class GameComponent implements OnInit {
   _gameHandlerService = inject(GameHandlerService);
+  _appStateService = inject(AppStateService);
 
   constructor() {}
 
@@ -25,10 +28,10 @@ export class GameComponent implements OnInit {
 
   startNewGame() {
     this.setRandomWord();
-    this._gameHandlerService.setActualLetterIsActive(true);
+    this._appStateService.setActualLetterIsActive(true);
     // this._gameHandlerService.updateActualWord(0);
     // this._gameHandlerService.updateActualLetter(0);
-    this._gameHandlerService.setActualWordIsActive(true);
+    this._appStateService.setActualWordIsActive(true);
     this._gameHandlerService.updateCorrectLetter()
   }
 
@@ -38,10 +41,10 @@ export class GameComponent implements OnInit {
 
     this._gameHandlerService.generateBoard(randomText.text);
     // this._gameHandlerService.generateBoard('aaaaaa bbbbb aaa aaaaaa bbbbb aaaaaaaaa bbbbb aaaaaaaaa bbbbb aaaaaaaaa bbbbb aaaaaaaaa bbbbb aaaaaaaaa bbbbb aaaaaaaaa bbbbb aaaaaaaaa bbbbb aaaaaaaaa bbbbb aaaaaaaaa bbbbb aaaaaaaaa bbbbb aaaaaaaaa bbbbb aaaaaaaaa bbbbb aaaaaaaaa bbbbb aaaaaaaaa bbbbb aaaaaaaaa bbbbb aaaaaaaaa bbbbb aaaaaaaaa bbbbb aaaaaaaaa bbbbb aaaaaaaaa bbbbb aaaaaaaaa bbbbb aaaaaaaaa bbbbb aaaaaaaaa bbbbb aaaaaaaaa bbbbb aaaaaaaaa bbbbb aaaaaaaaa bbbbb aaaaaaaaa bbbbb aaaaaaaaa bbbbb aaaaaaaaa bbbbb aaaaaaaaa bbbbb aaaaaaaaa bbbbb aaaaaaaaa bbbbb aaaaaaaaa bbbbb aaaaaaaaa bbbbb aaaaaaaaa bbbbb aaaaaaaaa bbbbb aaaaaaaaa bbbbb aaaaaaaaa bbbbb aaaaaaaaa bbbbb aaaaaaaaa bbbbb aaaaaaaaa bbbbb aaaaaaaaa bbbbb aaaaaaaaa bbbbb aaaaaaaaa bbbbb aaaaaaaaa bbbbb aaaaaaaaa bbbbb aaaaaaaaa bbbbb aaaaaaaaa bbbbb aaaaaaaaa bbbbb aaaaaaaaa bbbbb aaaaaaaaa bbbbb aaaaaaaaa bbbbb aaaaaaaaa bbbbb aaaaaaaaa bbbbb aaaaaaaaa bbbbb aaaaaaaaa bbbbb aaaaaaaaa bbbbb aaaaaaaaa bbbbb aaaaaaaaa bbbbb aaaaaaaaa bbbbb aaaaaaaaa bbbbb aaaaaaaaa bbbbb aaa');
-    this._gameHandlerService.setTextContent(randomText);
+    this._appStateService.setTextContent(randomText);
 
-    this._gameHandlerService.setIndexWordActive(0);
-    this._gameHandlerService.setIndexLetterActive(0);
+    this._appStateService.setIndexWordActive(0);
+    this._appStateService.setIndexLetterActive(0);
   }
 
 }

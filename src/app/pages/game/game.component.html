@@ -1,13 +1,13 @@
 <div class="game-screen-container">
-  <div class="game-info-container">Info</div>
+  <app-game-info />
   <div class="board-container">
     <div class="board-title">
-      <h1>Texto: "{{this._gameHandlerService.textContent().title}}"</h1>
+      <h1>Texto: "{{this._appStateService.textContent().title}}"</h1>
     </div>
     <app-board />
     <app-typing-display />
   </div>
-    @if (this._gameHandlerService.gameOver()) {
+    @if (this._appStateService.gameOver()) {
       <div>Juego completado</div>
       }
 

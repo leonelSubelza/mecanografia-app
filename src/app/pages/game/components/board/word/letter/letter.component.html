@@ -1,5 +1,5 @@
 <div class="{{this.letter().status}}" [ngClass]="{
-    'active': this.letter().isActive &&!this._gameHandlerService.gameOver(), 
+    'active': this.letter().isActive &&!this._appStateService.gameOver(), 
     'isValidPos': this.letter().isActive && isValidPosition,
     'isInvalidPos': this.letter().isActive && !isValidPosition
     }">
