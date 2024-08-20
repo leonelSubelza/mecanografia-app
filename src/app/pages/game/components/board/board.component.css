@@ -1,0 +1,27 @@
+.words-board {
+    display: flex;
+    flex-wrap: wrap;
+    margin: auto;
+    width: 95%;
+    padding: 20px 0;
+    border-radius: 5px;
+    /* height: 100%; */
+    border:1px solid rgb(220, 213, 182);
+    background-color: #fff;
+}
+
+/*mat-card {
+    margin: auto;
+    background-color: #fff;
+}
+
+mat-card-content {
+    display: flex;
+    flex-wrap: wrap;
+}
+*/
+app-word {
+    display: flex;
+    margin:5px 0;
+    border-bottom: 1px solid oklch(0.9175 0.004 301.42);
+}

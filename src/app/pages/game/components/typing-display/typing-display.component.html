@@ -1,1 +1,6 @@
-<p>typing-display works!</p>
+<div class="current-word-container"><p>Palabra actual: "{{this.currentWord}}"</p></div>
+<!-- <input type="text" value={{this._gameHandlerService.valueUserWriting()}}/> -->
+<mat-card appearance="outlined">
+    <mat-card-content><input type="text" disabled value={{this._gameHandlerService.valueUserWriting()}} placeholder="Write the current word!..."/></mat-card-content>
+</mat-card>
+  

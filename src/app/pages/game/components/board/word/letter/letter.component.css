@@ -10,6 +10,16 @@ div.active {
     animation: fadeBorder 1s infinite;
 }
 
+/* .active.isValidPos {
+    color:#0b85bb;
+    border-bottom: 2px solid #0b85bb !important;
+}
+
+.active.isInvalidPos{
+    border-bottom: 2px solid #ffb6b6 !important; 
+    animation: fadeBorder 1s infinite;
+} */
+
 @keyframes fadeBorder {
     0% {
         border-bottom: 2px solid #fff;
@@ -22,9 +32,6 @@ div.active {
     }
 }
 
-div.DEFAULT {
-    /* border-bottom-color: #78888f; */
-}
 
 div.CORRECT {
     /* color: #fff; */
@@ -41,4 +48,5 @@ div.INCORRECT {
 p{
     margin: auto;
     text-align: center;
+    font-size: 16px;
 }

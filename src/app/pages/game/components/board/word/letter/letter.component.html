@@ -1,0 +1,8 @@
+<div class="{{this.letter().status}}" [ngClass]="{
+    'active': this.letter().isActive &&!this._gameHandlerService.gameOver(), 
+    'isValidPos': this.letter().isActive && isValidPosition,
+    'isInvalidPos': this.letter().isActive && !isValidPosition
+    }">
+    <p>{{ letter().letter }}</p>
+</div>
+  

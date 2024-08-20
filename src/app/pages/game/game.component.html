@@ -1,15 +1,15 @@
 <div class="game-screen-container">
-  <h1>{{this._gameHandlerService.textContent().title}}</h1>
+  <div class="game-info-container">Info</div>
   <div class="board-container">
-    @for (word of this._gameHandlerService.board(); track $index) {
-      <app-word 
-      [index] = "$index"
-      [word] = "word"
-      />
-    }
+    <div class="board-title">
+      <h1>Texto: "{{this._gameHandlerService.textContent().title}}"</h1>
+    </div>
+    <app-board />
+    <app-typing-display />
   </div>
-  @if (this._gameHandlerService.gameOver()) {
-  <div>Juego completado</div>
-  }
+    @if (this._gameHandlerService.gameOver()) {
+      <div>Juego completado</div>
+      }
+
 </div>
 

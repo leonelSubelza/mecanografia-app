@@ -1,0 +1,47 @@
+.current-word-container{
+    display: flex;
+    height: auto;
+    margin: auto 0;
+}
+
+.current-word-container p{
+    font-size: 16px;
+    line-height: normal;
+    margin: auto 0;
+}
+
+mat-card {
+    height: 100%;
+    width: 60%;
+    /* margin: 5px auto auto 15px; */
+    background-color: #fff;
+    display: flex;
+    margin: auto 0;
+}
+
+
+
+.mat-mdc-card-content {
+    height: 100%;
+    display: flex;
+    padding: 10px 0 !important; 
+    margin: auto 0;
+}
+
+input {
+    width: 97%;
+    margin: auto 0 auto 10px !important;
+    padding: 0;
+    border:1px solid transparent;
+    font-size: 16px;
+}
+
+input:active, input:focus-visible {
+    outline: none;
+}
+
+@media screen and (max-width: 1000px) {
+    mat-card {
+        height: auto;
+    }
+}

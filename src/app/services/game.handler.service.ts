@@ -32,6 +32,8 @@ export class GameHandlerService {
   indexCorrectLetter = signal<number>(0);
   correctLetter = signal<Letter>(CORRECT_LETTER_DEFAULT_VALUE);
 
+  valueUserWriting = signal<string>('');
+
   isAValidWord(key: string): boolean {
     const regexString: string = `^[a-zA-Z0-9\\s.,;:?!'"()\\-áéíóúÁÉÍÓÚñÑüÜ]$`;
     const regex: RegExp = new RegExp(regexString);
@@ -134,7 +136,11 @@ export class GameHandlerService {
   }
 
   setActualWordIsActive(status: boolean) {
-    this.board()[this.indexActualWord()].letterList[this.indexActualLetter()].isActive = status;
+    this.board()[this.indexActualWord()].isActive = status;
+  }
+
+  setValueUserWriting(newValue: string): void {
+    this.valueUserWriting.set(newValue);
   }
 
   updateCorrectLetter() {
@@ -142,15 +148,16 @@ export class GameHandlerService {
     this.correctLetter.set(correctLetter);
     this.indexCorrectLetter.set(this.indexActualLetter());
     this.indexCorrectWord.set(this.indexActualWord());
-    console.log("new correct letter:");
-    console.log(correctLetter);
-    
-    
   }
 
   isCorrectLetter(letter: string) {
     return letter === this.correctLetter().letter
     && this.indexActualWord() === this.indexCorrectWord()
     && this.indexActualLetter() === this.indexCorrectLetter()
+  }
+
+  showFirstWords(){
+    console.log(this.board()[0]);
+    console.log(this.board()[1]);
   }
 }

@@ -10,7 +10,8 @@
 }
 
 app-game {
+  margin: auto  ;
   display: flex;
-  height: 100%;
-  width: 100%;
+  /* min-height: 90dvh; */
+  width: 80%;
 }
