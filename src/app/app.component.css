@@ -1,7 +1,7 @@
 .mat-toolbar {
-  background-color: #d7e3ff;
+  background-color: #3f51b5;
   width: 100%;
-  /* color: #005cbb; */
+  color: #fff;
 }
 
 .mat-mdc-card {

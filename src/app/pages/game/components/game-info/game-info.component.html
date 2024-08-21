@@ -4,6 +4,8 @@
     <button (click)="this.stopTimer()">Stop</button>
     <div class="timer">Tiempo: {{this._userTimerService.userTime()}}</div>
 </div>
+<mat-progress-bar mode="determinate" value={{this.gamePercentCompleted}}></mat-progress-bar>
+
 <!-- <div class="accuracy-container">
     <div class="accuray">
         Accuracy: {{this._appStateService.userAccuracy()}}%

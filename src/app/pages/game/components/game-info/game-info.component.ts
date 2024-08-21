@@ -2,11 +2,12 @@ import { Component, effect, inject, OnInit } from '@angular/core';
 import { GameHandlerService } from '../../../../services/game.handler.service';
 import { AppStateService } from '../../../../services/app-state.service';
 import { GameTimerService } from '../../../../services/game-timer.service';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 @Component({
   selector: 'app-game-info',
   standalone: true,
-  imports: [],
+  imports: [MatProgressBarModule],
   templateUrl: './game-info.component.html',
   styleUrl: './game-info.component.css'
 })
@@ -40,10 +41,10 @@ export class GameInfoComponent implements OnInit{
   }
 
   updatePercentCompleted(){
-    const totalWords = this._appStateService.board().length-1;
+    const totalWords = this._appStateService.board().length;
     console.log("total words: "+totalWords);
     
-    const totalWordCompleted = this._appStateService.indexActualWord()-1;
+    const totalWordCompleted = this._appStateService.indexActualWord();
     console.log("total words completed: "+totalWordCompleted);
     
     console.log((totalWordCompleted*100));

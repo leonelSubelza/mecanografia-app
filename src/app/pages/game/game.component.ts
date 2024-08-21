@@ -7,6 +7,7 @@ import { BoardComponent } from "./components/board/board.component";
 import { WordComponent } from './components/board/word/word.component';
 import { GameInfoComponent } from "./components/game-info/game-info.component";
 import { AppStateService } from '../../services/app-state.service';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
 
 @Component({
   selector: 'app-game',
@@ -39,8 +40,8 @@ export class GameComponent implements OnInit {
     const indexRandomText: number = Math.floor(Math.random() * texts.length);
     const randomText: TextContent = texts[indexRandomText];
 
-    // this._gameHandlerService.generateBoard(randomText.text);
-    this._gameHandlerService.generateBoard('aaaaaa bbbbb aaa');
+    this._gameHandlerService.generateBoard(randomText.text);
+    // this._gameHandlerService.generateBoard('aaaaaa bbbbb aaa');
     this._appStateService.setTextContent(randomText);
 
     this._appStateService.setIndexWordActive(0);

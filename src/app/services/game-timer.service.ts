@@ -57,8 +57,10 @@ export class GameTimerService {
     //     this.userTime.set(this.minutes +':'+ this.seconds+':'+this.milliseconds);
     //   },18);
     // }
-    this.startTime = performance.now(); // Guarda el tiempo inicial
-    this.runTimer();
+    if(!this.intervalId){
+      this.startTime = performance.now(); // Guarda el tiempo inicial
+      this.runTimer();
+    }
   }
 
   stopGameTimer() {

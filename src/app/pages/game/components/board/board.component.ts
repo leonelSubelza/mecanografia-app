@@ -5,6 +5,7 @@ import { WordComponent } from './word/word.component';
 import { MatCardModule } from '@angular/material/card';
 import { NgClass } from '@angular/common';
 import { AppStateService } from '../../../../services/app-state.service';
+import { GameTimerService } from '../../../../services/game-timer.service';
 
 @Component({
   selector: 'app-board',
@@ -16,6 +17,7 @@ import { AppStateService } from '../../../../services/app-state.service';
 export class BoardComponent {
   _gameHandlerService = inject(GameHandlerService);
   _appStateService = inject(AppStateService);
+  _gameTimerService = inject(GameTimerService);
   constructor() {}
 
   ngOnInit(): void {
@@ -23,7 +25,13 @@ export class BoardComponent {
 
   @HostListener('document:keydown', ['$event'])
   handleKeyboardEvent(event: KeyboardEvent) {
-    if (this._appStateService.gameOver()) return;
+    if (this._appStateService.gameOver()){
+      this._gameTimerService.stopGameTimer()
+      return;
+    }else {
+      this._gameTimerService.startGameTimer();
+    }
+      
 
     const { key } = event;
     // console.log(`Key pressed: "${key}"`);   
@@ -89,6 +97,8 @@ export class BoardComponent {
       //if it is the last word in the game
       if (this._gameHandlerService.isGameCompleted()) {
         this._appStateService.setGameOver(true);
+        this._gameTimerService.stopGameTimer()
+        // return;
         // aca le quite el return porque asi se pone el indexActualWord en +1 para actualizar el gamePercent
       }
       //we pass to the next word
