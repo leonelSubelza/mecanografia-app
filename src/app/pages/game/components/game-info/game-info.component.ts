@@ -1,6 +1,7 @@
 import { Component, effect, inject, OnInit } from '@angular/core';
 import { GameHandlerService } from '../../../../services/game.handler.service';
 import { AppStateService } from '../../../../services/app-state.service';
+import { GameTimerService } from '../../../../services/game-timer.service';
 
 @Component({
   selector: 'app-game-info',
@@ -13,6 +14,8 @@ export class GameInfoComponent implements OnInit{
   _gameHandlerService = inject(GameHandlerService);
   _appStateService = inject(AppStateService);
 
+  _userTimerService = inject(GameTimerService);
+
   gamePercentCompleted: number = 0;
   efaccuracy: number = 100;
   time: string = '';
@@ -20,6 +23,9 @@ export class GameInfoComponent implements OnInit{
   constructor(){
     effect(()=>{
       if(this._appStateService.gameOver()){
+        console.log("se actualiza lpro ultima gez");
+        
+        this.updatePercentCompleted()
         return;
       }
 
@@ -37,12 +43,19 @@ export class GameInfoComponent implements OnInit{
     const totalWords = this._appStateService.board().length-1;
     console.log("total words: "+totalWords);
     
-    const totalWordCompleted = this._appStateService.indexActualWord();
+    const totalWordCompleted = this._appStateService.indexActualWord()-1;
     console.log("total words completed: "+totalWordCompleted);
     
     console.log((totalWordCompleted*100));
     
     const totalPercent = (totalWordCompleted*100)/totalWords;
-    this.gamePercentCompleted = Math.round(totalPercent);
+    this.gamePercentCompleted = Math.floor(totalPercent);
+  }
+
+  startTimer(){
+    this._userTimerService.startGameTimer();
+  }
+  stopTimer(){
+    this._userTimerService.stopGameTimer();
   }
 }

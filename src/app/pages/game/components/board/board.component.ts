@@ -44,7 +44,9 @@ export class BoardComponent {
         return;
       }
       this.moveNextLetter();
-      if (updateNewLetter) this._gameHandlerService.updateCorrectLetter();
+      if (updateNewLetter && this._appStateService.getActualWord()){
+        this._gameHandlerService.updateCorrectLetter();
+      } 
 
       this._appStateService.setValueUserWriting(this._appStateService.valueUserWriting()+key);
     }
@@ -87,7 +89,7 @@ export class BoardComponent {
       //if it is the last word in the game
       if (this._gameHandlerService.isGameCompleted()) {
         this._appStateService.setGameOver(true);
-        return;
+        // aca le quite el return porque asi se pone el indexActualWord en +1 para actualizar el gamePercent
       }
       //we pass to the next word
       this.setNextWord(true);
@@ -120,15 +122,18 @@ export class BoardComponent {
     if (isNextWord) {
       this._appStateService.setIndexWordActive(actualWordIndex + 1);
       this._appStateService.setIndexLetterActive(0);
+      console.log("new index next word: "+this._appStateService.indexActualWord());
+      
     } else {
       this._appStateService.setIndexWordActive(actualWordIndex - 1);
       let newActualWord = this._appStateService.board()[this._appStateService.indexActualWord()];
       this._appStateService.setIndexLetterActive(newActualWord.word.length-1);
     }
-    this._appStateService.setActualLetterStatus(LetterStatus.DEFAULT)
-    this._appStateService.setActualWordIsActive(true);
-    this._appStateService.setActualLetterIsActive(true); 
-
+    if(this._appStateService.getActualWord()){
+      this._appStateService.setActualLetterStatus(LetterStatus.DEFAULT)
+      this._appStateService.setActualWordIsActive(true);
+      this._appStateService.setActualLetterIsActive(true); 
+    }
   }
 
 }

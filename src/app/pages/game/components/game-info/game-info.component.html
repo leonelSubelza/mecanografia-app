@@ -1,1 +1,11 @@
-<div class="game-info-container">Porcentaje completado: {{this.gamePercentCompleted}}%</div>
+<div class="game-info-container">Completado: {{this.gamePercentCompleted}}%</div>
+<div class="timer-container">
+    <button (click)="this.startTimer()">Start</button>
+    <button (click)="this.stopTimer()">Stop</button>
+    <div class="timer">Tiempo: {{this._userTimerService.userTime()}}</div>
+</div>
+<!-- <div class="accuracy-container">
+    <div class="accuray">
+        Accuracy: {{this._appStateService.userAccuracy()}}%
+    </div>
+</div> -->

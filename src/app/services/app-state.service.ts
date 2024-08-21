@@ -33,7 +33,18 @@ export class AppStateService {
 
   valueUserWriting = signal<string>('');
 
+  userTime = signal<string>('');
+  userAccuracy = signal<number>(100);
+
   constructor() { }
+
+  getActualWord(): Word {
+    return this.board()[this.indexActualWord()];
+  }
+
+  getActualLetter(): Letter {
+    return this.board()[this.indexActualWord()].letterList[this.indexActualLetter()];
+  }
 
   setActualLetterStatus = (status: LetterStatus) => {
     this.board()[this.indexActualWord()].letterList[this.indexActualLetter()].status = status;
@@ -53,14 +64,6 @@ export class AppStateService {
 
   setGameOver(newValue: boolean) {
     this.gameOver.set(newValue);
-  }
-
-  getActualWord(): Word {
-    return this.board()[this.indexActualWord()];
-  }
-
-  getActualLetter(): Letter {
-    return this.board()[this.indexActualWord()].letterList[this.indexActualLetter()];
   }
 
   setActualLetterIsActive(status: boolean) {
@@ -85,5 +88,13 @@ export class AppStateService {
 
   setCorrectLetter(value: Letter){
     this.correctLetter.set(value);
+  }
+
+  setUserTime(value: string) {
+    this.userTime.set(value);
+  }
+
+  setUserAccuracy(value: number){
+    this.userAccuracy.set(value);
   }
 }

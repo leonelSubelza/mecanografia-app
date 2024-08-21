@@ -39,8 +39,8 @@ export class GameComponent implements OnInit {
     const indexRandomText: number = Math.floor(Math.random() * texts.length);
     const randomText: TextContent = texts[indexRandomText];
 
-    this._gameHandlerService.generateBoard(randomText.text);
-    // this._gameHandlerService.generateBoard('aaaaaa bbbbb aaa aaaaaa bbbbb aaaaaaaaa bbbbb aaaaaaaaa bbbbb aaaaaaaaa bbbbb aaaaaaaaa bbbbb aaaaaaaaa bbbbb aaaaaaaaa bbbbb aaaaaaaaa bbbbb aaaaaaaaa bbbbb aaaaaaaaa bbbbb aaaaaaaaa bbbbb aaaaaaaaa bbbbb aaaaaaaaa bbbbb aaaaaaaaa bbbbb aaaaaaaaa bbbbb aaaaaaaaa bbbbb aaaaaaaaa bbbbb aaaaaaaaa bbbbb aaaaaaaaa bbbbb aaaaaaaaa bbbbb aaaaaaaaa bbbbb aaaaaaaaa bbbbb aaaaaaaaa bbbbb aaaaaaaaa bbbbb aaaaaaaaa bbbbb aaaaaaaaa bbbbb aaaaaaaaa bbbbb aaaaaaaaa bbbbb aaaaaaaaa bbbbb aaaaaaaaa bbbbb aaaaaaaaa bbbbb aaaaaaaaa bbbbb aaaaaaaaa bbbbb aaaaaaaaa bbbbb aaaaaaaaa bbbbb aaaaaaaaa bbbbb aaaaaaaaa bbbbb aaaaaaaaa bbbbb aaaaaaaaa bbbbb aaaaaaaaa bbbbb aaaaaaaaa bbbbb aaaaaaaaa bbbbb aaaaaaaaa bbbbb aaaaaaaaa bbbbb aaaaaaaaa bbbbb aaaaaaaaa bbbbb aaaaaaaaa bbbbb aaaaaaaaa bbbbb aaaaaaaaa bbbbb aaaaaaaaa bbbbb aaaaaaaaa bbbbb aaaaaaaaa bbbbb aaaaaaaaa bbbbb aaaaaaaaa bbbbb aaaaaaaaa bbbbb aaaaaaaaa bbbbb aaaaaaaaa bbbbb aaaaaaaaa bbbbb aaaaaaaaa bbbbb aaaaaaaaa bbbbb aaaaaaaaa bbbbb aaaaaaaaa bbbbb aaa');
+    // this._gameHandlerService.generateBoard(randomText.text);
+    this._gameHandlerService.generateBoard('aaaaaa bbbbb aaa');
     this._appStateService.setTextContent(randomText);
 
     this._appStateService.setIndexWordActive(0);

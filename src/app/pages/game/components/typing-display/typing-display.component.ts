@@ -21,8 +21,10 @@ export class TypingDisplayComponent implements OnInit{
   constructor(){
     effect(()=> {
       if(this._appStateService.indexCorrectWord()) {
-        this._appStateService.setValueUserWriting('');
-        this.currentWord = this._appStateService.getActualWord().word;
+        if(this._appStateService.getActualWord()){
+          this._appStateService.setValueUserWriting('');
+          this.currentWord = this._appStateService.getActualWord().word;
+        }
       }
     }, {allowSignalWrites: true})
   }
