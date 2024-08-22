@@ -3,11 +3,12 @@ import { GameHandlerService } from '../../../../services/game.handler.service';
 import { AppStateService } from '../../../../services/app-state.service';
 import { GameTimerService } from '../../../../services/game-timer.service';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-game-info',
   standalone: true,
-  imports: [MatProgressBarModule],
+  imports: [MatProgressBarModule, MatButtonModule],
   templateUrl: './game-info.component.html',
   styleUrl: './game-info.component.css'
 })
@@ -42,12 +43,12 @@ export class GameInfoComponent implements OnInit{
 
   updatePercentCompleted(){
     const totalWords = this._appStateService.board().length;
-    console.log("total words: "+totalWords);
+    // console.log("total words: "+totalWords);
     
     const totalWordCompleted = this._appStateService.indexActualWord();
-    console.log("total words completed: "+totalWordCompleted);
+    // console.log("total words completed: "+totalWordCompleted);
     
-    console.log((totalWordCompleted*100));
+    // console.log((totalWordCompleted*100));
     
     const totalPercent = (totalWordCompleted*100)/totalWords;
     this.gamePercentCompleted = Math.floor(totalPercent);

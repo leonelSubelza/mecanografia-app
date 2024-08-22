@@ -1,13 +1,15 @@
 import { inject, Injectable, signal } from '@angular/core';
 import { AppStateService } from './app-state.service';
 
+const USER_TIME_DEFAULT_VALUE = '00:00:00'
+
 @Injectable({
   providedIn: 'root',
 })
 export class GameTimerService {
   _appStateService = inject(AppStateService);
 
-  userTime = signal<string>('00:00:00');
+  userTime = signal<string>(USER_TIME_DEFAULT_VALUE);
 
   // private milliseconds: number = 0;
   // private seconds: number = 0;
@@ -79,4 +81,7 @@ export class GameTimerService {
   //   this.seconds = 0;
   //   this.minutes = 0;
   // }
+  resetUserTime(){
+    this.userTime.set(USER_TIME_DEFAULT_VALUE);
+  }
 }

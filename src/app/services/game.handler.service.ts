@@ -2,6 +2,9 @@ import { inject, Injectable, signal } from '@angular/core';
 import { Letter, LetterStatus, TextContent, Word } from '../interfaces/entities';
 import { texts } from '../shared/mock/texts.mock';
 import { AppStateService } from './app-state.service';
+import { GameTimerService } from './game-timer.service';
+import { ModalService } from '../pages/game/components/modal/modal.service';
+import { ModalComponent } from '../pages/game/components/modal/modal.component';
 
 
 @Injectable({
@@ -10,6 +13,8 @@ import { AppStateService } from './app-state.service';
 export class GameHandlerService {
 
   private _appStateService = inject(AppStateService);
+  private _gameTimerService = inject(GameTimerService);
+  private _modalService = inject(ModalService);
 
   isAValidWord(key: string): boolean {
     const regexString: string = `^[a-zA-Z0-9\\s.,;:?!'"()\\-áéíóúÁÉÍÓÚñÑüÜ]$`;
@@ -89,4 +94,80 @@ export class GameHandlerService {
     && this._appStateService.indexActualLetter() === this._appStateService.indexCorrectLetter()
   }
 
+  /*
+  restartGame() {
+    
+  }
+
+  finishGame() {
+    this._gameTimerService.stopGameTimer();
+    this._modalService.openModal<ModalComponent>(ModalComponent);
+  }
+
+  startNewGame() {
+    this._appStateService.setGameOver(false);
+    this._gameTimerService.resetUserTime();
+    this.setRandomWord();
+    this._appStateService.setActualLetterIsActive(true);
+    this._appStateService.setIndexWordActive(0);
+    this._appStateService.setIndexLetterActive(0);
+    this._appStateService.setActualWordIsActive(true);
+    this.updateCorrectLetter()
+  }
+
+  setRandomWord() {
+    const indexRandomText: number = Math.floor(Math.random() * texts.length);
+    const randomText: TextContent = texts[indexRandomText];
+
+    this.generateBoard(randomText.text);
+    // this._gameHandlerService.generateBoard('aaaaaa bbbbb aaa');
+    this._appStateService.setTextContent(randomText);
+
+    this._appStateService.setIndexWordActive(0);
+    this._appStateService.setIndexLetterActive(0);
+  }
+*/
+
+*
+    restartGame() {
+      console.log("se reincia el juego");
+      
+    this._appStateService.setGameOver(false);
+    this._gameTimerService.resetUserTime();
+    this.setStartValues(this._appStateService.textContent());
+  }
+
+  finishGame() {
+    this._gameTimerService.stopGameTimer();
+    this._modalService.openModal<ModalComponent>(ModalComponent);
+  }
+
+  startNewGame() {
+    this._appStateService.setGameOver(false);
+    this._gameTimerService.resetUserTime();
+    this.setRandomContent();
+  }
+
+  setRandomContent() {
+    const randomContent = this.getRandomContent();
+    this.setStartValues(randomContent);
+  }
+
+  getRandomContent(): TextContent {
+    const indexRandomText: number = Math.floor(Math.random() * texts.length);
+    return texts[indexRandomText];
+  }
+
+  setStartValues(randomContent: TextContent) {
+    this._appStateService.setTextContent(randomContent);
+
+    this.generateBoard(randomContent.text);
+    // this.generateBoard('aaaaaa bbbbb aaa');
+
+    this._appStateService.setIndexWordActive(0);
+    this._appStateService.setIndexLetterActive(0);
+    this._appStateService.setActualLetterIsActive(true);
+    this._appStateService.setActualWordIsActive(true);
+    this.updateCorrectLetter()
+  }
 }

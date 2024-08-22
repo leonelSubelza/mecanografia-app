@@ -24,19 +24,18 @@ export class BoardComponent {
   }
 
   @HostListener('document:keydown', ['$event'])
-  handleKeyboardEvent(event: KeyboardEvent) {
+  handleKeyboardEvent(event: KeyboardEvent) {    
     if (this._appStateService.gameOver()){
       this._gameTimerService.stopGameTimer()
       return;
-    }else {
-      this._gameTimerService.startGameTimer();
     }
-      
-
     const { key } = event;
     // console.log(`Key pressed: "${key}"`);   
 
     if (this._gameHandlerService.isAValidWord(key)) {
+      if (!this._appStateService.gameOver()){
+        this._gameTimerService.startGameTimer();
+      }
       let updateNewLetter: boolean = false;
       // Si la letra activa es igual a la letra pulsada se pasa a la siguiente
       if (this._gameHandlerService.isCorrectLetter(key)) {
@@ -97,7 +96,6 @@ export class BoardComponent {
       //if it is the last word in the game
       if (this._gameHandlerService.isGameCompleted()) {
         this._appStateService.setGameOver(true);
-        this._gameTimerService.stopGameTimer()
         // return;
         // aca le quite el return porque asi se pone el indexActualWord en +1 para actualizar el gamePercent
       }

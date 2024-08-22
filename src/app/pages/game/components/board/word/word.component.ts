@@ -19,17 +19,7 @@ export class WordComponent implements OnInit{
   _gameHandlerService = inject(GameHandlerService);
   _appStateService = inject(AppStateService);
 
-  constructor() {
-    effect(()=>{
-      if(this._appStateService.gameOver()){
-        return;
-      }
-
-      if(this._appStateService.indexActualWord()){
-        
-      }
-    }, {allowSignalWrites: true})
-  }
+  constructor() { }
 
   // execute after the constructor function
   ngOnInit(): void { }
