@@ -35,6 +35,7 @@ export class AppStateService {
 
   userTime = signal<string>('');
   userAccuracy = signal<number>(100);
+  gamePercentCompleted = signal<number>(0);
 
   constructor() { }
 
@@ -96,5 +97,9 @@ export class AppStateService {
 
   setUserAccuracy(value: number){
     this.userAccuracy.set(value);
+  }
+
+  setGamePercentCompleted(value: number){
+    this.gamePercentCompleted.set(value);
   }
 }

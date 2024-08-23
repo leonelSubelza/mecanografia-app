@@ -130,8 +130,6 @@ export class BoardComponent {
     if (isNextWord) {
       this._appStateService.setIndexWordActive(actualWordIndex + 1);
       this._appStateService.setIndexLetterActive(0);
-      console.log("new index next word: "+this._appStateService.indexActualWord());
-      
     } else {
       this._appStateService.setIndexWordActive(actualWordIndex - 1);
       let newActualWord = this._appStateService.board()[this._appStateService.indexActualWord()];

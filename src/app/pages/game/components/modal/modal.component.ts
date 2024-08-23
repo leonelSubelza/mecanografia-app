@@ -35,11 +35,14 @@ export class ModalComponent implements OnInit{
   }
 
   newGame(){
+    console.log("se toca en new game");
     this._gameHandlerService.startNewGame();
     this._modalService.closeModal()
   }
 
   resetGame() {
+    console.log("se reincia");
+    
     this._gameHandlerService.restartGame();
     this._modalService.closeModal()
   }

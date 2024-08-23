@@ -1,10 +1,10 @@
-<div class="game-info-container">Completado: {{this.gamePercentCompleted}}%</div>
+<div class="game-info-container">Completado: {{this._appStateService.gamePercentCompleted()}}%</div>
 <div class="timer-container">
     <!-- <button mat-button color="primary" (click)="this.startTimer()">Start</button>
     <button (click)="this.stopTimer()">Stop</button> -->
     <div class="timer">Tiempo: {{this._userTimerService.userTime()}}</div>
 </div>
-<mat-progress-bar mode="determinate" value={{this.gamePercentCompleted}}></mat-progress-bar>
+<mat-progress-bar mode="determinate" value={{this._appStateService.gamePercentCompleted()}}></mat-progress-bar>
 
 <!-- <div class="accuracy-container">
     <div class="accuray">

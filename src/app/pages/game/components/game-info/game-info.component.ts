@@ -18,20 +18,14 @@ export class GameInfoComponent implements OnInit{
 
   _userTimerService = inject(GameTimerService);
 
-  gamePercentCompleted: number = 0;
-  efaccuracy: number = 100;
-  time: string = '';
-
   constructor(){
     effect(()=>{
       if(this._appStateService.gameOver()){
-        console.log("se actualiza lpro ultima gez");
-        
         this.updatePercentCompleted()
         return;
       }
 
-      if(this._appStateService.indexActualWord()){
+      if(this._appStateService.indexActualWord() || this._appStateService.indexActualWord()===0){
         this.updatePercentCompleted();
       }
     }, {allowSignalWrites: true})
@@ -51,7 +45,7 @@ export class GameInfoComponent implements OnInit{
     // console.log((totalWordCompleted*100));
     
     const totalPercent = (totalWordCompleted*100)/totalWords;
-    this.gamePercentCompleted = Math.floor(totalPercent);
+    this._appStateService.setGamePercentCompleted(Math.floor(totalPercent));
   }
 
   startTimer(){

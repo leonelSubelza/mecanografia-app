@@ -9,32 +9,37 @@ import { AppStateService } from '../../../../services/app-state.service';
   standalone: true,
   imports: [MatCardModule],
   templateUrl: './typing-display.component.html',
-  styleUrl: './typing-display.component.css'
+  styleUrl: './typing-display.component.css',
 })
-export class TypingDisplayComponent implements OnInit{
-
+export class TypingDisplayComponent implements OnInit {
   _gameHandlerService = inject(GameHandlerService);
   _appStateService = inject(AppStateService);
 
   currentWord!: string;
 
-  constructor(){
-    effect(()=> {
-      if(this._appStateService.indexCorrectWord()) {
-        if(this._appStateService.getActualWord()){
-          this._appStateService.setValueUserWriting('');
-          this.currentWord = this._appStateService.getActualWord().word;
+  constructor() {
+    effect(() => {
+        if (!this._appStateService.gameOver()) {
+          this.handleUpdateCurrentWord();
         }
-      }
-    }, {allowSignalWrites: true})
+        if (this._appStateService.indexCorrectWord()) {
+          this.handleUpdateCurrentWord();
+        }
+      },
+      { allowSignalWrites: true }
+    );
   }
   ngOnInit(): void {
     let correctWord: Word = this._appStateService.getActualWord();
-    if(correctWord){
+    if (correctWord) {
       this.currentWord = correctWord.word;
     }
   }
-}
 
-// ARREGLAR QUE NO SE CAMBIA LA CORRECT WORD CUANDO SE LE DA BACKSPACE
-// ARREGLAR QUE NO SE MUESTRA SUBRAYADA LA PALABRA ACTUAL
+  handleUpdateCurrentWord() {
+    if (this._appStateService.getActualWord()) {
+      this._appStateService.setValueUserWriting('');
+      this.currentWord = this._appStateService.getActualWord().word;
+    }
+  }
+}
