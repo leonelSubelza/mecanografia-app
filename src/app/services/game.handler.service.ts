@@ -29,9 +29,10 @@ export class GameHandlerService {
 
   private generateLetterList = (word: string): Letter[] => {
     let letterList: Letter[] = [];
-    word.split('').forEach((letter: string) => {
+    word.split('').forEach((letter: string,i: number) => {
       letterList.push({
         letter: letter,
+        index: i,
         isActive: false,
         status: LetterStatus.DEFAULT,
       });
@@ -39,12 +40,14 @@ export class GameHandlerService {
     return letterList;
   };
 
-  private generateWord = (word: string): Word => {
+  private generateWord = (word: string,index: number): Word => {
     return {
       word: word,
+      index: index,
       letterList: this.generateLetterList(word),
       indexLetterActive: 0,
       isActive: false,
+      isCompleted: false
     };
   };
 
@@ -52,8 +55,8 @@ export class GameHandlerService {
     //save all the word including the spaces
     const wordsList: string[] = this.getWordsWithSpaces(newText);
 
-    wordsList.forEach((word: string) => {
-      const newWord: Word = this.generateWord(word);
+    wordsList.forEach((word: string,index: number) => {
+      const newWord: Word = this.generateWord(word,index);
       this._appStateService.board().push(newWord);
     });
   }
@@ -91,16 +94,21 @@ export class GameHandlerService {
   }
 
   updateCorrectLetter() {
-    const correctLetter =
-      this._appStateService.board()[this._appStateService.indexActualWord()]
-        .letterList[this._appStateService.indexActualLetter()];
+    const correctLetter = 
+      this._appStateService.board()[this._appStateService.indexActualWord()].letterList[this._appStateService.indexActualLetter()];
+
     this._appStateService.setCorrectLetter(correctLetter);
     this._appStateService.setIndexCorrectLetter(
       this._appStateService.indexActualLetter()
     );
     this._appStateService.setIndexCorrectWord(
       this._appStateService.indexActualWord()
-    );
+    );   
+  }
+
+  isWordCompleted(): boolean{
+    let actualWord: Word = this._appStateService.getActualWord();
+    return actualWord.letterList.find( (letter: Letter) => letter.status !== LetterStatus.CORRECT) === undefined;
   }
 
   isCorrectLetter(letter: string) {
@@ -113,39 +121,16 @@ export class GameHandlerService {
     );
   }
 
-  /*
-  restartGame() {
-    
+  getPrevLetter(): Letter{
+    let indexActualLetter = this._appStateService.indexActualLetter();
+    let indexActualWord = this._appStateService.indexActualWord();
+    if(indexActualLetter===0){
+      let prevWord: Word = this._appStateService.board()[indexActualWord-1];
+      return prevWord.letterList[prevWord.letterList.length-1];
+    }else{
+      return this._appStateService.board()[indexActualWord].letterList[indexActualLetter-1];
+    }
   }
-
-  finishGame() {
-    this._gameTimerService.stopGameTimer();
-    this._modalService.openModal<ModalComponent>(ModalComponent);
-  }
-
-  startNewGame() {
-    this._appStateService.setGameOver(false);
-    this._gameTimerService.resetUserTime();
-    this.setRandomWord();
-    this._appStateService.setActualLetterIsActive(true);
-    this._appStateService.setIndexWordActive(0);
-    this._appStateService.setIndexLetterActive(0);
-    this._appStateService.setActualWordIsActive(true);
-    this.updateCorrectLetter()
-  }
-
-  setRandomWord() {
-    const indexRandomText: number = Math.floor(Math.random() * texts.length);
-    const randomText: TextContent = texts[indexRandomText];
-
-    this.generateBoard(randomText.text);
-    // this._gameHandlerService.generateBoard('aaaaaa bbbbb aaa');
-    this._appStateService.setTextContent(randomText);
-
-    this._appStateService.setIndexWordActive(0);
-    this._appStateService.setIndexLetterActive(0);
-  }
-*/
 
   resetAllValues() {
     this._appStateService.setGameOver(false);
@@ -183,8 +168,8 @@ export class GameHandlerService {
   setStartValues(randomContent: TextContent) {
     this._appStateService.setTextContent(randomContent);
 
-    // this.generateBoard(randomContent.text);
-    this.generateBoard('aaaaaa bbbbb ccc');
+    this.generateBoard(randomContent.text);
+    // this.generateBoard('auto bbbbb ccc');
 
     this._appStateService.setIndexWordActive(0);
     this._appStateService.setIndexLetterActive(0);

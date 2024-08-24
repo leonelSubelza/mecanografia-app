@@ -6,9 +6,11 @@ export interface TextContent {
 
 export interface Word {
     word: string,
+    index: number,
     letterList: Letter[],
     indexLetterActive?: number,
-    isActive?: boolean
+    isActive?: boolean,
+    isCompleted: boolean
 }
 
 export enum LetterStatus {
@@ -19,6 +21,7 @@ export enum LetterStatus {
 
 export interface Letter {
     letter: string,
+    index: number,
     isActive?: boolean,
     status?: LetterStatus
 }

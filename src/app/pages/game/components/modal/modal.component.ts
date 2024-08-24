@@ -1,6 +1,5 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
+import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
@@ -27,7 +26,6 @@ export class ModalComponent implements OnInit{
   _gameHandlerService = inject(GameHandlerService);
 
   ngOnInit(): void {
-    // throw new Error('Method not implemented.');
   }
 
   closeModal(){
@@ -35,14 +33,11 @@ export class ModalComponent implements OnInit{
   }
 
   newGame(){
-    console.log("se toca en new game");
     this._gameHandlerService.startNewGame();
     this._modalService.closeModal()
   }
 
   resetGame() {
-    console.log("se reincia");
-    
     this._gameHandlerService.restartGame();
     this._modalService.closeModal()
   }

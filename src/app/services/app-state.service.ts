@@ -5,6 +5,7 @@ import { texts } from '../shared/mock/texts.mock';
 
 const CORRECT_LETTER_DEFAULT_VALUE = {
   letter: '',
+  index: 0,
   isActive: false,
   status: LetterStatus.DEFAULT
 }
@@ -101,5 +102,9 @@ export class AppStateService {
 
   setGamePercentCompleted(value: number){
     this.gamePercentCompleted.set(value);
+  }
+
+  setWordIsCompleted(value: boolean){
+    this.board()[this.indexActualWord()].isCompleted = value;
   }
 }
