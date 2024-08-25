@@ -19,6 +19,8 @@ export class GameInfoComponent implements OnInit{
 
   _userTimerService = inject(GameTimerService);
 
+  
+
   constructor(){
     effect(()=>{
       if(this._appStateService.gameOver()){

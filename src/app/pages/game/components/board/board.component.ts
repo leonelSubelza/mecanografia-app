@@ -6,6 +6,7 @@ import { MatCardModule } from '@angular/material/card';
 import { NgClass } from '@angular/common';
 import { AppStateService } from '../../../../services/app-state.service';
 import { GameTimerService } from '../../../../services/game-timer.service';
+import { UserAccuracyService } from '../../../../services/user-accuracy.service';
 
 @Component({
   selector: 'app-board',
@@ -18,6 +19,7 @@ export class BoardComponent {
   _gameHandlerService = inject(GameHandlerService);
   _appStateService = inject(AppStateService);
   _gameTimerService = inject(GameTimerService);
+  _userAccuracyService = inject(UserAccuracyService);
   constructor() {}
 
   ngOnInit(): void {
@@ -30,18 +32,19 @@ export class BoardComponent {
       return;
     }
     const { key } = event;
-    // console.log(`Key pressed: "${key}"`);   
+    console.log(event.target);   
 
     if (this._gameHandlerService.isAValidWord(key)) {
       if (!this._appStateService.gameOver()){
         this._gameTimerService.startGameTimer();
       }
       let updateNewLetter: boolean = false;
+      this._userAccuracyService.addOneTotalLettersWritten();
       // Si la letra activa es igual a la letra pulsada se pasa a la siguiente
       if (this._gameHandlerService.isCorrectLetter(key)) {
         // console.log("la letra es correcta");
         this._appStateService.setActualLetterStatus(LetterStatus.CORRECT);
-        
+          this._userAccuracyService.addOneCorrectLetter();
           updateNewLetter = true;
         
       } else {

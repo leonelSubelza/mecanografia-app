@@ -2,7 +2,8 @@
     display: flex;
     flex-direction: column;
     width: 100%;
-    min-height: 90dvh;    
+    /* min-height: 90dvh;     */
+    height: 100%;
     background-color: #fff;
 }
 
@@ -55,11 +56,11 @@ app-typing-display {
 
 @media screen and (max-width: 1000px) {
     .game-screen-container {
-        min-height: auto;
+        /* min-height: auto; */
     }
     
     .game-info-container {
-        height: auto;
+        /* height: auto; */
     }
     .board-container{
         min-height: auto;

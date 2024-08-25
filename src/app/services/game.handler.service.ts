@@ -1,10 +1,11 @@
-import { inject, Injectable, signal } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { Letter, LetterStatus, TextContent, Word } from '../interfaces/entities';
 import { texts } from '../shared/mock/texts.mock';
 import { AppStateService } from './app-state.service';
 import { GameTimerService } from './game-timer.service';
 import { ModalService } from '../pages/game/components/modal/modal.service';
 import { ModalComponent } from '../pages/game/components/modal/modal.component';
+import { UserAccuracyService } from './user-accuracy.service';
 
 
 @Injectable({
@@ -14,6 +15,7 @@ export class GameHandlerService {
   private _appStateService = inject(AppStateService);
   private _gameTimerService = inject(GameTimerService);
   private _modalService = inject(ModalService);
+  private _userAccuracyService = inject(UserAccuracyService);
 
   isAValidWord(key: string): boolean {
     const regexString: string = `^[a-zA-Z0-9\\s.,;:?!'"()\\-áéíóúÁÉÍÓÚñÑüÜ]$`;
@@ -134,10 +136,11 @@ export class GameHandlerService {
 
   resetAllValues() {
     this._appStateService.setGameOver(false);
-    this._gameTimerService.resetUserTime();
     this._appStateService.board.set([]);
     this._appStateService.setGamePercentCompleted(0);
     this._appStateService.setValueUserWriting('');
+    this._gameTimerService.resetUserTime();
+    this._userAccuracyService.resetValues();
   }
 
   restartGame() {

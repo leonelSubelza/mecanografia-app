@@ -11,14 +11,8 @@ export class GameTimerService {
 
   userTime = signal<string>(USER_TIME_DEFAULT_VALUE);
 
-  // private milliseconds: number = 0;
-  // private seconds: number = 0;
-  // private minutes: number = 0;
-
   private intervalId: number| null = null;
-
   private startTime: number = 0;
-
 
   constructor() {}
 
@@ -42,23 +36,6 @@ export class GameTimerService {
   }
 
   startGameTimer() {
-    // if (!this.intervalId) {
-    //   this.intervalId = setInterval(()=>{
-    //     this.milliseconds++;
-    //     if (this.milliseconds === 60) {
-    //       this.milliseconds=0;
-    //       this.seconds++;
-    //       if (this.seconds === 60) {
-    //         this.seconds=0;
-    //         this.minutes++;
-    //         if(this.minutes===60){
-    //           this.minutes=0;
-    //         }
-    //       }
-    //     }
-    //     this.userTime.set(this.minutes +':'+ this.seconds+':'+this.milliseconds);
-    //   },18);
-    // }
     if(!this.intervalId){
       this.startTime = performance.now(); // Guarda el tiempo inicial
       this.runTimer();
@@ -66,21 +43,12 @@ export class GameTimerService {
   }
 
   stopGameTimer() {
-    // clearInterval(this.intervalId);
-    // release our intervalID from the variable
-    // this.intervalId = undefined;
-
     if (this.intervalId !== null) {
       cancelAnimationFrame(this.intervalId);
       this.intervalId = null;
     }
   }
 
-  // resetGameTimer() {
-  //   this.milliseconds = 0;
-  //   this.seconds = 0;
-  //   this.minutes = 0;
-  // }
   resetUserTime(){
     this.userTime.set(USER_TIME_DEFAULT_VALUE);
   }

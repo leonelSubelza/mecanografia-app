@@ -6,6 +6,6 @@
 app-game {
   margin: auto  ;
   display: flex;
-  /* min-height: 90dvh; */
+  min-height: 90dvh;
   width: 80%;
 }

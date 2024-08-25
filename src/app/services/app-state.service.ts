@@ -35,7 +35,9 @@ export class AppStateService {
   valueUserWriting = signal<string>('');
 
   userTime = signal<string>('');
+
   userAccuracy = signal<number>(100);
+
   gamePercentCompleted = signal<number>(0);
 
   constructor() { }
