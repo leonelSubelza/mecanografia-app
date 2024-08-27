@@ -127,7 +127,7 @@ export class GameHandlerService {
 
   finishGame() {
     this._gameTimerService.stopGameTimer();
-    this._modalService.openModal<ModalComponent>(ModalComponent);
+    this._modalService.openModal<ModalComponent>(ModalComponent,'Juego Completado!');
   }
 
   startNewGame() {

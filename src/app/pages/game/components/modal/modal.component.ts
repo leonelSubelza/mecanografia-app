@@ -1,5 +1,5 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { MatDialogModule } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
 import { MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
@@ -25,7 +25,13 @@ export class ModalComponent implements OnInit{
   _appStateService = inject(AppStateService);
   _gameHandlerService = inject(GameHandlerService);
 
+  private readonly _matDialog = inject(MAT_DIALOG_DATA);
+
+  modalTitle: string = '';
+
   ngOnInit(): void {
+    
+    this.modalTitle = this._matDialog.title;
   }
 
   closeModal(){

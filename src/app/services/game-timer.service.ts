@@ -50,6 +50,7 @@ export class GameTimerService {
   }
 
   resetUserTime(){
+    this.stopGameTimer();
     this.userTime.set(USER_TIME_DEFAULT_VALUE);
   }
 }

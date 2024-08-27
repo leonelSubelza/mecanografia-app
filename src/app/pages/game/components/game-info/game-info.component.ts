@@ -5,21 +5,22 @@ import { GameTimerService } from '../../../../services/game-timer.service';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatButtonModule } from '@angular/material/button';
 import { Word } from '../../../../interfaces/entities';
+import { MatIconModule } from '@angular/material/icon';
+import { ModalService } from '../modal/modal.service';
+import { ModalComponent } from '../modal/modal.component';
 
 @Component({
   selector: 'app-game-info',
   standalone: true,
-  imports: [MatProgressBarModule, MatButtonModule],
+  imports: [MatProgressBarModule, MatButtonModule, MatIconModule],
   templateUrl: './game-info.component.html',
   styleUrl: './game-info.component.css'
 })
 export class GameInfoComponent implements OnInit{
   _gameHandlerService = inject(GameHandlerService);
   _appStateService = inject(AppStateService);
-
+  _modalService = inject(ModalService);
   _userTimerService = inject(GameTimerService);
-
-  
 
   constructor(){
     effect(()=>{
@@ -67,5 +68,9 @@ export class GameInfoComponent implements OnInit{
       }
     })
     return cantWordCompleted;
+  }
+
+  showModal(){
+    this._modalService.openModal<ModalComponent>(ModalComponent,"Estadísticas");
   }
 }

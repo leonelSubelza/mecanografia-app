@@ -14,9 +14,10 @@ export class ModalService {
   /* Esta funcion recibe 
   una referencia al componente que contiene al modal (mat-dialog) y si esta todo ok lo muestra, 
   */
-  openModal<CT>(componentRef: ComponentType<CT>): void {
+  openModal<CT>(componentRef: ComponentType<CT>, title: string='Estadisticas'): void {
     this._dialog.open(componentRef,{
-      width: '400px'
+      width: '400px',
+      data: { title: title }
     })
     // const config = {data};
     // this._dialog.open(componentRef, {
