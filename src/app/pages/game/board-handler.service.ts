@@ -45,6 +45,7 @@ export class BoardHandlerService {
       this.moveNextLetter();
       if (updateNewLetter && this._appStateService.getActualWord()){
         this._gameHandlerService.updateCorrectLetter();
+        this.scrollToActualWord();
       } 
 
       this._appStateService.setValueUserWriting(this._appStateService.valueUserWriting()+key);
@@ -58,6 +59,7 @@ export class BoardHandlerService {
       this.movePrevLetter();
       if(statePrevLetter === LetterStatus.CORRECT) {
         this._gameHandlerService.updateCorrectLetter();
+        this.scrollToActualWord();
       }
       
       // we erase the last letter of the value user
@@ -149,15 +151,33 @@ export class BoardHandlerService {
       this._appStateService.setActualLetterStatus(LetterStatus.DEFAULT)
       this._appStateService.setActualWordIsActive(true);
       this._appStateService.setActualLetterIsActive(true); 
-      this.scrollToActualWord();
     }
   }
+
+  @ViewChild('words-board') container!: ElementRef<HTMLDivElement>;
+  // wordsContainerElement = viewChild<ElementRef<HTMLDivElement>>('words-board');
 
   scrollToActualWord(){
     let actualWord: Word = this._appStateService.getActualWord();
     const child = document.getElementById(`${actualWord.id}`);
+    const container = document.querySelector('.words-board');
+    // const containerScroll = document.querySelector('.words-board-scroll');
     
-    if(child){
+    // console.log(containerScroll);
+
+// if (child && container && containerScroll) {
+//   // Calcular la posición del hijo en relación al contenedor
+//   const containerTop = containerScroll.getBoundingClientRect().top;
+//   const childTop = child.getBoundingClientRect().top;
+//   const offset = childTop - containerTop;
+
+//   // Ajustar el scroll del contenedor
+//   container.scrollTop += offset;
+// }
+
+    if(child&&container
+      // &&containerScroll
+    ){
       child.scrollIntoView()
     }
   }

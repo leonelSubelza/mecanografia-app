@@ -39,9 +39,10 @@ export class TypingDisplayComponent implements OnInit {
   }
 
   handleUpdateCurrentWord() {
-    if (this._appStateService.getActualWord()) {
+    let correctWord = this._appStateService.board()[this._appStateService.indexCorrectWord()];
+    if (correctWord) {
       this._appStateService.setValueUserWriting('');
-      this.currentWord = this._appStateService.getActualWord().word;
+      this.currentWord = correctWord.word;
     }
   }
 

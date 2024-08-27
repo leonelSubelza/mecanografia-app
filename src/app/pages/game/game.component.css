@@ -49,6 +49,7 @@ app-typing-display {
     width: 95%;
     height: 25%;
     padding: 10px 0;
+    margin: 0 auto;
     /* height: 1rem; */
     /* min-height: 20%; */
 }
@@ -72,10 +73,4 @@ app-typing-display {
         /* bottom: 0; */
         height: 20%;
     }
-}
-
-@media screen and (max-width: 1000px) and (max-height: 500px){
-    .board-container{
-        /* background-color: aquamarine; */
-    }   
 }
