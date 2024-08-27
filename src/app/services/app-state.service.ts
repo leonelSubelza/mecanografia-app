@@ -4,6 +4,7 @@ import { texts } from '../shared/mock/texts.mock';
 
 
 const CORRECT_LETTER_DEFAULT_VALUE = {
+  id: '00',
   letter: '',
   index: 0,
   isActive: false,

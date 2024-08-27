@@ -5,6 +5,7 @@ export interface TextContent {
 }
 
 export interface Word {
+    id: string,
     word: string,
     index: number,
     letterList: Letter[],
@@ -20,6 +21,7 @@ export enum LetterStatus {
 }
 
 export interface Letter {
+    id: string,
     letter: string,
     index: number,
     isActive?: boolean,

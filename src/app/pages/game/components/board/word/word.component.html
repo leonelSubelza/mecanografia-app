@@ -1,6 +1,6 @@
-<div class="word-container" [ngClass]="{'active': this.word().isActive}">
+<div class="word-container" id="{{this.word().id}}" [ngClass]="{'active': this.word().isActive}">
     @for (letter of this.word().letterList; track $index) {
-    <app-letter [letter]="letter" />
+    <app-letter [letter]="letter"/>
     }
 </div>
 <!-- [ngClass]="{'active': this.letter().isActive &&!this._gameHandlerService.gameOver()}" -->

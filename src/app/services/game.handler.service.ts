@@ -6,6 +6,7 @@ import { GameTimerService } from './game-timer.service';
 import { ModalService } from '../pages/game/components/modal/modal.service';
 import { ModalComponent } from '../pages/game/components/modal/modal.component';
 import { UserAccuracyService } from './user-accuracy.service';
+import { generateWord } from '../pages/game/utils/entity-generator';
 
 
 @Injectable({
@@ -29,36 +30,12 @@ export class GameHandlerService {
     return matches ? matches : [];
   }
 
-  private generateLetterList = (word: string): Letter[] => {
-    let letterList: Letter[] = [];
-    word.split('').forEach((letter: string,i: number) => {
-      letterList.push({
-        letter: letter,
-        index: i,
-        isActive: false,
-        status: LetterStatus.DEFAULT,
-      });
-    });
-    return letterList;
-  };
-
-  private generateWord = (word: string,index: number): Word => {
-    return {
-      word: word,
-      index: index,
-      letterList: this.generateLetterList(word),
-      indexLetterActive: 0,
-      isActive: false,
-      isCompleted: false
-    };
-  };
-
   generateBoard(newText: string) {
     //save all the word including the spaces
     const wordsList: string[] = this.getWordsWithSpaces(newText);
 
     wordsList.forEach((word: string,index: number) => {
-      const newWord: Word = this.generateWord(word,index);
+      const newWord: Word = generateWord(word,index);
       this._appStateService.board().push(newWord);
     });
   }
