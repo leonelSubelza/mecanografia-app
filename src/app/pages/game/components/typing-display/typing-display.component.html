@@ -3,6 +3,8 @@
 <mat-card appearance="outlined" [ngClass]="{'show-tooltip': this.showTooltipMessage}">
     <mat-card-content>
         <input 
+        id="inputRef"
+        #inputRef
         type="text" 
         (paste)="preventPaste($event)"
         value={{this._appStateService.valueUserWriting()}} 

@@ -1,4 +1,4 @@
-import { Component, effect, inject, OnInit } from '@angular/core';
+import { Component, effect, inject, OnInit, viewChild } from '@angular/core';
 import { GameHandlerService } from '../../../../services/game.handler.service';
 import { MatCardModule } from '@angular/material/card';
 import { Word } from '../../../../interfaces/entities';
@@ -25,11 +25,18 @@ export class TypingDisplayComponent implements OnInit {
   currentWord!: string;
 
   showTooltipMessage: boolean = true;
+  inputElement = viewChild<HTMLInputElement>('inputRef');
 
   constructor() {
     effect(() => {
         if (!this._appStateService.gameOver()) {
           this.handleUpdateCurrentWord();
+        }else{
+          if(this.inputElement()){
+            const el4 = document.getElementById("inputRef");
+            el4?.focus();
+            this.inputElement()?.focus();
+          }
         }
         if (this._appStateService.indexCorrectWord()) {
           this.handleUpdateCurrentWord();
@@ -44,7 +51,6 @@ export class TypingDisplayComponent implements OnInit {
     if (correctWord) {
       this.currentWord = correctWord.word;
     }
-    // console.log(this.tooltip);
   }
 
   handleUpdateCurrentWord() {
