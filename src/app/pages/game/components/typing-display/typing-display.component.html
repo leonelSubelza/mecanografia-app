@@ -1,13 +1,17 @@
 <div class="current-word-container"><p>Palabra actual: "{{this.currentWord}}"</p></div>
 <!-- <input type="text" value={{this._gameHandlerService.valueUserWriting()}}/> -->
-<mat-card appearance="outlined">
+<mat-card appearance="outlined" [ngClass]="{'show-tooltip': this.showTooltipMessage}">
     <mat-card-content>
         <input 
         type="text" 
         (paste)="preventPaste($event)"
         value={{this._appStateService.valueUserWriting()}} 
-        placeholder="Write the current word!..." 
+        placeholder="Escribe la palabra actual!..." 
         (input)="handleInput($event)"
         />
     </mat-card-content>
 </mat-card>
+<div class="tooltip-msg-container">
+    <p class="tooltip-msg" [ngClass]="{'show-tooltip': this.showTooltipMessage}">Comienza a escribir para comenzar!</p>    
+    <!-- <button mat-raised-button color="primary" class="tooltip-msg" [ngClass]="{'show-tooltip': this.showTooltipMessage}">Comienza a escribir para comenzar!</button> -->
+</div>

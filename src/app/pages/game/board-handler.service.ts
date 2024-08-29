@@ -14,7 +14,6 @@ export class BoardHandlerService {
   _gameTimerService = inject(GameTimerService);
   _userAccuracyService = inject(UserAccuracyService);
 
-
   constructor() { }
 
   handleLetterWritten(key: string){
@@ -154,30 +153,11 @@ export class BoardHandlerService {
     }
   }
 
-  @ViewChild('words-board') container!: ElementRef<HTMLDivElement>;
-  // wordsContainerElement = viewChild<ElementRef<HTMLDivElement>>('words-board');
-
   scrollToActualWord(){
     let actualWord: Word = this._appStateService.getActualWord();
     const child = document.getElementById(`${actualWord.id}`);
     const container = document.querySelector('.words-board');
-    // const containerScroll = document.querySelector('.words-board-scroll');
-    
-    // console.log(containerScroll);
-
-// if (child && container && containerScroll) {
-//   // Calcular la posición del hijo en relación al contenedor
-//   const containerTop = containerScroll.getBoundingClientRect().top;
-//   const childTop = child.getBoundingClientRect().top;
-//   const offset = childTop - containerTop;
-
-//   // Ajustar el scroll del contenedor
-//   container.scrollTop += offset;
-// }
-
-    if(child&&container
-      // &&containerScroll
-    ){
+    if(child&&container){
       child.scrollIntoView()
     }
   }

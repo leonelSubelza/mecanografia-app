@@ -1,6 +1,7 @@
 .current-word-container{
     display: flex;
     height: auto;
+    width: 100%;
     margin: auto 0;
 }
 
@@ -11,15 +12,32 @@
 }
 
 mat-card {
-    height: 100%;
-    width: 60%;
+    width: 50%;
     /* margin: 5px auto auto 15px; */
     background-color: #fff;
     display: flex;
     margin: auto 0;
 }
 
+mat-card.show-tooltip{
+    /* border: 1px solid #0fca0f; */
+    border: 1px solid #3f51b5;
+    /* box-shadow: #3f51b5 0px 5px 15px; */
+    animation: flickering-shadow 2.5s infinite;
+    /* box-shadow: #3f51b5 5px 5px 5px; */
+}
 
+@keyframes flickering-shadow {
+    0%{
+        box-shadow: #b2bbf0 0px 5px 15px;
+    }
+    50%{
+        box-shadow: transparent 0px 5px 15px;
+    }
+    100%{
+        box-shadow: #b2bbf0 0px 5px 15px;
+    }
+}
 
 .mat-mdc-card-content {
     height: 100%;
@@ -48,10 +66,30 @@ input:active, input:focus-visible {
     outline: none;
 }
 
+.tooltip-msg-container{
+    display: flex;
+    width: 50%;
+}
+
+.tooltip-msg {
+    margin: auto auto auto 5px;
+    opacity: 0;
+    width: auto;
+    color: rgb(28, 180, 56)
+    /* color: #fff; */
+    /* background-color: #3f51b5; */
+}
+.tooltip-msg.show-tooltip{
+    opacity: 1;
+}
+
 @media screen and (max-width: 1000px) {
     mat-card {
         height: auto;
         width: 100%
+    }
+    .tooltip-msg-container{
+        width: 100%;
     }
     .current-word-container{
         display: none;

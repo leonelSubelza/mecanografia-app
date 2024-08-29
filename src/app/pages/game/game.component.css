@@ -45,7 +45,8 @@ h1{
 
 app-typing-display {
     display: flex;
-    flex-direction: column;
+    flex-wrap: wrap;
+    /* flex-direction: column; */
     width: 95%;
     height: 25%;
     padding: 10px 0;
