@@ -5,17 +5,17 @@
     </a>
 
     <div class="items-container">
-        <a mat-button routerLink="/">
+        <a mat-button routerLink="/user" (click)="goToPage('/user')">
             <span class="item-span-txt">Usuario</span>
             <mat-icon>person</mat-icon>
         </a>
     
-        <a mat-button routerLink="/">
+        <a mat-button routerLink="/" (click)="goToPage('/')">
             <span class="item-span-txt">Juego</span>
             <mat-icon>keyboard</mat-icon>
         </a>
     
-        <a mat-button routerLink="/">
+        <a mat-button routerLink="/stats" (click)="goToPage('/stats')">
             <span class="item-span-txt">Estadísticas</span>
             <mat-icon>bar_chart</mat-icon>
         </a>

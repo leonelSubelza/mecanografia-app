@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-toolbar',
@@ -13,4 +14,9 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 })
 export class ToolbarComponent {
 
+  router = inject(Router)
+
+  goToPage(url: string){
+    this.router.navigate([url]);
+  }
 }
