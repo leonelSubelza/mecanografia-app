@@ -148,8 +148,8 @@ export class GameHandlerService {
   setStartValues(randomContent: TextContent) {
     this._appStateService.setTextContent(randomContent);
 
-    this.generateBoard(randomContent.text);
-    // this.generateBoard('auto bbbbb ccc');
+    // this.generateBoard(randomContent.text);
+    this.generateBoard('auto bbbbb ccc');
 
     this._appStateService.setIndexWordActive(0);
     this._appStateService.setIndexLetterActive(0);

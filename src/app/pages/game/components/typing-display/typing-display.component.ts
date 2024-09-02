@@ -31,16 +31,14 @@ export class TypingDisplayComponent implements OnInit {
     effect(() => {
         if (!this._appStateService.gameOver()) {
           this.handleUpdateCurrentWord();
-        }else{
-          if(this.inputElement()){
-            const el4 = document.getElementById("inputRef");
-            el4?.focus();
-            this.inputElement()?.focus();
-          }
         }
+       
         if (this._appStateService.indexCorrectWord()) {
           this.handleUpdateCurrentWord();
         }
+        
+        const el4 = document.getElementById("inputRef");
+        el4?.focus()
       },
       { allowSignalWrites: true }
     );

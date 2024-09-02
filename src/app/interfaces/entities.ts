@@ -29,6 +29,7 @@ export interface Letter {
 }
 
 export interface Stats {
+    username: string,
     bestTextContent: TextContent,
     bestTime: string,
     bestAccuracy: number

@@ -3,9 +3,9 @@
         <mat-card-header>
             <div class="container-hdp">
             <mat-card-title>Estadísticas Generales</mat-card-title>
-            <mat-card-subtitle>Mejor texto: {{this._generalStatsService.myDataSignal()?.bestTextContent?.title}}</mat-card-subtitle>
-            <mat-card-subtitle>Tiempo: {{this._generalStatsService.myDataSignal()?.bestTime}}</mat-card-subtitle>
-            <mat-card-subtitle>Precisión: {{this._generalStatsService.myDataSignal()?.bestAccuracy}}</mat-card-subtitle>
+            <mat-card-subtitle>Mejor texto: {{this._generalStatsService.generalStats().bestTextContent.title}}</mat-card-subtitle>
+            <mat-card-subtitle>Tiempo: {{this._generalStatsService.generalStats().bestTime}}</mat-card-subtitle>
+            <mat-card-subtitle>Precisión: {{this._generalStatsService.generalStats().bestAccuracy}}%</mat-card-subtitle>
         </div>
           </mat-card-header>
   </mat-card>

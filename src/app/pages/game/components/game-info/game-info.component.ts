@@ -32,6 +32,9 @@ export class GameInfoComponent implements OnInit{
       if(this._appStateService.indexActualWord() || this._appStateService.indexActualWord()===0){
         this.updatePercentCompleted();
       }
+      if(this._userTimerService.userTime()){
+        this._appStateService.setUserTime(this._userTimerService.userTime());
+      }
     }, {allowSignalWrites: true})
   }
 

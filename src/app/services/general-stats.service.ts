@@ -1,24 +1,51 @@
 import { Injectable, signal } from '@angular/core';
 import { Stats } from '../interfaces/entities';
 
+const DEFAULT_GENERAL_STATE_VALUE: Stats = {
+  username: '',
+  bestTextContent: {
+    title: '-',
+    text: '-',
+    letterCount: 0  
+  },
+  bestTime: '00:00:00',
+  bestAccuracy: 0
+}
+
 @Injectable({
   providedIn: 'root'
 })
 export class GeneralStatsService {
 
-  myDataSignal = signal<Stats|null>(this.getItem<Stats>('stats'));
+  generalStats = signal<Stats>(this.getItem('stats'));
 
   constructor() { }
 
-  getItem<T>(key: string): T | null {
+  getItem(key: string): Stats {
     const data = localStorage.getItem(key);
-    return data ? JSON.parse(data) as T : null;
+    // return data ? JSON.parse(data) as T : null;
+    return data ? JSON.parse(data) : DEFAULT_GENERAL_STATE_VALUE;
   }
 
-  setItem(key: string, value: Stats): void {
-    localStorage.setItem(key, JSON.stringify(value));
+  setUsername(value: string){
+    this.generalStats().username = value;
+  }
+
+  setStatsLocalStorage(value: Stats): void {
+    localStorage.setItem('stats', JSON.stringify(value));
     if(value){
-      this.myDataSignal.set(value);
+      this.generalStats.set(value);
     }
   }
+
+  actualGameIsBetter(actualState: Stats): boolean {
+    if(actualState.bestAccuracy>this.generalStats().bestAccuracy){
+      return true;
+    }
+    return false
+  }
+  // private loadInitialStats(): Stats | null {
+  //   const storedStats = this.getItem<Stats>('stats');
+  //   return storedStats ?? DEFAULT_GENERAL_STATE_VALUE;
+  // }
 }

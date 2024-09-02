@@ -1,16 +1,13 @@
-import { Component, HostListener, OnInit, effect, inject, signal } from '@angular/core';
+import { Component, OnInit, effect, inject } from '@angular/core';
 import { GameHandlerService } from '../../services/game.handler.service';
-import { Letter, LetterStatus, TextContent, Word } from '../../interfaces/entities';
-import { texts } from '../../shared/mock/texts.mock';
 import { TypingDisplayComponent } from "./components/typing-display/typing-display.component";
 import { BoardComponent } from "./components/board/board.component";
 import { WordComponent } from './components/board/word/word.component';
 import { GameInfoComponent } from "./components/game-info/game-info.component";
 import { AppStateService } from '../../services/app-state.service';
-import {MatProgressBarModule} from '@angular/material/progress-bar';
 import { ModalService } from './components/modal/modal.service';
-import { ModalComponent } from './components/modal/modal.component';
 import { GameTimerService } from '../../services/game-timer.service';
+import { GeneralStatsService } from '../../services/general-stats.service';
 
 @Component({
   selector: 'app-game',
@@ -24,20 +21,31 @@ export class GameComponent implements OnInit {
   _appStateService = inject(AppStateService);
   _gameTimerService =inject(GameTimerService);
   _modalService = inject(ModalService);
+  _generalStatsService = inject(GeneralStatsService);
+
   constructor() {
     effect(()=>{
       if(this._appStateService.gameOver()){
-        this._gameHandlerService.finishGame()
+        this._gameHandlerService.finishGame();
+        this.checkActualGameStats();
         return;
       }
     }, {allowSignalWrites: true})
-
   }
 
   ngOnInit(): void {
     this._gameHandlerService.startNewGame();
   }
 
-
-
+  checkActualGameStats() {
+    const actualGameStats = {
+      username: this._generalStatsService.generalStats().username,
+      bestTextContent: this._appStateService.textContent(),
+      bestTime: this._appStateService.userTime(),
+      bestAccuracy: this._appStateService.userAccuracy()
+    }
+    if(this._generalStatsService.actualGameIsBetter(actualGameStats)){
+      this._generalStatsService.setStatsLocalStorage(actualGameStats);
+    }
+  }
 }
