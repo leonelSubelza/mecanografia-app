@@ -1,21 +1,21 @@
 <mat-toolbar color='primary'>
-    <a mat-button class="item-page-name">
+    <a mat-button class="item-page-name" routerLink="/">
         <span>Mecanography app</span>
         <mat-icon>favorite</mat-icon>
     </a>
 
     <div class="items-container">
-        <a mat-button routerLink="/user" (click)="goToPage('/user')">
+        <a mat-button routerLink="/user">
             <span class="item-span-txt">Usuario</span>
             <mat-icon>person</mat-icon>
         </a>
     
-        <a mat-button routerLink="/" (click)="goToPage('/')">
+        <a mat-button routerLink="/">
             <span class="item-span-txt">Juego</span>
             <mat-icon>keyboard</mat-icon>
         </a>
     
-        <a mat-button routerLink="/stats" (click)="goToPage('/stats')">
+        <a mat-button routerLink="/stats">
             <span class="item-span-txt">Estadísticas</span>
             <mat-icon>bar_chart</mat-icon>
         </a>

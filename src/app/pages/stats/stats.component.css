@@ -5,4 +5,10 @@
 
 mat-card {
     margin: 10px auto;
+    width: 40%;
+    display: flex;
+}
+
+.container-hdp{
+    width: 100%;
 }

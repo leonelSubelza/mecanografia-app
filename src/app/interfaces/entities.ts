@@ -27,3 +27,9 @@ export interface Letter {
     isActive?: boolean,
     status?: LetterStatus
 }
+
+export interface Stats {
+    bestTextContent: TextContent,
+    bestTime: string,
+    bestAccuracy: number
+}
