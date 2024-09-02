@@ -19,6 +19,11 @@ app-game {
     height: auto;
 }
 
+.mdc-button__label{
+    /* color:#3f51b5; */
+    color: rgba(255, 255, 255, 0.87)
+}
+
 @media screen and (max-width: 720px) {
     body{
         max-height: 100dvh;

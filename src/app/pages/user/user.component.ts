@@ -8,6 +8,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { GeneralStatsService } from '../../services/general-stats.service';
 import { FormsModule } from '@angular/forms';
 import { Stats } from '../../interfaces/entities';
+import { SnackBarService } from '../../services/snack-bar.service';
 
 @Component({
   selector: 'app-user',
@@ -20,12 +21,15 @@ import { Stats } from '../../interfaces/entities';
 })
 export class UserComponent {
   _generalStatsService = inject(GeneralStatsService);
+  _snackBarService = inject(SnackBarService);
 
   readonly username = model(this._generalStatsService.generalStats().username);
 
   onSave(){
     this._generalStatsService.setUsername(this.username());
     this._generalStatsService.setStatsLocalStorage(this._generalStatsService.generalStats());
+
+    this._snackBarService.showSnackBar('Nombre guardado!')
   }
 
   // loadInitialUsername(): string {
