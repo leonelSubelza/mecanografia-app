@@ -1,13 +1,14 @@
 <!-- <h1 mat-dialog-title>Juego completado!</h1> -->
 <h1 mat-dialog-title>{{this.modalTitle}}</h1>
+<label class="new-record-label" [ngClass]="{'active': this.isNewRecord}">¡Nuevo Record!</label>
 <mat-dialog-content>
     <p>Texto: {{this._appStateService.textContent().title}}</p>
     <p>Precisión: {{this._appStateService.userAccuracy()}}%</p>
     <p>Tiempo: {{this._gameTimerService.userTime()}}</p>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
-    <button mat-button type="button" color='primary' (click)="resetGame()">
-        Reintentar <mat-icon iconPositionEnd>refresh</mat-icon>
+    <button mat-raised-button type="button" color="primary" class="btn-refresh" (click)="resetGame()">
+        <label>Reiniciar</label> <mat-icon iconPositionEnd>refresh</mat-icon>
     </button>
-    <button mat-raised-button color='primary' cdkFocusInitial (click)="newGame()">Jugar de nuevo</button>
+    <button mat-flat-button color='primary' cdkFocusInitial (click)="newGame()">Jugar de nuevo</button>
   </mat-dialog-actions>

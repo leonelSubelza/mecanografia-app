@@ -18,13 +18,14 @@ const DEFAULT_GENERAL_STATE_VALUE: Stats = {
 export class GeneralStatsService {
 
   generalStats = signal<Stats>(this.getItem('stats'));
+  // private document: Document = inject<Document>(DOCUMENT);
 
   constructor() { }
 
   getItem(key: string): Stats {
-    const data = localStorage.getItem(key);
+      const data = localStorage.getItem(key);
+      return data===null ? DEFAULT_GENERAL_STATE_VALUE : JSON.parse(data);
     // return data ? JSON.parse(data) as T : null;
-    return data ? JSON.parse(data) : DEFAULT_GENERAL_STATE_VALUE;
   }
 
   setUsername(value: string){
@@ -32,14 +33,14 @@ export class GeneralStatsService {
   }
 
   setStatsLocalStorage(value: Stats): void {
-    localStorage.setItem('stats', JSON.stringify(value));
-    if(value){
-      this.generalStats.set(value);
-    }
+      localStorage.setItem('stats', JSON.stringify(value));
+      if(value){
+        this.generalStats.set(value);
+      }
   }
 
   actualGameIsBetter(actualState: Stats): boolean {
-    if(actualState.bestAccuracy>this.generalStats().bestAccuracy){
+    if(actualState.bestAccuracy>=this.generalStats().bestAccuracy){
       return true;
     }
     return false

@@ -1,3 +1,17 @@
 h1{
     text-align: center;
 }
+
+.new-record-label{
+    display: none;
+    color: #1cb438;
+    text-align: center;
+}
+.new-record-label.active{
+    display: block;
+}
+
+.btn-refresh, .btn-refresh label {
+    color: #005cbb !important;
+    background-color: #fff;
+}

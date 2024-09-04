@@ -1,13 +1,12 @@
-import { Component, OnInit, effect, inject } from '@angular/core';
+import { AfterViewInit, Component, OnInit, effect, inject } from '@angular/core';
 import { GameHandlerService } from '../../services/game.handler.service';
 import { TypingDisplayComponent } from "./components/typing-display/typing-display.component";
 import { BoardComponent } from "./components/board/board.component";
 import { WordComponent } from './components/board/word/word.component';
 import { GameInfoComponent } from "./components/game-info/game-info.component";
 import { AppStateService } from '../../services/app-state.service';
-import { ModalService } from './components/modal/modal.service';
-import { GameTimerService } from '../../services/game-timer.service';
 import { GeneralStatsService } from '../../services/general-stats.service';
+import * as confetti from 'canvas-confetti';
 
 @Component({
   selector: 'app-game',
@@ -16,19 +15,25 @@ import { GeneralStatsService } from '../../services/general-stats.service';
   templateUrl: './game.component.html',
   styleUrl: './game.component.css',
 })
-export class GameComponent implements OnInit {
+export class GameComponent implements OnInit, AfterViewInit {
   _gameHandlerService = inject(GameHandlerService);
   _appStateService = inject(AppStateService);
-  _gameTimerService =inject(GameTimerService);
-  _modalService = inject(ModalService);
   _generalStatsService = inject(GeneralStatsService);
+
+  private confettiInstance: any;
+  private gameFinished: boolean = false;
 
   constructor() {
     effect(()=>{
-      if(this._appStateService.gameOver()){
-        this._gameHandlerService.finishGame();
-        this.checkActualGameStats();
+      if(this._appStateService.gameOver() && !this.gameFinished){
+        let isNewRecord = this.updateActualGameStats();
+        this._gameHandlerService.finishGame(isNewRecord);
+        if(isNewRecord) this.celebrate()
+        this.gameFinished = true;
         return;
+      }
+      if(!this._appStateService.gameOver()){
+        this.gameFinished = false;
       }
     }, {allowSignalWrites: true})
   }
@@ -37,7 +42,28 @@ export class GameComponent implements OnInit {
     this._gameHandlerService.startNewGame();
   }
 
-  checkActualGameStats() {
+  ngAfterViewInit() {
+    // Crear el lienzo que cubrirá toda la ventana
+    this.confettiInstance = confetti.create(undefined, {
+      resize: true, // Asegura que el lienzo se redimensione con la ventana
+      useWorker: true // Opcional: mejora el rendimiento en algunos casos
+    });
+  }
+
+  celebrate() {
+    const duration = 3000; // en milisegundos
+    this.confettiInstance({
+      particleCount: 100,
+      spread: 160,
+      startVelocity: 30,
+      origin: { x: 0.5, y: 0.5 } // Centrado en la pantalla
+    });
+
+    // Limpiar el confeti después de cierto tiempo
+    setTimeout(() => this.confettiInstance.reset(), duration);
+  }
+
+  updateActualGameStats() {
     const actualGameStats = {
       username: this._generalStatsService.generalStats().username,
       bestTextContent: this._appStateService.textContent(),
@@ -46,6 +72,8 @@ export class GameComponent implements OnInit {
     }
     if(this._generalStatsService.actualGameIsBetter(actualGameStats)){
       this._generalStatsService.setStatsLocalStorage(actualGameStats);
+      return true;
     }
+    return false;
   }
 }

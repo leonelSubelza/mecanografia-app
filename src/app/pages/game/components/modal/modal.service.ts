@@ -14,10 +14,14 @@ export class ModalService {
   /* Esta funcion recibe 
   una referencia al componente que contiene al modal (mat-dialog) y si esta todo ok lo muestra, 
   */
-  openModal<CT>(componentRef: ComponentType<CT>, title: string='Estadisticas'): void {
+  openModal<CT>(componentRef: ComponentType<CT>, data: any): void {
+    const {title,isNewRecord} = data;
     this._dialog.open(componentRef,{
       width: '400px',
-      data: { title: title }
+      data: { 
+        title: title,
+        isNewRecord: isNewRecord
+      }
     })
     // const config = {data};
     // this._dialog.open(componentRef, {

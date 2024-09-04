@@ -125,9 +125,13 @@ export class GameHandlerService {
     this.setStartValues(this._appStateService.textContent());
   }
 
-  finishGame() {
+  finishGame(isNewRecord:boolean) {
     this._gameTimerService.stopGameTimer();
-    this._modalService.openModal<ModalComponent>(ModalComponent,'Juego Completado!');
+    const data = {
+      title:"Juego Completado!",
+      isNewRecord:isNewRecord
+    }
+    this._modalService.openModal<ModalComponent>(ModalComponent,data);
   }
 
   startNewGame() {
@@ -148,8 +152,8 @@ export class GameHandlerService {
   setStartValues(randomContent: TextContent) {
     this._appStateService.setTextContent(randomContent);
 
-    this.generateBoard(randomContent.text);
-    // this.generateBoard('auto bbbbb ccc');
+    // this.generateBoard(randomContent.text);
+    this.generateBoard('auto bbbbb ccc');
 
     this._appStateService.setIndexWordActive(0);
     this._appStateService.setIndexLetterActive(0);

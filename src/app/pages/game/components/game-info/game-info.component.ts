@@ -74,6 +74,10 @@ export class GameInfoComponent implements OnInit{
   }
 
   showModal(){
-    this._modalService.openModal<ModalComponent>(ModalComponent,"Estadísticas");
+    const data = {
+      title:"Estadísticas",
+      isNewRecord:false
+    }
+    this._modalService.openModal<ModalComponent>(ModalComponent,data);
   }
 }
