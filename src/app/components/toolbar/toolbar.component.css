@@ -1,3 +1,6 @@
+mat-toolbar{
+    overflow-y: auto;
+}
 .items-container {
     margin: auto;
     display: flex;
@@ -12,14 +15,33 @@
     user-select: none;
 }
 
+.item-page-sound{
+    display: none;
+}
+.item-page-sound.active{
+    display: flex;
+}
+
+.m-r{
+    margin:auto 0 auto auto;
+}
+
+.m-l{
+    margin:auto auto auto 0;
+}
+
 @media screen and (max-width: 720px) {
     .item-page-name,.spacer-vertical {
         display: none;
     }
-}
-
-@media screen and (max-width: 320px) {
     .item-span-txt{
         display: none;
+    }
+
+    .items-container{
+        justify-content: space-between;
+    }
+    .items-container.m-r{
+        justify-content: flex-end;
     }
 }

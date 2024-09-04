@@ -1,9 +1,10 @@
 <mat-toolbar color='primary'>
-    <a mat-button class="item-page-name" routerLink="/">
-        <span>Mecanography app</span>
-        <mat-icon>favorite</mat-icon>
-    </a>
-
+    <div class="items-container m-l">
+        <a mat-button class="item-page-name" routerLink="/">
+            <span>Mecanography app</span>
+            <mat-icon>favorite</mat-icon>
+        </a>
+    </div>
     <div class="items-container">
         <a mat-button routerLink="/user">
             <span class="item-span-txt">Usuario</span>
@@ -20,8 +21,14 @@
             <mat-icon>bar_chart</mat-icon>
         </a>
     </div>
-    <a class="item-page-name none">
-        <span>Mecanography app</span>
-        <mat-icon>favorite</mat-icon>
-    </a>
+    <div class="items-container m-r">
+        <div class="item-page">
+            <a mat-button (click)="onRefreshClick()"><mat-icon>refresh</mat-icon></a>
+        </div>
+        <div class="item-page" (click)="onClickSound()">
+            <a mat-button class="item-page-sound" [ngClass]="{active: this._appStateService.isSoundActive()}"><mat-icon>volume_up</mat-icon></a>
+            <a mat-button class="item-page-sound" [ngClass]="{active: !this._appStateService.isSoundActive()}"><mat-icon>volume_off</mat-icon></a>
+        </div>
+        
+    </div>
 </mat-toolbar>

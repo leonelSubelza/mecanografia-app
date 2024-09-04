@@ -23,6 +23,10 @@ export class BoardHandlerService {
     }
     // const { key } = event;
     if (this._gameHandlerService.isAValidWord(key)) {
+      if(this._appStateService.isSoundActive()){
+        this.playKeyPressedSound();
+      }
+
       if (!this._appStateService.gameOver()){
         this._gameTimerService.startGameTimer();
       }
@@ -160,5 +164,10 @@ export class BoardHandlerService {
     if(child&&container){
       child.scrollIntoView()
     }
+  }
+
+  playKeyPressedSound() {
+    const audio = new Audio('sounds/keyPressedSound.mp3');
+    audio.play();
   }
 }

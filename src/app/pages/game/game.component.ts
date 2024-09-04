@@ -28,7 +28,10 @@ export class GameComponent implements OnInit, AfterViewInit {
       if(this._appStateService.gameOver() && !this.gameFinished){
         let isNewRecord = this.updateActualGameStats();
         this._gameHandlerService.finishGame(isNewRecord);
-        if(isNewRecord) this.celebrate()
+        if(isNewRecord) {
+          if(this._appStateService.isSoundActive()) this.playApplauseSound();
+          this.celebrate()
+        }
         this.gameFinished = true;
         return;
       }
@@ -75,5 +78,10 @@ export class GameComponent implements OnInit, AfterViewInit {
       return true;
     }
     return false;
+  }
+
+  playApplauseSound(){
+    const audio = new Audio('sounds/applauseSound.mp3');
+    audio.play();
   }
 }
