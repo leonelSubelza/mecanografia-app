@@ -7,6 +7,10 @@ import { GameInfoComponent } from "./components/game-info/game-info.component";
 import { AppStateService } from '../../services/app-state.service';
 import { GeneralStatsService } from '../../services/general-stats.service';
 import * as confetti from 'canvas-confetti';
+import { CpmService } from '../../services/cpm.service';
+import { Stats } from '../../interfaces/entities';
+import { ModalComponent } from './components/modal/modal.component';
+import { ModalService } from './components/modal/modal.service';
 
 @Component({
   selector: 'app-game',
@@ -19,21 +23,18 @@ export class GameComponent implements OnInit, AfterViewInit {
   _gameHandlerService = inject(GameHandlerService);
   _appStateService = inject(AppStateService);
   _generalStatsService = inject(GeneralStatsService);
-
+  _cpmService = inject(CpmService)
+  _modalService = inject(ModalService);
+  
   private confettiInstance: any;
   private gameFinished: boolean = false;
 
   constructor() {
     effect(()=>{
       if(this._appStateService.gameOver() && !this.gameFinished){
+        this._gameHandlerService.finishGame();
         let isNewRecord = this.updateActualGameStats();
-        this._gameHandlerService.finishGame(isNewRecord);
-        if(isNewRecord) {
-          if(this._appStateService.isSoundActive()) this.playApplauseSound();
-          this.celebrate()
-        }
-        this.gameFinished = true;
-        return;
+        this.handleGameFinished(isNewRecord);
       }
       if(!this._appStateService.gameOver()){
         this.gameFinished = false;
@@ -66,16 +67,22 @@ export class GameComponent implements OnInit, AfterViewInit {
     setTimeout(() => this.confettiInstance.reset(), duration);
   }
 
-  updateActualGameStats() {
-    const actualGameStats = {
+  updateActualGameStats(): boolean {
+    const actualGameStats: Stats = {
       username: this._generalStatsService.generalStats().username,
       bestTextContent: this._appStateService.textContent(),
       bestTime: this._appStateService.userTime(),
-      bestAccuracy: this._appStateService.userAccuracy()
+      bestAccuracy: this._appStateService.userAccuracy(),
+      cpm: this._cpmService.cpm()
     }
-    if(this._generalStatsService.actualGameIsBetter(actualGameStats)){
+    if(this._generalStatsService.actualGameIsBetter(actualGameStats)){      
       this._generalStatsService.setStatsLocalStorage(actualGameStats);
-      return true;
+      
+      if(this._appStateService.isSoundActive()) {
+        this.playApplauseSound();
+      }
+      this.celebrate()
+      return true
     }
     return false;
   }
@@ -83,5 +90,14 @@ export class GameComponent implements OnInit, AfterViewInit {
   playApplauseSound(){
     const audio = new Audio('sounds/applauseSound.mp3');
     audio.play();
+  }
+
+  handleGameFinished(isNewRecord: boolean){
+    this.gameFinished = true;
+    const data = {
+      title:"Juego Completado!",
+      isNewRecord:isNewRecord
+    }
+    this._modalService.openModal<ModalComponent>(ModalComponent,data);
   }
 }

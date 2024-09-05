@@ -4,6 +4,7 @@ import { AppStateService } from '../../services/app-state.service';
 import { GameTimerService } from '../../services/game-timer.service';
 import { UserAccuracyService } from '../../services/user-accuracy.service';
 import { LetterStatus, Word } from '../../interfaces/entities';
+import { CpmService } from '../../services/cpm.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +14,7 @@ export class BoardHandlerService {
   _appStateService = inject(AppStateService);
   _gameTimerService = inject(GameTimerService);
   _userAccuracyService = inject(UserAccuracyService);
+  _cpmService = inject(CpmService);
 
   constructor() { }
 
@@ -29,9 +31,12 @@ export class BoardHandlerService {
 
       if (!this._appStateService.gameOver()){
         this._gameTimerService.startGameTimer();
+        this._cpmService.startCPM();
       }
       let updateNewLetter: boolean = false;
       this._userAccuracyService.addOneTotalLettersWritten();
+      this._cpmService.addCharacterCount();
+
       // Si la letra activa es igual a la letra pulsada se pasa a la siguiente
       if (this._gameHandlerService.isCorrectLetter(key)) {
         // console.log("la letra es correcta");
@@ -54,6 +59,7 @@ export class BoardHandlerService {
       this._appStateService.setValueUserWriting(this._appStateService.valueUserWriting()+key);
     }
     if (key === "Backspace") {
+      this._cpmService.addCharacterCount();
       if(this._appStateService.indexActualLetter() === 0
       && this._appStateService.indexActualWord() === 0) {
         return;

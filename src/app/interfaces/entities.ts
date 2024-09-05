@@ -32,5 +32,6 @@ export interface Stats {
     username: string,
     bestTextContent: TextContent,
     bestTime: string,
-    bestAccuracy: number
+    bestAccuracy: number,
+    cpm: number;
 }

@@ -6,10 +6,11 @@ const DEFAULT_GENERAL_STATE_VALUE: Stats = {
   bestTextContent: {
     title: '-',
     text: '-',
-    letterCount: 0  
+    letterCount: 0
   },
   bestTime: '00:00:00',
-  bestAccuracy: 0
+  bestAccuracy: 0,
+  cpm: 0
 }
 
 @Injectable({

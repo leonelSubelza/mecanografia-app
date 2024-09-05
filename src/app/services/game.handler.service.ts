@@ -4,9 +4,9 @@ import { texts } from '../shared/mock/texts.mock';
 import { AppStateService } from './app-state.service';
 import { GameTimerService } from './game-timer.service';
 import { ModalService } from '../pages/game/components/modal/modal.service';
-import { ModalComponent } from '../pages/game/components/modal/modal.component';
 import { UserAccuracyService } from './user-accuracy.service';
 import { generateWord } from '../pages/game/utils/entity-generator';
+import { CpmService } from './cpm.service';
 
 
 @Injectable({
@@ -15,8 +15,8 @@ import { generateWord } from '../pages/game/utils/entity-generator';
 export class GameHandlerService {
   private _appStateService = inject(AppStateService);
   private _gameTimerService = inject(GameTimerService);
-  private _modalService = inject(ModalService);
   private _userAccuracyService = inject(UserAccuracyService);
+  private _cpmService = inject(CpmService);
 
   isAValidWord(key: string): boolean {
     const regexString: string = `^[a-zA-Z0-9\\s.,;:?!'"()\\-áéíóúÁÉÍÓÚñÑüÜ]$`;
@@ -118,6 +118,7 @@ export class GameHandlerService {
     this._appStateService.setValueUserWriting('');
     this._gameTimerService.resetUserTime();
     this._userAccuracyService.resetValues();
+    this._cpmService.resetCPM();
   }
 
   restartGame() {
@@ -125,13 +126,9 @@ export class GameHandlerService {
     this.setStartValues(this._appStateService.textContent());
   }
 
-  finishGame(isNewRecord:boolean) {
+  finishGame() {
     this._gameTimerService.stopGameTimer();
-    const data = {
-      title:"Juego Completado!",
-      isNewRecord:isNewRecord
-    }
-    this._modalService.openModal<ModalComponent>(ModalComponent,data);
+    this._cpmService.finishCPM()
   }
 
   startNewGame() {

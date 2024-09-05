@@ -5,6 +5,8 @@
     <p>Texto: {{this._appStateService.textContent().title}}</p>
     <p>Precisión: {{this._appStateService.userAccuracy()}}%</p>
     <p>Tiempo: {{this._gameTimerService.userTime()}}</p>
+    <!-- <p>Pulsaciones totales: {{this._cpmService.characterCount()}}</p> -->
+    <p>Velocidad: {{this._cpmService.cpm()}}PPM</p>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
     <button mat-raised-button type="button" color="primary" class="btn-refresh" (click)="resetGame()">

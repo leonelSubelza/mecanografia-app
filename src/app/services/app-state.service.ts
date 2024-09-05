@@ -41,8 +41,6 @@ export class AppStateService {
 
   gamePercentCompleted = signal<number>(0);
 
-
-
   constructor() { }
 
   getActualWord(): Word {

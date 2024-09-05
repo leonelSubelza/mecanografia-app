@@ -9,6 +9,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { AppStateService } from '../../../../services/app-state.service';
 import { GameHandlerService } from '../../../../services/game.handler.service';
 import { NgClass } from '@angular/common';
+import { CpmService } from '../../../../services/cpm.service';
 
 
 const MATERIAL_MODULES = [MatLabel, MatInput, MatFormField, MatDialogModule, MatButtonModule, MatIconModule]
@@ -25,6 +26,7 @@ export class ModalComponent implements OnInit {
   _gameTimerService = inject(GameTimerService);
   _appStateService = inject(AppStateService);
   _gameHandlerService = inject(GameHandlerService);
+  _cpmService = inject(CpmService);
 
   private readonly _matDialog = inject(MAT_DIALOG_DATA);
 
