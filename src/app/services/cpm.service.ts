@@ -21,21 +21,16 @@ export class CpmService {
   }
 
   finishCPM(){
-    //if the time is less than a minute
     const currentTime = Date.now();
     const time = Math.abs(currentTime-(this.startTime||0));
     let elapsedTimeInMinutes = time/(60000)
     elapsedTimeInMinutes = parseFloat(elapsedTimeInMinutes.toFixed(2))
 
-    // const elapsedTimeInMinutes = (Date.now() - (this.startTime || 0)) / 60000;
     let totalCPM = 0;   
       
     if (elapsedTimeInMinutes > 0) {
       totalCPM = Math.ceil(this.characterCount() / elapsedTimeInMinutes);
     }
-
-    console.log("se finaliza el cpm con : "+totalCPM);
-    
     this.cpm.set(totalCPM);
   }
 

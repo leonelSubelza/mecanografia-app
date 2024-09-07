@@ -75,7 +75,11 @@ input:active, input:focus-visible {
     margin: auto auto auto 5px;
     opacity: 0;
     width: auto;
-    color: rgb(28, 180, 56);
+    background-color: rgb(28, 180, 56);
+    color: #fff;
+    border-radius: 4px;
+    padding: 5px;
+    animation: flickering-shadow 2.5s infinite;
     /* color: #fff; */
     /* background-color: #3f51b5; */
 }
