@@ -11,7 +11,7 @@ import { GameHandlerService } from '../../services/game.handler.service';
 @Component({
   selector: 'app-toolbar',
   standalone: true,
-  imports: [MatToolbarModule, MatButtonModule, MatIconModule, MatCardModule, ToolbarComponent,RouterLink,NgClass],
+  imports: [MatToolbarModule, MatButtonModule, MatIconModule, MatCardModule, RouterLink,NgClass],
   templateUrl: './toolbar.component.html',
   styleUrl: './toolbar.component.css'
 })

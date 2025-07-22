@@ -11,12 +11,12 @@ const CORRECT_LETTER_DEFAULT_VALUE = {
   status: LetterStatus.DEFAULT
 }
 
-const ACTUAL_WORD_DEFAULT_VALUE = {
-  word: '',
-  letterList: [],
-  indexLetterActive: 0,
-  isActive: false
-}
+// const ACTUAL_WORD_DEFAULT_VALUE = {
+//   word: '',
+//   letterList: [],
+//   indexLetterActive: 0,
+//   isActive: false
+// }
 
 @Injectable({
   providedIn: 'root'

@@ -1,34 +1,46 @@
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
-body { 
-    margin: 0; 
-    font-family: Roboto, "Helvetica Neue", sans-serif; 
-    min-height: 100dvh;
-    display: flex;
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
-app-root{
-    width: 100%;
-    min-height: 100%;
-    display: flex;
-    flex-direction: column;
+app-root {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 app-game {
-    height: auto;
+  height: 100%;
+  width: 98%;
+  display: flex;
+  margin: auto;
+  flex-direction: column;
+  background-color: #fff;
 }
 
-.mdc-button__label{
-    /* color:#3f51b5; */
-    color: rgba(255, 255, 255, 0.87)
+.mdc-button__label {
+  /* color:#3f51b5; */
+  color: rgba(255, 255, 255, 0.87);
 }
 
 @media screen and (max-width: 720px) {
-    body{
-        max-height: 100dvh;
-    }
+  body {
+    max-height: 100dvh;
+  }
 }
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}

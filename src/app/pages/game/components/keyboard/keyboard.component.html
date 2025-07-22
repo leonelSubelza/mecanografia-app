@@ -1,0 +1,63 @@
+<!-- 
+<div class="keyboard">
+  <div class="row" *ngFor="let row of keyboard">
+    <div 
+      class="key"
+      *ngFor="let key of row"
+      [style.gridColumn]="key.colspan ? 'span ' + key.colspan : 'span 1'"
+    >
+      {{ key.label }}
+    </div>
+  </div>
+</div> -->
+
+<!-- @for (row of this.keyboardKeys; track $index) { 
+  <div class="row">
+    @for (key of row; track $index) {
+      <div class="key-value-container">
+        @for( value of key.values; track $index) {
+          <div class="key-value">
+            {{ value }}
+          </div>
+        }
+      </div>
+    }
+  </div>
+} -->
+@for (row of [this.keyboardKeys[0],this.keyboardKeys[1],this.keyboardKeys[2]]; track $index) {
+<div class="row">
+  @for (key of row; track $index) {
+    <div class="key-value-container">
+        @for( value of key.values; track $index) {
+          <div class="key-value">
+            {{ value }}
+          </div>
+        }
+      </div>
+  }
+</div>
+}
+
+<div class="row-lasts row-penultimate">
+  @for (key of this.keyboardKeys[3]; track $index) {
+    <div class="key-value-container">
+        @for( value of key.values; track $index) {
+          <div class="key-value">
+            {{ value }}
+          </div>
+        }
+      </div>
+  }
+</div>
+
+<div class="row-lasts row-last">
+  @for (key of this.keyboardKeys[4]; track $index) {
+    <div class="key-value-container">
+        @for( value of key.values; track $index) {
+          <div class="key-value">
+            {{ value }}
+          </div>
+        }
+      </div>
+  }
+</div>

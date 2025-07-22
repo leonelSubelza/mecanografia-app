@@ -2,6 +2,7 @@ import { mergeApplicationConfig, ApplicationConfig } from '@angular/core';
 import { provideServerRendering } from '@angular/platform-server';
 import { appConfig } from './app.config';
 
+// Este archivo importa appConfig y le agrega configuraciones del servidor. Todo esto es por si se usa ssr.
 const serverConfig: ApplicationConfig = {
   providers: [
     provideServerRendering()

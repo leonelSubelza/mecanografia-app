@@ -1,79 +1,76 @@
-.game-screen-container {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    background-color: #fff;
-
-    margin: auto;
-    min-height: 90dvh;
-    width: 80%;
-}
-
 app-game-info {
-    height: 10%;
-    width: 95%;
-    margin: 0 auto;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: center;
+  height: 10%;
+  width: 95%;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.board-container{
-    display: flex;
-    flex-direction: column;
-    background-color: rgb(253, 251, 255);
-    margin: 0 auto;
-    width: 100%;
-    /* min-height: 80%; */
-    /* height: auto !important; */
-    /* max-height: max-content; */
-    border-radius: 20px;
+.board-container {
+  display: flex;
+  flex-direction: column;
+  background-color: rgb(253, 251, 255);
+  margin: 0 auto;
+  width: 100%;
+  /* min-height: 80%; */
+  /* height: auto !important; */
+  /* max-height: max-content; */
+  border-radius: 20px;
 }
 
 .board-title {
-    width: 95%;
-    height: 10%;
-    margin: auto;
-    display: flex;
-    padding: 10px 0;
+  width: 95%;
+  height: 10%;
+  margin: auto;
+  display: flex;
+  padding: 10px 0;
 }
 
-h1{
-    margin: auto 0;
-    line-height: normal;
-    font-size: 18px;
+h1 {
+  margin: auto 0;
+  line-height: normal;
+  font-size: 18px;
 }
 
 app-typing-display {
-    display: flex;
-    flex-wrap: wrap;
-    /* flex-direction: column; */
-    width: 95%;
-    height: 25%;
-    padding: 10px 0;
-    margin: 0 auto;
-    /* height: 1rem; */
-    /* min-height: 20%; */
+  display: flex;
+  flex-wrap: wrap;
+  /* flex-direction: column; */
+  width: 95%;
+  height: 25%;
+  padding: 10px 0;
+  margin: 0 auto;
+  /* height: 1rem; */
+  /* min-height: 20%; */
+}
+
+app-keyboard {
+  display: none;
+  height: 40%;
 }
 
 @media screen and (max-width: 1000px) {
-    .board-container{
-        height: 30%;
-        margin: 0 auto auto auto;
-    }
-    .board-title{
-        display: none;
-    }
-    app-board {
-        height: 70%;
-        overflow-y: auto;
-        overflow-x: hidden;
-    }
+  .game-screen-container {
+    width: 95%;
+  }
+  .board-container {
+    height: 50%;
+    margin: 0 auto auto auto;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+  .board-title {
+    display: none;
+  }
 
-    app-typing-display {
-        /* position:fixed; */
-        /* bottom: 0; */
-        height: 20%;
-    }
+  app-typing-display {
+    display: none;
+  }
+
+  app-keyboard {
+    display: grid;
+    height: 40%;
+  }
 }

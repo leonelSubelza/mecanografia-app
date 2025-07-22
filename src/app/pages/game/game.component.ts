@@ -2,7 +2,6 @@ import { AfterViewInit, Component, OnInit, effect, inject } from '@angular/core'
 import { GameHandlerService } from '../../services/game.handler.service';
 import { TypingDisplayComponent } from "./components/typing-display/typing-display.component";
 import { BoardComponent } from "./components/board/board.component";
-import { WordComponent } from './components/board/word/word.component';
 import { GameInfoComponent } from "./components/game-info/game-info.component";
 import { AppStateService } from '../../services/app-state.service';
 import { GeneralStatsService } from '../../services/general-stats.service';
@@ -11,11 +10,12 @@ import { CpmService } from '../../services/cpm.service';
 import { Stats } from '../../interfaces/entities';
 import { ModalComponent } from './components/modal/modal.component';
 import { ModalService } from './components/modal/modal.service';
+import { KeyboardComponent } from './components/keyboard/keyboard.component';
 
 @Component({
   selector: 'app-game',
   standalone: true,
-  imports: [WordComponent, TypingDisplayComponent, BoardComponent, GameInfoComponent],
+  imports: [TypingDisplayComponent, BoardComponent, GameInfoComponent,KeyboardComponent],
   templateUrl: './game.component.html',
   styleUrl: './game.component.css',
 })
