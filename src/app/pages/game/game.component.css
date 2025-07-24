@@ -61,13 +61,13 @@ app-keyboard {
     overflow-y: auto;
     overflow-x: hidden;
   }
-  .board-title {
+  /* .board-title {
     display: none;
-  }
+  } */
 
-  app-typing-display {
+  /* app-typing-display {
     display: none;
-  }
+  } */
 
   app-keyboard {
     display: grid;

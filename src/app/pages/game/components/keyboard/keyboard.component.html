@@ -24,10 +24,10 @@
     }
   </div>
 } -->
-@for (row of [this.keyboardKeys[0],this.keyboardKeys[1],this.keyboardKeys[2]]; track $index) {
+@for (row of [this.keyboardKeys()[0],this.keyboardKeys()[1],this.keyboardKeys()[2]]; track $index) {
 <div class="row">
   @for (key of row; track $index) {
-    <div class="key-value-container">
+    <div class="key-value-container" (click)="this.handleKeyClick($event,key)">
         @for( value of key.values; track $index) {
           <div class="key-value">
             {{ value }}
@@ -39,8 +39,8 @@
 }
 
 <div class="row-lasts row-penultimate">
-  @for (key of this.keyboardKeys[3]; track $index) {
-    <div class="key-value-container">
+  @for (key of this.keyboardKeys()[3]; track $index) {
+    <div class="key-value-container" (click)="this.handleKeyClick($event,key)">
         @for( value of key.values; track $index) {
           <div class="key-value">
             {{ value }}
@@ -51,8 +51,8 @@
 </div>
 
 <div class="row-lasts row-last">
-  @for (key of this.keyboardKeys[4]; track $index) {
-    <div class="key-value-container">
+  @for (key of this.keyboardKeys()[4]; track $index) {
+    <div class="key-value-container" (click)="this.handleKeyClick($event,key)">
         @for( value of key.values; track $index) {
           <div class="key-value">
             {{ value }}

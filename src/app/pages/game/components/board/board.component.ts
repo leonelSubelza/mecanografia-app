@@ -31,6 +31,8 @@ export class BoardComponent {
   @HostListener('document:keydown', ['$event'])
   handleKeyboardEvent(event: KeyboardEvent) {    
     const { key } = event;
+    console.log("Tecla presionada en tu tecaldo: "+key);
+    
     // The keyboard event only work when the input has no text
     if((key==='Backspace')&&this._appStateService.valueUserWriting()===''){
       this._boardHandlerService.handleLetterWritten(key);

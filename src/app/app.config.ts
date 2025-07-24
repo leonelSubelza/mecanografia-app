@@ -18,3 +18,5 @@ export const appConfig: ApplicationConfig = {
     importProvidersFrom(MatNativeDateModule), provideAnimationsAsync()
   ]
 };
+
+// Para abrir desde el mobile iniciar con "ng serve --host 0.0.0.0"

@@ -15,7 +15,7 @@ import { KeyboardComponent } from './components/keyboard/keyboard.component';
 @Component({
   selector: 'app-game',
   standalone: true,
-  imports: [TypingDisplayComponent, BoardComponent, GameInfoComponent,KeyboardComponent],
+  imports: [TypingDisplayComponent, BoardComponent, GameInfoComponent],
   templateUrl: './game.component.html',
   styleUrl: './game.component.css',
 })

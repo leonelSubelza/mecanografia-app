@@ -29,6 +29,8 @@ export class BoardHandlerService {
         this.playKeyPressedSound();
       }
 
+      this.scrollToActualWord();
+
       if (!this._appStateService.gameOver()){
         this._gameTimerService.startGameTimer();
         this._cpmService.startCPM();
@@ -53,7 +55,7 @@ export class BoardHandlerService {
       this.moveNextLetter();
       if (updateNewLetter && this._appStateService.getActualWord()){
         this._gameHandlerService.updateCorrectLetter();
-        this.scrollToActualWord();
+        // this.scrollToActualWord();
       } 
 
       this._appStateService.setValueUserWriting(this._appStateService.valueUserWriting()+key);
@@ -68,7 +70,7 @@ export class BoardHandlerService {
       this.movePrevLetter();
       if(statePrevLetter === LetterStatus.CORRECT) {
         this._gameHandlerService.updateCorrectLetter();
-        this.scrollToActualWord();
+        // this.scrollToActualWord();
       }
       
       // we erase the last letter of the value user
