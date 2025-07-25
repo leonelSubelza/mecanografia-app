@@ -12,7 +12,7 @@ import { NgClass } from '@angular/common';
 import { CpmService } from '../../../../services/cpm.service';
 
 
-const MATERIAL_MODULES = [MatLabel, MatInput, MatFormField, MatDialogModule, MatButtonModule, MatIconModule]
+const MATERIAL_MODULES = [MatDialogModule, MatButtonModule, MatIconModule]
 
 @Component({
   selector: 'app-modal',

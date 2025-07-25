@@ -20,6 +20,11 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/stats/stats.component').then(s => s.StatsComponent)
   },
   {
+    path: 'sprint-mode',
+    pathMatch: 'full',
+    loadComponent: () => import('./pages/sprint-mode/sprint-mode.component').then(s => s.SprintModeComponent)
+  },
+  {
     path: '**',
     redirectTo: '/'
   }

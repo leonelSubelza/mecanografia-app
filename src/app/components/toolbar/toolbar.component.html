@@ -1,34 +1,57 @@
 <mat-toolbar color='primary'>
-    <div class="items-container m-l">
-        <a mat-button class="item-page-name" routerLink="/">
-            <span>Mecanography app</span>
-            <mat-icon>favorite</mat-icon>
-        </a>
+  <div class="items-container m-l">
+    <a mat-button class="item-page-name" routerLink="/">
+      <span>Mecanography app</span>
+      <mat-icon>favorite</mat-icon>
+    </a>
+  </div>
+  <div class="items-container">
+    <a mat-button routerLink="/user">
+      <span class="item-span-txt">Usuario</span>
+      <mat-icon>person</mat-icon>
+    </a>
+
+    <div mat-button>
+      <button mat-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+        <!-- <mat-icon>more_vert</mat-icon> -->
+        <span class="item-span-txt">Modo</span>
+        <mat-icon>keyboard</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)="onMenuItemClick('/')">
+          <mat-icon>keyboard</mat-icon>
+          <label>Precisión</label>
+        </button>
+
+        <!-- <button mat-menu-item disabled>
+                    <mat-icon>voicemail</mat-icon>
+                    <span>Check voice mail</span>
+                </button> -->
+        <button mat-menu-item (click)="onMenuItemClick('/sprint-mode')">
+          <mat-icon>flash_on</mat-icon>
+          <span>Sprint</span>
+        </button>
+      </mat-menu>
     </div>
-    <div class="items-container">
-        <a mat-button routerLink="/user">
-            <span class="item-span-txt">Usuario</span>
-            <mat-icon>person</mat-icon>
-        </a>
-    
-        <a mat-button routerLink="/">
-            <span class="item-span-txt">Juego</span>
-            <mat-icon>keyboard</mat-icon>
-        </a>
-    
-        <a mat-button routerLink="/stats">
-            <span class="item-span-txt">Estadísticas</span>
-            <mat-icon>bar_chart</mat-icon>
-        </a>
+
+    <a mat-button routerLink="/stats">
+      <span class="item-span-txt">Estadísticas</span>
+      <mat-icon>bar_chart</mat-icon>
+    </a>
+  </div>
+  <div class="items-container m-r">
+    <div class="item-page" (click)="onStartNewGame()">
+      <a mat-button matTooltip="Nuevo juego"><mat-icon>autorenew</mat-icon></a>
     </div>
-    <div class="items-container m-r">
-        <div class="item-page">
-            <a mat-button (click)="onRefreshClick()"><mat-icon>refresh</mat-icon></a>
-        </div>
-        <div class="item-page" (click)="onClickSound()">
-            <a mat-button class="item-page-sound" [ngClass]="{active: this._appStateService.isSoundActive()}"><mat-icon>volume_up</mat-icon></a>
-            <a mat-button class="item-page-sound" [ngClass]="{active: !this._appStateService.isSoundActive()}"><mat-icon>volume_off</mat-icon></a>
-        </div>
-        
+    <div class="item-page">
+      <a mat-button (click)="onRefreshClick()" matTooltip="Reiniciar"><mat-icon>refresh</mat-icon></a>
     </div>
+    <div class="item-page" (click)="onClickSound()">
+      <a mat-button class="item-page-sound"
+        [ngClass]="{active: this._appStateService.isSoundActive()}"><mat-icon>volume_up</mat-icon></a>
+      <a mat-button class="item-page-sound"
+        [ngClass]="{active: !this._appStateService.isSoundActive()}"><mat-icon>volume_off</mat-icon></a>
+    </div>
+
+  </div>
 </mat-toolbar>

@@ -9,7 +9,7 @@
     <p>Velocidad: {{this._cpmService.cpm()}}PPM</p>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
-    <button mat-raised-button type="button" color="primary" class="btn-refresh" (click)="resetGame()">
+    <button mat-raised-button (click)="resetGame()">
         <label>Reiniciar</label> <mat-icon iconPositionEnd>refresh</mat-icon>
     </button>
     <button mat-flat-button color='primary' cdkFocusInitial (click)="newGame()">Jugar de nuevo</button>
