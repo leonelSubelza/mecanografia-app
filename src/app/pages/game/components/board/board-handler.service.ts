@@ -1,10 +1,10 @@
 import { ElementRef, inject, Injectable, ViewChild, viewChild } from '@angular/core';
-import { GameHandlerService } from '../../services/game.handler.service';
-import { AppStateService } from '../../services/app-state.service';
-import { GameTimerService } from '../../services/game-timer.service';
-import { UserAccuracyService } from '../../services/user-accuracy.service';
-import { LetterStatus, Word } from '../../interfaces/entities';
-import { CpmService } from '../../services/cpm.service';
+import { GameHandlerService } from '../../game.handler.service';
+import { AppStateService } from '../../../../services/app-state.service';
+import { GameTimerService } from '../../../../services/game-timer.service';
+import { UserAccuracyService } from '../../../../services/user-accuracy.service';
+import { GameMode, LetterStatus, Word } from '../../../../interfaces/entities';
+import { CpmService } from '../../../../services/cpm.service';
 
 @Injectable({
   providedIn: 'root'
@@ -104,10 +104,16 @@ export class BoardHandlerService {
     //if its the last letter in the word
     if (this._appStateService.indexActualLetter() === actualWord.word.length - 1) {
       //if it is the last word in the game
-      if (this._gameHandlerService.isGameCompleted()) {
+      if (this._gameHandlerService.isGameCompleted() && this._gameHandlerService.gameMode() === GameMode.NORMAL) {
         this._appStateService.setGameOver(true);
         // return;
         // aca le quite el return porque asi se pone el indexActualWord en +1 para actualizar el gamePercent
+      }
+      if (this._gameHandlerService.isGameCompleted() && this._gameHandlerService.gameMode() === GameMode.SPRINT){
+
+
+        //EN GAME HANDLER SERVICE HACER UNA FUNCION QUE PASE A LA SIGUIENTE PALABRA GUARDADA Y RENUEVE LA SIGUIENTE PALABRA
+
       }
       //we pass to the next word
       this.setNextWord(true);

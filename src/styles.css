@@ -11,18 +11,14 @@ body {
 
 app-root {
   width: 100%;
-  height: 100dvh;
+  height: 100%;
   display: flex;
   flex-direction: column;
 }
 
-.mdc-button__label {
-  /* color:#3f51b5; */
-  /* color: rgba(255, 255, 255, 0.87); */
-}
 
-app-game {
-  height: 90%;
+app-game, app-sprint-mode {
+  height: 100%;
   width: 98%;
   display: flex;
   margin: auto;

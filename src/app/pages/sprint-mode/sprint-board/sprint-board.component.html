@@ -1,0 +1,11 @@
+<div class="span-container"><span>Escribe esto:</span></div>
+
+<div class="letter-container">
+  @for (letter of this._sprintModeHandlerService.wordBoard(); track $index) {
+  <div [ngClass]="{
+    'active': letter.isActive && !this._sprintModeHandlerService.gameOver(), 
+    'correct': getLetterStatus(letter) === 'CORRECT',
+    'incorrect': getLetterStatus(letter) === 'INCORRECT',
+    }" class="letter">{{ letter.letter }}</div>
+  }
+</div>

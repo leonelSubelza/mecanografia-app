@@ -8,7 +8,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { Router, RouterLink } from '@angular/router';
 import { AppStateService } from '../../services/app-state.service';
 import { NgClass } from '@angular/common';
-import { GameHandlerService } from '../../services/game.handler.service';
+import { GameHandlerService } from '../../pages/game/game.handler.service';
 import { ConfirmationModalService } from './confirmation-modal/confirmation-modal.service';
 import { ConfirmationModalComponent } from './confirmation-modal/confirmation-modal.component';
 

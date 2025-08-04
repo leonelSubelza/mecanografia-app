@@ -1,13 +1,13 @@
 import { Component, HostListener, inject } from '@angular/core';
 import { Letter, LetterStatus, Word } from '../../../../interfaces/entities';
-import { GameHandlerService } from '../../../../services/game.handler.service';
+import { GameHandlerService } from '../../game.handler.service';
 import { WordComponent } from './word/word.component';
 import { MatCardModule } from '@angular/material/card';
 import { NgClass } from '@angular/common';
 import { AppStateService } from '../../../../services/app-state.service';
 import { GameTimerService } from '../../../../services/game-timer.service';
 import { UserAccuracyService } from '../../../../services/user-accuracy.service';
-import { BoardHandlerService } from '../../board-handler.service';
+import { BoardHandlerService } from './board-handler.service';
 
 @Component({
   selector: 'app-board',
@@ -28,14 +28,5 @@ export class BoardComponent {
   ngOnInit(): void {
   }
 
-  @HostListener('document:keydown', ['$event'])
-  handleKeyboardEvent(event: KeyboardEvent) {    
-    const { key } = event;
-    console.log("Tecla presionada en tu tecaldo: "+key);
-    
-    // The keyboard event only work when the input has no text
-    if((key==='Backspace')&&this._appStateService.valueUserWriting()===''){
-      this._boardHandlerService.handleLetterWritten(key);
-    }
-  }
+
 }

@@ -1,12 +1,12 @@
-import { inject, Injectable } from '@angular/core';
-import { Letter, LetterStatus, TextContent, Word } from '../interfaces/entities';
-import { texts } from '../shared/mock/texts.mock';
-import { AppStateService } from './app-state.service';
-import { GameTimerService } from './game-timer.service';
-import { ModalService } from '../pages/game/components/modal/modal.service';
-import { UserAccuracyService } from './user-accuracy.service';
-import { generateWord } from '../pages/game/utils/entity-generator';
-import { CpmService } from './cpm.service';
+import { inject, Injectable, signal } from '@angular/core';
+import { GameMode, Letter, LetterStatus, TextContent, Word } from '../../interfaces/entities';
+import { texts } from '../../shared/mock/texts.mock';
+import { AppStateService } from '../../services/app-state.service';
+import { GameTimerService } from '../../services/game-timer.service';
+import { UserAccuracyService } from '../../services/user-accuracy.service';
+import { generateWord } from './utils/entity-generator';
+import { CpmService } from '../../services/cpm.service';
+import { SprintModeHandlerService } from '../../services/sprint-mode.handler.service';
 
 
 @Injectable({
@@ -17,6 +17,9 @@ export class GameHandlerService {
   private _gameTimerService = inject(GameTimerService);
   private _userAccuracyService = inject(UserAccuracyService);
   private _cpmService = inject(CpmService);
+  // private _sprintModeHandlerService = inject(SprintModeHandlerService);
+
+  gameMode = signal<GameMode>(GameMode.NORMAL);
 
   isAValidWord(key: string): boolean {
     const regexString: string = `^[a-zA-Z0-9\\s.,;:?!'"()\\-áéíóúÁÉÍÓÚñÑüÜ]$`;
@@ -136,6 +139,7 @@ export class GameHandlerService {
     this.setRandomContent();
   }
 
+
   setRandomContent() {
     const randomContent = this.getRandomContent();
     this.setStartValues(randomContent);
@@ -159,4 +163,9 @@ export class GameHandlerService {
     this._appStateService.setIndexCorrectWord(0);
     this.updateCorrectLetter();
   }
+
+  updateGameMode(newMode: GameMode) {
+    this.gameMode.set(newMode);
+  }
+
 }

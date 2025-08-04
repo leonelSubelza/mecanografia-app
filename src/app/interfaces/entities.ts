@@ -1,5 +1,5 @@
 export interface TextContent {
-    title: string;
+    title?: string;
     text: string;
     letterCount?: number;   
 }
@@ -34,4 +34,9 @@ export interface Stats {
     bestTime: string,
     bestAccuracy: number,
     cpm: number;
+}
+
+export enum GameMode {
+    NORMAL = "NORMAL",
+    SPRINT = "SPRINT"
 }

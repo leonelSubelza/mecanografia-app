@@ -7,7 +7,7 @@ import { GameTimerService } from '../../../../services/game-timer.service';
 import { ModalService } from './modal.service';
 import { MatIconModule } from '@angular/material/icon';
 import { AppStateService } from '../../../../services/app-state.service';
-import { GameHandlerService } from '../../../../services/game.handler.service';
+import { GameHandlerService } from '../../game.handler.service';
 import { NgClass } from '@angular/common';
 import { CpmService } from '../../../../services/cpm.service';
 

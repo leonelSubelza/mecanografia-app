@@ -1,12 +1,88 @@
-import { Component } from '@angular/core';
+import { NgClass } from '@angular/common';
+import { Component, effect, inject, OnInit, signal } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { TypingDisplayComponent } from '../game/components/typing-display/typing-display.component';
+import { BoardComponent } from '../game/components/board/board.component';
+import { GameHandlerService } from '../game/game.handler.service';
+import { AppStateService } from '../../services/app-state.service';
+import { BoardHandlerService } from '../game/components/board/board-handler.service';
+import { SprintModeHandlerService } from '../../services/sprint-mode.handler.service';
+import { SprintBoardComponent } from './sprint-board/sprint-board.component';
+import { SprintModeBoardHandlerService } from './sprint-mode-board.handler.service';
+import { FormsModule } from '@angular/forms';
+
+const ANGULAR_MATERIAL_IMPORTS = [MatCardModule, MatButtonModule,MatCardModule, MatButtonModule, ];
 
 @Component({
   selector: 'app-sprint-mode',
   standalone: true,
-  imports: [],
+  imports: [ANGULAR_MATERIAL_IMPORTS,SprintBoardComponent,FormsModule,TypingDisplayComponent],
   templateUrl: './sprint-mode.component.html',
   styleUrl: './sprint-mode.component.css'
 })
-export class SprintModeComponent {
+export class SprintModeComponent implements OnInit {
+  _sprintModeHandlerService = inject(SprintModeHandlerService);
+  _sprintModeBoardHandlerService = inject(SprintModeBoardHandlerService);
+  _boardHandlerService = inject(BoardHandlerService);
+  _appStateService = inject(AppStateService);
+  valueUserWriting: string = '';
+  inputEvaluated = signal<string>('');
 
+  constructor() {
+    effect(()=>{
+      if(this._appStateService.gameOver()){
+       console.log(this._appStateService.board());
+       console.log(this._appStateService.correctLetter());
+      }
+    }, {allowSignalWrites: true})
+
+  }
+
+  ngOnInit(): void {
+    this._sprintModeHandlerService.startNewGameSprintMode();
+  }
+
+  handleInputWritten($event: string) {
+
+    console.log("key pulsada en modo sprint:" + $event);
+    this._sprintModeBoardHandlerService.handleLetterWritten($event);
+  }
+  /*
+  handleInput($event: any){
+    $event.preventDefault();
+    let key: string=$event.data;
+
+    
+    const textWritten = $event.target.value;
+    if(this.inputEvaluated() === ''){
+      this.inputEvaluated.set(textWritten);
+    }else{
+      if(this.inputEvaluated() === textWritten) {
+        return;
+      }
+    }
+    
+    // if the input has text, then we handle the delete. This is because of the mobile not recognize the keyboard if the input has text
+    if(key===null && this._sprintModeHandlerService.valueUserWritingSprintMode()!=='') {
+      key='Backspace';
+      console.log("se cambia key a Backspace");
+      
+    }
+    // if the key is null means the user pressed on Backspace button
+    if(key===null && this._sprintModeHandlerService.valueUserWritingSprintMode()==='') {
+      console.log("el input era vacio. return");
+      return;
+    }
+    
+    
+    this.inputEvaluated.set(textWritten);  
+    this._sprintModeBoardHandlerService.handleLetterWritten(key);
+    this._sprintModeHandlerService.valueUserWritingSprintMode.set(this.valueUserWriting);
+  }
+
+  preventPaste($event: any){
+
+  }
+  */
 }

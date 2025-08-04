@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { ConfirmationModalService } from './confirmation-modal.service';
 import { MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
-import { GameHandlerService } from '../../../services/game.handler.service';
+import { GameHandlerService } from '../../../pages/game/game.handler.service';
 import { MatButtonModule } from '@angular/material/button';
 
 @Component({

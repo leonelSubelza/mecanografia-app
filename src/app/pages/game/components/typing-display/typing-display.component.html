@@ -1,4 +1,7 @@
-<div class="current-word-container"><p>Palabra actual: "{{this.currentWord}}"</p></div>
+<!-- <div class="current-word-container"><p>Palabra actual: "{{this.currentWord}}"</p></div> -->
+@if (this.currentWord() && this.currentWord()!=='') {
+    <div class="current-word-container"><p>Palabra actual: "{{this.currentWord()}}"</p></div>
+} 
 <!-- <input type="text" value={{this._gameHandlerService.valueUserWriting()}}/> -->
 <mat-card appearance="outlined" [ngClass]="{'show-tooltip': this.showTooltipMessage}">
     <mat-card-content>
@@ -12,7 +15,7 @@
         [attr.autocomplete]="'off'"
         [spellcheck]="false"
         (paste)="preventPaste($event)"
-        value={{this._appStateService.valueUserWriting()}} 
+        [value]="this._appStateService.valueUserWriting()" 
         placeholder="Escribe la palabra actual!..." 
         (input)="handleInput($event)"
         />
@@ -26,7 +29,7 @@
         [attr.autocomplete]="'off'"
         [spellcheck]="false"
         (paste)="preventPaste($event)"
-        value={{this._appStateService.valueUserWriting()}} 
+        [value]="this._appStateService.valueUserWriting()" 
         placeholder="Escribe la palabra actual!..." 
         (input)="handleInput($event)"
         ></textarea>

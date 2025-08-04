@@ -1,1 +1,35 @@
-<p>sprint-mode works!</p>
+<div class="sprint-mode-header-container">
+  <div>
+    Puntuación:
+  </div>
+  <div>
+    Record:
+  </div>
+  <span></span>
+  <div>
+    Tiempo:
+  </div>
+</div>
+<app-sprint-board />
+<!-- <mat-card appearance="outlined" >
+    <mat-card-content>
+        <input 
+        id="inputSprintModeRef"
+        autofocus
+        #inputSprintModeRef
+        type="text" 
+        [attr.autocapitalize]="'off'"
+        [attr.autocorrect]="'off'"
+        [attr.autocomplete]="'off'"
+        [spellcheck]="false"
+        (paste)="preventPaste($event)"
+        [(ngModel)]="valueUserWriting"
+        placeholder="Escribe la palabra actual!..." 
+        (input)="handleInput($event)"
+        />
+      </mat-card-content>
+</mat-card> -->
+<app-typing-display 
+[input]="this._sprintModeHandlerService.valueUserWritingSprintMode()" 
+(onInput)="handleInputWritten($event)" 
+/>

@@ -1,6 +1,6 @@
 import { Component, inject, signal } from '@angular/core';
 import { Key, keys } from './keys.mock';
-import { BoardHandlerService } from '../../board-handler.service';
+import { BoardHandlerService } from '../board/board-handler.service';
 
 @Component({
   selector: 'app-keyboard',

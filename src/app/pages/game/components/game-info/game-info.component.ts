@@ -1,5 +1,5 @@
 import { Component, effect, inject, OnInit } from '@angular/core';
-import { GameHandlerService } from '../../../../services/game.handler.service';
+import { GameHandlerService } from '../../game.handler.service';
 import { AppStateService } from '../../../../services/app-state.service';
 import { GameTimerService } from '../../../../services/game-timer.service';
 import { MatProgressBarModule } from '@angular/material/progress-bar';

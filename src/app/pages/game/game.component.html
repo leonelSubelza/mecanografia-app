@@ -7,7 +7,15 @@
     </div>
     <app-board />
   </div>
-  <app-typing-display />
+  <app-typing-display 
+  [input]="this._appStateService.valueUserWriting()" 
+  [currentWord]="this.currentWord"
+  (onInput)="handleInputWritten($event)" 
+  />
+
+<!--   input = input.required<string>();
+  onInput = output<string>(); -->
+
   <!-- <app-keyboard /> -->
 
     <!-- @if (this._appStateService.gameOver()) {

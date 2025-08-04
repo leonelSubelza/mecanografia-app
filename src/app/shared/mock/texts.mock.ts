@@ -66,11 +66,7 @@ export const texts: TextContent[] = [
     text: 'Una API (Interfaz de Programación de Aplicaciones, por sus siglas en inglés) es un conjunto de reglas y definiciones que permite a diferentes aplicaciones o componentes de software interactuar entre sí. En esencia, una API define cómo las diferentes partes de un sistema de software pueden comunicarse y compartir información entre sí de manera segura y estructurada.'
   },
   {
-    title: 'Qué es una Bean en Spring Framework',
-    text: 'Un bean en Spring es un objeto que está gestionado dentro del contexto del contenedor de inversión de control (IoC) de Spring. Los beans son instancias de clases que son creadas, configuradas, y gestionadas por el contenedor IoC. El contenedor es responsable de controlar el ciclo de vida de los beans, incluyendo su creación, inicialización, y destrucción, así como la resolución de sus dependencias.'
-  },
-  {
-    title: 'Qué es una Bean en Spring Framework',
+    title: 'Qué es un Bean en Spring Framework',
     text: 'Un bean en Spring es un objeto que está gestionado dentro del contexto del contenedor de inversión de control (IoC) de Spring. Los beans son instancias de clases que son creadas, configuradas, y gestionadas por el contenedor IoC. El contenedor es responsable de controlar el ciclo de vida de los beans, incluyendo su creación, inicialización, y destrucción, así como la resolución de sus dependencias.'
   },
   {
