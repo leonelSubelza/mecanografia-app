@@ -1,6 +1,6 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, output, signal } from '@angular/core';
 import { Key, keys } from './keys.mock';
-import { BoardHandlerService } from '../board/board-handler.service';
+// import { BoardHandlerService } from '../board/board-handler.service';
 
 @Component({
   selector: 'app-keyboard',
@@ -11,7 +11,8 @@ import { BoardHandlerService } from '../board/board-handler.service';
 })
 // Al final este componente no se usa, pero lo dejo por si en el futuro se quiere implementar un teclado virtual
 export class KeyboardComponent {
-  _boardHandlerService = inject(BoardHandlerService);
+  // _boardHandlerService = inject(BoardHandlerService);
+  onKeyClick = output<string>();
 
   keyboardKeys = signal<Key[][]>(keys);
   // isSymbolsActive = signal<boolean>(false);
@@ -33,14 +34,16 @@ export class KeyboardComponent {
         return;
       }
       if(key.values[0] === 'SPACE') {
-        this._boardHandlerService.handleLetterWritten(' ');
+        // this._boardHandlerService.handleLetterWritten(' ');
+        this.onKeyClick.emit(" ");
         return;
       }
     }
 
-    this._boardHandlerService.handleLetterWritten(
-      key.values[key.values.length - 1]
-    );
+    this.onKeyClick.emit(key.values[key.values.length - 1]);
+    // this._boardHandlerService.handleLetterWritten(
+    //   key.values[key.values.length - 1]
+    // );
   }
 
   switchFirstValueOfKeys() {

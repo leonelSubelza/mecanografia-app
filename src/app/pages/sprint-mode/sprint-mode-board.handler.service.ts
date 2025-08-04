@@ -1,5 +1,5 @@
 import { inject, Injectable } from '@angular/core';
-import { SprintModeHandlerService } from '@/services/sprint-mode.handler.service';
+import { SprintModeHandlerService } from '@/pages/sprint-mode/services/sprint-mode.handler.service';
 import { Letter, LetterStatus } from '@/interfaces/entities';
 
 @Injectable({

@@ -1,5 +1,5 @@
 import { Injectable, signal } from '@angular/core';
-import { Letter, LetterStatus } from '../interfaces/entities';
+import { Letter, LetterStatus } from '../../../interfaces/entities';
 
 const CORRECT_LETTER_DEFAULT_VALUE = {
   id: '00',
@@ -12,9 +12,9 @@ const CORRECT_LETTER_DEFAULT_VALUE = {
 async function getWordsByLength(length: number): Promise<string[]> {
   switch (length) {
     case 5:
-      return (await import('../shared/mock/words/5')).fiveLetterWords;
+      return (await import('../../../shared/mock/words/5')).fiveLetterWords;
     case 6:
-      return (await import('../shared/mock/words/6')).sixLetterWords;
+      return (await import('../../../shared/mock/words/6')).sixLetterWords;
     default:
       throw new Error('Unsupported word length');
   }

@@ -4,7 +4,7 @@ import {MatButtonModule} from '@angular/material/button';
 import { GameTimerService } from '@/services/game-timer.service';
 import { ModalService } from './modal.service';
 import { MatIconModule } from '@angular/material/icon';
-import { AppStateService } from '@/services/app-state.service';
+import { AppStateService } from '@/pages/game/services/app-state.service';
 import { GameHandlerService } from '@game-mode/game.handler.service';
 import { NgClass } from '@angular/common';
 import { CpmService } from '@/services/cpm.service';

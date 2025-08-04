@@ -2,7 +2,7 @@ import { NgClass } from '@angular/common';
 import { Component, effect, inject, input, OnInit } from '@angular/core';
 import { Letter } from '@/interfaces/entities';
 import { GameHandlerService } from '@game-mode/game.handler.service';
-import { AppStateService } from '@/services/app-state.service';
+import { AppStateService } from '@/pages/game/services/app-state.service';
 
 @Component({
   selector: 'app-letter',

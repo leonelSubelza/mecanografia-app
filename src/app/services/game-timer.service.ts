@@ -1,5 +1,4 @@
-import { inject, Injectable, signal } from '@angular/core';
-import { AppStateService } from './app-state.service';
+import { Injectable, signal } from '@angular/core';
 
 const USER_TIME_DEFAULT_VALUE = '00:00:00'
 
@@ -7,8 +6,6 @@ const USER_TIME_DEFAULT_VALUE = '00:00:00'
   providedIn: 'root',
 })
 export class GameTimerService {
-  _appStateService = inject(AppStateService);
-
   userTime = signal<string>(USER_TIME_DEFAULT_VALUE);
 
   private intervalId: number| null = null;

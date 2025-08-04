@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject, model } from '@angular/core';
+import { ChangeDetectionStrategy, Component, effect, inject, model } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import {MatSelectModule} from '@angular/material/select';
 import {MatInputModule} from '@angular/material/input';
@@ -22,7 +22,13 @@ export class UserComponent {
   _generalStatsService = inject(GeneralStatsService);
   _snackBarService = inject(SnackBarService);
 
-  readonly username = model(this._generalStatsService.generalStats().username);
+  username = model(this._generalStatsService.generalStats().username);
+
+  constructor() {
+    effect(() => {
+      this.username.set(this._generalStatsService.generalStats().username);
+    },{ allowSignalWrites: true })
+  }
 
   onSave(){
     this._generalStatsService.setUsername(this.username());

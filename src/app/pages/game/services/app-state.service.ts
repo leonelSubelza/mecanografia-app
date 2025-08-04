@@ -1,5 +1,5 @@
 import { Injectable, signal } from '@angular/core';
-import { Letter, LetterStatus, TextContent, Word } from '../interfaces/entities';
+import { Letter, LetterStatus, TextContent, Word } from '@/interfaces/entities';
 import { texts } from '@/shared/mock/texts.mock';
 
 
