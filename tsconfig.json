@@ -2,6 +2,14 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "baseUrl": "./",
+    "paths": {
+      "@/*": ["src/app/*"],
+      "@game-mode/*": ["src/app/pages/game/*"],
+      "@sprint-mode/*": ["src/app/pages/sprint-mode/*"],
+      "@components/*": ["src/app/components/*"],
+      "@env/*": ["src/environments/*"],
+    },
     "outDir": "./dist/out-tsc",
     "strict": true,
     "noImplicitOverride": true,

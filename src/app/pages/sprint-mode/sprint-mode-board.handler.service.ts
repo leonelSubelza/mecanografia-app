@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
-import { SprintModeHandlerService } from '../../services/sprint-mode.handler.service';
-import { Letter, LetterStatus } from '../../interfaces/entities';
+import { SprintModeHandlerService } from '@/services/sprint-mode.handler.service';
+import { Letter, LetterStatus } from '@/interfaces/entities';
 
 @Injectable({
   providedIn: 'root',

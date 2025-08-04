@@ -1,13 +1,10 @@
-import { NgClass } from '@angular/common';
 import { Component, effect, inject, OnInit, signal } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
-import { TypingDisplayComponent } from '../game/components/typing-display/typing-display.component';
-import { BoardComponent } from '../game/components/board/board.component';
-import { GameHandlerService } from '../game/game.handler.service';
-import { AppStateService } from '../../services/app-state.service';
+import { TypingDisplayComponent } from '../../components/typing-display/typing-display.component';
+import { AppStateService } from '@/services/app-state.service';
 import { BoardHandlerService } from '../game/components/board/board-handler.service';
-import { SprintModeHandlerService } from '../../services/sprint-mode.handler.service';
+import { SprintModeHandlerService } from '@/services/sprint-mode.handler.service';
 import { SprintBoardComponent } from './sprint-board/sprint-board.component';
 import { SprintModeBoardHandlerService } from './sprint-mode-board.handler.service';
 import { FormsModule } from '@angular/forms';

@@ -1,12 +1,10 @@
-import { Component, HostListener, inject } from '@angular/core';
-import { Letter, LetterStatus, Word } from '../../../../interfaces/entities';
-import { GameHandlerService } from '../../game.handler.service';
+import { Component, inject } from '@angular/core';
+import { GameHandlerService } from '@game-mode/game.handler.service';
 import { WordComponent } from './word/word.component';
 import { MatCardModule } from '@angular/material/card';
-import { NgClass } from '@angular/common';
-import { AppStateService } from '../../../../services/app-state.service';
-import { GameTimerService } from '../../../../services/game-timer.service';
-import { UserAccuracyService } from '../../../../services/user-accuracy.service';
+import { AppStateService } from '@/services/app-state.service';
+import { GameTimerService } from '@/services/game-timer.service';
+import { UserAccuracyService } from '@/services/user-accuracy.service';
 import { BoardHandlerService } from './board-handler.service';
 
 @Component({

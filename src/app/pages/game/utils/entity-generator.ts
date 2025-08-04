@@ -1,4 +1,4 @@
-import { Letter, LetterStatus, Word } from "../../../interfaces/entities";
+import { Letter, LetterStatus, Word } from "@/interfaces/entities";
 
 export const generateLetterList = (word: string): Letter[] => {
     let letterList: Letter[] = [];

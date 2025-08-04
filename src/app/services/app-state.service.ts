@@ -1,6 +1,6 @@
 import { Injectable, signal } from '@angular/core';
 import { Letter, LetterStatus, TextContent, Word } from '../interfaces/entities';
-import { texts } from '../shared/mock/texts.mock';
+import { texts } from '@/shared/mock/texts.mock';
 
 
 const CORRECT_LETTER_DEFAULT_VALUE = {

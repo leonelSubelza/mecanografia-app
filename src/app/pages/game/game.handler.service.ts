@@ -1,12 +1,8 @@
 import { inject, Injectable, signal } from '@angular/core';
-import { GameMode, Letter, LetterStatus, TextContent, Word } from '../../interfaces/entities';
-import { texts } from '../../shared/mock/texts.mock';
-import { AppStateService } from '../../services/app-state.service';
-import { GameTimerService } from '../../services/game-timer.service';
-import { UserAccuracyService } from '../../services/user-accuracy.service';
-import { generateWord } from './utils/entity-generator';
-import { CpmService } from '../../services/cpm.service';
-import { SprintModeHandlerService } from '../../services/sprint-mode.handler.service';
+import { GameMode, Letter, LetterStatus, TextContent, Word } from '@/interfaces/entities';
+import { texts } from '@/shared/mock/texts.mock';
+import { generateWord } from '@game-mode/utils/entity-generator';
+import { AppStateService, CpmService, GameTimerService, UserAccuracyService } from '@/services';
 
 
 @Injectable({

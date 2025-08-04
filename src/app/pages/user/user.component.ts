@@ -5,10 +5,9 @@ import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
-import { GeneralStatsService } from '../../services/general-stats.service';
+import { GeneralStatsService } from '@/services/general-stats.service';
 import { FormsModule } from '@angular/forms';
-import { Stats } from '../../interfaces/entities';
-import { SnackBarService } from '../../services/snack-bar.service';
+import { SnackBarService } from '@/services/snack-bar.service';
 
 @Component({
   selector: 'app-user',

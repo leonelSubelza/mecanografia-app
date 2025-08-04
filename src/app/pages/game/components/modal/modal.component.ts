@@ -1,15 +1,13 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
-import { MatFormField, MatLabel } from '@angular/material/form-field';
-import { MatInput } from '@angular/material/input';
 import {MatButtonModule} from '@angular/material/button';
-import { GameTimerService } from '../../../../services/game-timer.service';
+import { GameTimerService } from '@/services/game-timer.service';
 import { ModalService } from './modal.service';
 import { MatIconModule } from '@angular/material/icon';
-import { AppStateService } from '../../../../services/app-state.service';
-import { GameHandlerService } from '../../game.handler.service';
+import { AppStateService } from '@/services/app-state.service';
+import { GameHandlerService } from '@game-mode/game.handler.service';
 import { NgClass } from '@angular/common';
-import { CpmService } from '../../../../services/cpm.service';
+import { CpmService } from '@/services/cpm.service';
 
 
 const MATERIAL_MODULES = [MatDialogModule, MatButtonModule, MatIconModule]

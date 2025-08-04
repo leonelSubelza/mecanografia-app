@@ -1,10 +1,8 @@
-import { ElementRef, inject, Injectable, ViewChild, viewChild } from '@angular/core';
-import { GameHandlerService } from '../../game.handler.service';
-import { AppStateService } from '../../../../services/app-state.service';
-import { GameTimerService } from '../../../../services/game-timer.service';
-import { UserAccuracyService } from '../../../../services/user-accuracy.service';
-import { GameMode, LetterStatus, Word } from '../../../../interfaces/entities';
-import { CpmService } from '../../../../services/cpm.service';
+import { inject, Injectable } from '@angular/core';
+import { GameHandlerService } from '@game-mode/game.handler.service';
+import { GameMode, LetterStatus, Word } from '@/interfaces/entities';
+import { CpmService } from '@/services/cpm.service';
+import { AppStateService, GameTimerService, UserAccuracyService } from '@/services';
 
 @Injectable({
   providedIn: 'root'

@@ -1,10 +1,10 @@
 import { Component, effect, inject, OnInit } from '@angular/core';
-import { GameHandlerService } from '../../game.handler.service';
-import { AppStateService } from '../../../../services/app-state.service';
-import { GameTimerService } from '../../../../services/game-timer.service';
+import { GameHandlerService } from '@game-mode/game.handler.service';
+import { AppStateService } from '@/services/app-state.service';
+import { GameTimerService } from '@/services/game-timer.service';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatButtonModule } from '@angular/material/button';
-import { Word } from '../../../../interfaces/entities';
+import { Word } from '@/interfaces/entities';
 import { MatIconModule } from '@angular/material/icon';
 import { ModalService } from '../modal/modal.service';
 import { ModalComponent } from '../modal/modal.component';

@@ -1,25 +1,21 @@
 import {
   AfterViewInit,
   Component,
-  HostListener,
   OnInit,
   effect,
   inject,
   signal,
 } from '@angular/core';
 import { GameHandlerService } from './game.handler.service';
-import { TypingDisplayComponent } from './components/typing-display/typing-display.component';
-import { BoardComponent } from './components/board/board.component';
-import { GameInfoComponent } from './components/game-info/game-info.component';
-import { AppStateService } from '../../services/app-state.service';
-import { GeneralStatsService } from '../../services/general-stats.service';
+import { BoardComponent } from '@game-mode/components/board/board.component';
 import * as confetti from 'canvas-confetti';
-import { CpmService } from '../../services/cpm.service';
-import { Stats, Word } from '../../interfaces/entities';
+import { Stats, Word } from '@/interfaces/entities';
 import { ModalComponent } from './components/modal/modal.component';
+import { GameInfoComponent } from './components/game-info/game-info.component';
+import { AppStateService, CpmService, GeneralStatsService } from '@/services';
 import { ModalService } from './components/modal/modal.service';
-import { KeyboardComponent } from './components/keyboard/keyboard.component';
 import { BoardHandlerService } from './components/board/board-handler.service';
+import { TypingDisplayComponent } from '@/components';
 
 @Component({
   selector: 'app-game',

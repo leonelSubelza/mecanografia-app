@@ -1,8 +1,8 @@
 import { NgClass } from '@angular/common';
 import { Component, effect, inject, input, OnInit } from '@angular/core';
-import { Letter } from '../../../../../../interfaces/entities';
-import { GameHandlerService } from '../../../../game.handler.service';
-import { AppStateService } from '../../../../../../services/app-state.service';
+import { Letter } from '@/interfaces/entities';
+import { GameHandlerService } from '@game-mode/game.handler.service';
+import { AppStateService } from '@/services/app-state.service';
 
 @Component({
   selector: 'app-letter',

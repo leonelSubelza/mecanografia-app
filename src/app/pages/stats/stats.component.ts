@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
-import { GeneralStatsService } from '../../services/general-stats.service';
+import { GeneralStatsService } from '@/services/general-stats.service';
 
 @Component({
   selector: 'app-stats',
