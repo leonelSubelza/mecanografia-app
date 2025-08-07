@@ -1,12 +1,12 @@
 <!-- <h1 mat-dialog-title>Juego completado!</h1> -->
-<h1 mat-dialog-title>{{this.modalTitle}}</h1>
-<label class="new-record-label" [ngClass]="{'active': this.isNewRecord}">¡Nuevo Record!</label>
+<h1 mat-dialog-title>{{this.modalTitle()}}</h1>
+<label class="new-record-label" [ngClass]="{'active': this.isNewRecord()}">¡Nuevo Record!</label>
 <mat-dialog-content>
-    <p>Texto: {{this._appStateService.textContent().title}}</p>
-    <p>Precisión: {{this._appStateService.userAccuracy()}}%</p>
-    <p>Tiempo: {{this._gameTimerService.userTime()}}</p>
+    <p>Texto: {{this.textTitle()}}</p>
+    <p>Precisión: {{this.accuracy()}}%</p>
+    <p>Tiempo: {{this.totalTime()}}</p>
     <!-- <p>Pulsaciones totales: {{this._cpmService.characterCount()}}</p> -->
-    <p>Velocidad: {{this._cpmService.cpm()}}PPM</p>
+    <p>Velocidad: {{this.cpmValue()}}PPM</p>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
     <button mat-raised-button (click)="resetGame()">

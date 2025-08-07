@@ -1,13 +1,12 @@
 import { Component, effect, inject, OnInit, signal } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
-import { TypingDisplayComponent } from '../../components/typing-display/typing-display.component';
-import { AppStateService } from '@/pages/game/services/app-state.service';
-import { BoardHandlerService } from '../game/components/board/board-handler.service';
 import { SprintModeHandlerService } from '@/pages/sprint-mode/services/sprint-mode.handler.service';
 import { SprintBoardComponent } from './sprint-board/sprint-board.component';
 import { SprintModeBoardHandlerService } from './sprint-mode-board.handler.service';
 import { FormsModule } from '@angular/forms';
+import { GameTimerService } from '@/services';
+import { TypingDisplayComponent } from '@/components';
 
 const ANGULAR_MATERIAL_IMPORTS = [MatCardModule, MatButtonModule,MatCardModule, MatButtonModule, ];
 
@@ -21,28 +20,32 @@ const ANGULAR_MATERIAL_IMPORTS = [MatCardModule, MatButtonModule,MatCardModule, 
 export class SprintModeComponent implements OnInit {
   _sprintModeHandlerService = inject(SprintModeHandlerService);
   _sprintModeBoardHandlerService = inject(SprintModeBoardHandlerService);
-  _boardHandlerService = inject(BoardHandlerService);
-  _appStateService = inject(AppStateService);
-  valueUserWriting: string = '';
-  inputEvaluated = signal<string>('');
+
+  _timerService = inject(GameTimerService);
+  // _boardHandlerService = inject(BoardHandlerService);
+  // _appStateService = inject(AppStateService);
+  // valueUserWriting: string = '';
+  // inputEvaluated = signal<string>('');
 
   constructor() {
     effect(()=>{
-      if(this._appStateService.gameOver()){
-       console.log(this._appStateService.board());
-       console.log(this._appStateService.correctLetter());
-      }
+      // if(this._appStateService.gameOver()){
+      //  console.log(this._appStateService.board());
+      //  console.log(this._appStateService.correctLetter());
+      // }
     }, {allowSignalWrites: true})
 
   }
 
   ngOnInit(): void {
+    this._sprintModeHandlerService.resetValues();
     this._sprintModeHandlerService.startNewGameSprintMode();
+    this._timerService.resetUserTimeCountdown();
   }
 
   handleInputWritten($event: string) {
 
-    console.log("key pulsada en modo sprint:" + $event);
+    // console.log("key pulsada en modo sprint:" + $event);
     this._sprintModeBoardHandlerService.handleLetterWritten($event);
   }
   /*

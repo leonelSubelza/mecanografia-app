@@ -6,8 +6,8 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatButtonModule } from '@angular/material/button';
 import { Word } from '@/interfaces/entities';
 import { MatIconModule } from '@angular/material/icon';
-import { ModalService } from '../modal/modal.service';
-import { ModalComponent } from '../modal/modal.component';
+import { CpmService } from '@/services';
+import { GameOverlayDialogComponent, GameOverlayDialogService } from '@/components';
 
 @Component({
   selector: 'app-game-info',
@@ -19,8 +19,10 @@ import { ModalComponent } from '../modal/modal.component';
 export class GameInfoComponent implements OnInit{
   _gameHandlerService = inject(GameHandlerService);
   _appStateService = inject(AppStateService);
-  _modalService = inject(ModalService);
+  _gameOverlayDialogService = inject(GameOverlayDialogService);
   _userTimerService = inject(GameTimerService);
+  _cpmService = inject(CpmService);
+  _gameTimerService = inject(GameTimerService);
 
   constructor(){
     effect(()=>{
@@ -73,11 +75,30 @@ export class GameInfoComponent implements OnInit{
     return cantWordCompleted;
   }
 
-  showModal(){
+  openModal(){
     const data = {
-      title:"Estadísticas",
-      isNewRecord:false
-    }
-    this._modalService.openModal<ModalComponent>(ModalComponent,data);
+      title: 'Estadísticas!',
+      isNewRecord: false,
+      textTitle: this._appStateService.textContent().title,
+      accuracy: this._appStateService.userAccuracy(),
+      totalTime: this._gameTimerService.userTime(),
+      cpmValue: this._cpmService.cpm(),
+    };
+    const dialogRef = this._gameOverlayDialogService.openModal<GameOverlayDialogComponent>(GameOverlayDialogComponent,data);
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (!result) return;
+
+      switch (result.action) {
+        case 'newGame':
+          this._gameHandlerService.startNewGame();
+          break;
+        case 'resetGame':
+          this._gameHandlerService.restartGame();
+          break;
+        default:
+          break;
+      }
+    });
   }
 }

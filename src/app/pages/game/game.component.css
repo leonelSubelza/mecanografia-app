@@ -1,6 +1,6 @@
 app-game-info {
   height: 10%;
-  width: 95%;
+  width: 100%;
   margin: 0 auto;
   display: flex;
   flex-wrap: wrap;
@@ -36,14 +36,12 @@ h1 {
 
 app-typing-display {
   display: flex;
-  flex-wrap: wrap;
-  /* flex-direction: column; */
-  width: 95%;
+  flex-direction: column;
+  /* width: 95%; */
+  width: 100%;
   height: 25%;
   padding: 10px 0;
-  margin: 0 auto;
-  /* height: 1rem; */
-  /* min-height: 20%; */
+  margin: 0 auto 0 0;
 }
 
 app-keyboard {
@@ -65,12 +63,12 @@ app-keyboard {
     display: none;
   } */
 
-  /* app-typing-display {
-    display: none;
-  } */
+  app-typing-display {
+    flex-wrap: wrap;
+  }
 
-  app-keyboard {
+  /* app-keyboard {
     display: grid;
     height: 40%;
-  }
+  } */
 }

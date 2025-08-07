@@ -7,7 +7,7 @@
   </div>
   <span></span>
   <div>
-    Tiempo:
+    Tiempo: {{ this._timerService.userTime() }}
   </div>
 </div>
 <app-sprint-board />
@@ -29,7 +29,5 @@
         />
       </mat-card-content>
 </mat-card> -->
-<app-typing-display 
-[input]="this._sprintModeHandlerService.valueUserWritingSprintMode()" 
-(onInput)="handleInputWritten($event)" 
-/>
+  <app-typing-display [input]="this._sprintModeHandlerService.valueUserWritingSprintMode()"
+    (onInput)="handleInputWritten($event)" />

@@ -19,20 +19,18 @@ app-root {
 
 app-game, app-sprint-mode {
   height: 100%;
-  width: 98%;
+  width: 85%;
   display: flex;
-  margin: auto;
+  margin: 0 auto;
   flex-direction: column;
   background-color: #fff;
 }
 
 @media screen and (max-width: 1000px) {
-  app-toolbar {
-    height: 10%;
-    width: 100%;
-  }
-
   app-game {
     height: 80%;
+  }
+  app-game, app-sprint-mode {
+    width: 98%;
   }
 }

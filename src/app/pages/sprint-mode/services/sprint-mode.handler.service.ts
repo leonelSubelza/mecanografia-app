@@ -1,5 +1,6 @@
-import { Injectable, signal } from '@angular/core';
+import { effect, inject, Injectable, signal } from '@angular/core';
 import { Letter, LetterStatus } from '../../../interfaces/entities';
+import { GameTimerService } from '@/services';
 
 const CORRECT_LETTER_DEFAULT_VALUE = {
   id: '00',
@@ -24,12 +25,15 @@ async function getWordsByLength(length: number): Promise<string[]> {
   providedIn: 'root',
 })
 export class SprintModeHandlerService {
+  _timerService = inject(GameTimerService);
+
   gameOver = signal<boolean>(false);
   userTime = signal<string>('');
   userScore = signal<number>(0);
   isSoundActive = signal<boolean>(true);
   difficulty = signal<number>(5);
 
+  listWordsLoaded = signal<string[]>([]);
   currentWord = signal<string>('');
   wordsPlayed = signal<string[]>([]);
 
@@ -59,8 +63,15 @@ export class SprintModeHandlerService {
    gamePercentCompleted = signal<number>(0);
  * 
  */
-
-  constructor() {}
+  constructor() {
+    // Esto es como un "thread reactivo"
+    effect(() => {
+      if (this._timerService.isTimerCountdownFinished()) {
+        this.finishGame();
+        return;
+      }
+    }, {allowSignalWrites: true});
+  }
 
   startNewGameSprintMode() {
     // this.resetAllValues();
@@ -68,24 +79,25 @@ export class SprintModeHandlerService {
   }
 
   async setNewRandomWordSprintMode(cantLetters: number = 5) {
-    let arrayRandomWords: string[] = await getWordsByLength(cantLetters);
+    let arrayRandomWords: string[];
+    if (
+      this.difficulty() !== cantLetters ||
+      !this.listWordsLoaded() ||
+      this.listWordsLoaded().length === 0
+    ) {
+      arrayRandomWords = await getWordsByLength(cantLetters);
+    } else {
+      arrayRandomWords = this.listWordsLoaded();
+    }
 
     if (this.currentWord() !== '') {
       this.wordsPlayed.set([...this.wordsPlayed(), this.currentWord()]);
     }
 
-    let indexRandomWord: number = Math.floor(
-      Math.random() * arrayRandomWords.length
-    );
-
-    while (this.wordsPlayed().includes(arrayRandomWords[indexRandomWord])) {
-      indexRandomWord = Math.floor(Math.random() * arrayRandomWords.length);
-    }
-
-    const randomWord = arrayRandomWords[indexRandomWord];
+    const randomWord: string = this.getRandomWordFromListLoaded(arrayRandomWords);
 
     this.currentWord.set(randomWord);
-
+    this.listWordsLoaded.set(arrayRandomWords);
     this.setStartValues(randomWord);
   }
 
@@ -109,11 +121,36 @@ export class SprintModeHandlerService {
     }));
   }
 
+  getRandomWordFromListLoaded(arrayRandomWords: string[]): string {
+    let indexRandomWord: number = Math.floor(
+      Math.random() * arrayRandomWords.length
+    );
+
+    while (this.wordsPlayed().includes(arrayRandomWords[indexRandomWord])) {
+      indexRandomWord = Math.floor(Math.random() * arrayRandomWords.length);
+    }
+
+    return arrayRandomWords[indexRandomWord];
+  }
+
   updateActualLetterStatus(status: LetterStatus) {
     this.wordBoard()[this.indexActualLetter()].status = status;
   }
 
   updateActualLetterStatusActive(status: boolean) {
     this.wordBoard()[this.indexActualLetter()].isActive = status;
+  }
+
+  resetValues() {
+    this.valueUserWritingSprintMode.set('');
+  }
+
+  loadNewWord() {
+    this.setNewRandomWordSprintMode(this.difficulty());
+  }
+
+  finishGame() {
+    this._timerService.stopGameTimer();
+    this.gameOver.set(true);
   }
 }

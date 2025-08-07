@@ -2,7 +2,7 @@
   display: flex;
   height: auto;
   width: 100%;
-  margin: auto 0;
+  margin-bottom: 1rem;
 }
 
 .current-word-container p {
@@ -11,8 +11,12 @@
   margin: auto 0;
 }
 
+.input-container {
+  display: flex;
+}
+
 mat-card {
-  width: 50%;
+  width: 100%;
   /* margin: 5px auto auto 15px; */
   background-color: #fff;
   display: flex;
@@ -78,7 +82,7 @@ input:focus-visible {
 
 .tooltip-msg-container {
   display: flex;
-  width: 50%;
+  width: 100%;
 }
 
 .tooltip-msg {
@@ -98,6 +102,9 @@ input:focus-visible {
 }
 
 @media screen and (max-width: 1000px) {
+  .input-container {
+    flex-wrap: wrap;
+  }
   mat-card {
     height: auto;
     width: 100%;

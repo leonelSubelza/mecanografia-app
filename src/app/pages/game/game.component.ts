@@ -10,12 +10,15 @@ import { GameHandlerService } from './game.handler.service';
 import { BoardComponent } from '@game-mode/components/board/board.component';
 import * as confetti from 'canvas-confetti';
 import { Stats, Word } from '@/interfaces/entities';
-import { ModalComponent } from './components/modal/modal.component';
 import { GameInfoComponent } from './components/game-info/game-info.component';
-import { AppStateService, CpmService, GeneralStatsService } from '@/services';
-import { ModalService } from './components/modal/modal.service';
+import {
+  AppStateService,
+  CpmService,
+  GameTimerService,
+  GeneralStatsService,
+} from '@/services';
 import { BoardHandlerService } from './components/board/board-handler.service';
-import { TypingDisplayComponent } from '@/components';
+import { GameOverlayDialogComponent, GameOverlayDialogService, TypingDisplayComponent } from '@/components';
 
 @Component({
   selector: 'app-game',
@@ -28,13 +31,13 @@ export class GameComponent implements OnInit, AfterViewInit {
   _gameHandlerService = inject(GameHandlerService);
   _appStateService = inject(AppStateService);
   _generalStatsService = inject(GeneralStatsService);
-  _cpmService = inject(CpmService);
-  _modalService = inject(ModalService);
+  _gameOverlayDialogService = inject(GameOverlayDialogService);
   _boardHandlerService = inject(BoardHandlerService);
+  _cpmService = inject(CpmService);
+  _gameTimerService = inject(GameTimerService);
 
   isMobile = signal<boolean>(false);
   currentWord!: string;
-
 
   private confettiInstance: any;
   private gameFinished: boolean = false;
@@ -83,10 +86,10 @@ export class GameComponent implements OnInit, AfterViewInit {
   }
 
   // @HostListener('document:keydown', ['$event'])
-  // handleKeyboardEvent(event: KeyboardEvent) {    
+  // handleKeyboardEvent(event: KeyboardEvent) {
   //   const { key } = event;
   //   console.log("Tecla presionada en tu teclado: "+key);
-    
+
   //   // The keyboard event only work when the input has no text
   //   if((key==='Backspace')&&this._appStateService.valueUserWriting()==='') {
   //     this._boardHandlerService.handleLetterWritten(key);
@@ -152,17 +155,41 @@ export class GameComponent implements OnInit, AfterViewInit {
 
   handleGameFinished(isNewRecord: boolean) {
     this.gameFinished = true;
+    this.openModal(isNewRecord);
+  }
+
+  handleInputWritten($event: string) {
+    // console.log('key pulsada en modo normal:' + $event);
+    this._boardHandlerService.handleLetterWritten($event);
+  }
+
+  openModal(isNewRecord: boolean) {
     const data = {
       title: 'Juego Completado!',
       isNewRecord: isNewRecord,
+      textTitle: this._appStateService.textContent().title,
+      accuracy: this._appStateService.userAccuracy(),
+      totalTime: this._gameTimerService.userTime(),
+      cpmValue: this._cpmService.cpm(),
     };
-    this._modalService.openModal<ModalComponent>(ModalComponent, data);
-  }
+    const dialogRef = this._gameOverlayDialogService.openModal<GameOverlayDialogComponent>(
+      GameOverlayDialogComponent,
+      data
+    );
 
-  handleInputWritten($event: string){
+    dialogRef.afterClosed().subscribe((result) => {
+      if (!result) return;
 
-    console.log("key pulsada en modo normal:" + $event);
-    
-    this._boardHandlerService.handleLetterWritten($event);
+      switch (result.action) {
+        case 'newGame':
+          this._gameHandlerService.startNewGame();
+          break;
+        case 'resetGame':
+          this._gameHandlerService.restartGame();
+          break;
+        default:
+          break;
+      }
+    });
   }
 }

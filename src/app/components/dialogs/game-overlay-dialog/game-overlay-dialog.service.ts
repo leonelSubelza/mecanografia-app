@@ -1,11 +1,11 @@
 import { ComponentType } from '@angular/cdk/portal';
 import { inject, Injectable } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ModalService {
+export class GameOverlayDialogService {
 
   private readonly _dialog = inject(MatDialog);
 
@@ -14,14 +14,11 @@ export class ModalService {
   /* Esta funcion recibe 
   una referencia al componente que contiene al modal (mat-dialog) y si esta todo ok lo muestra, 
   */
-  openModal<CT>(componentRef: ComponentType<CT>, data: any): void {
-    const {title,isNewRecord} = data;
-    this._dialog.open(componentRef,{
+  openModal<CT>(componentRef: ComponentType<CT>, data: any): MatDialogRef<CT> {
+    // const {title,isNewRecord} = data;
+    return this._dialog.open(componentRef,{
       width: '400px',
-      data: { 
-        title: title,
-        isNewRecord: isNewRecord
-      }
+      data,
     })
     // const config = {data};
     // this._dialog.open(componentRef, {

@@ -6,11 +6,10 @@ import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { Router, RouterLink } from '@angular/router';
-import { AppStateService } from '../../pages/game/services/app-state.service';
 import { NgClass } from '@angular/common';
-import { GameHandlerService } from '../../pages/game/game.handler.service';
-import { ConfirmationModalService } from './confirmation-modal/confirmation-modal.service';
-import { ConfirmationModalComponent } from './confirmation-modal/confirmation-modal.component';
+import { GameHandlerService } from '@/pages/game/game.handler.service';
+import { ConfirmationDialogComponent, ConfirmationDialogService } from '../dialogs';
+import { AppStateService } from '@/services';
 
 @Component({
   selector: 'app-toolbar',
@@ -22,7 +21,7 @@ import { ConfirmationModalComponent } from './confirmation-modal/confirmation-mo
 export class ToolbarComponent {
   _appStateService = inject(AppStateService);
   _gameHandlerService = inject(GameHandlerService);
-  _confirmationModalService = inject(ConfirmationModalService);
+  _confirmationDialogService = inject(ConfirmationDialogService);
   _router = inject(Router)
 
   onMenuItemClick(path: string) {
@@ -30,7 +29,20 @@ export class ToolbarComponent {
   }
 
   onStartNewGame() {
-    this._confirmationModalService.openModal<ConfirmationModalComponent>(ConfirmationModalComponent);
+    const data = { message: '¿Está seguro que desea iniciar una nueva partida?'};
+    const dialogRef = this._confirmationDialogService.openModal<ConfirmationDialogComponent>(ConfirmationDialogComponent,data);
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (!result) return;
+
+      switch (result.action) {
+        case 'accept':
+          this._gameHandlerService.startNewGame();
+          break;
+        default:
+          break;
+      }
+    });
   }
 
   onClickSound(){

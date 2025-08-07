@@ -14,9 +14,8 @@ import {  NgClass } from '@angular/common';
   styleUrl: './typing-display.component.css',
 })
 export class TypingDisplayComponent implements OnInit {
-  _gameHandlerService = inject(GameHandlerService);
   _appStateService = inject(AppStateService);
-  _boardHandlerService = inject(BoardHandlerService);
+  // _boardHandlerService = inject(BoardHandlerService);
 
   input = input.required<string>();
   currentWord = input<string>();
@@ -97,18 +96,16 @@ export class TypingDisplayComponent implements OnInit {
     }
 
 
-    console.log("texto escrito: "+this.input());
+    // console.log("texto escrito: "+this.input());
     
     // if the input has text, then we handle the delete. This is because of the mobile not recognize the keyboard if the input has text
     // if(key===null&&this._appStateService.valueUserWriting()!=='') {
     if(key===null&&this.input()!=='') {
       key='Backspace';
-      console.log("se cambia key a Backspace");
     }
     // if the key is null means the user pressed on Backspace button
     // if(key===null&&this._appStateService.valueUserWriting()==='') {
     if(key===null&&this.input()==='') {
-      console.log("Se pulsó Backspace y no habia texto, se retorna");
       return;
     }
     // if(this.isMobile()) {

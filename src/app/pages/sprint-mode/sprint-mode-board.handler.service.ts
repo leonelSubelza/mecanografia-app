@@ -1,12 +1,14 @@
 import { inject, Injectable } from '@angular/core';
 import { SprintModeHandlerService } from '@/pages/sprint-mode/services/sprint-mode.handler.service';
 import { Letter, LetterStatus } from '@/interfaces/entities';
+import { GameTimerService } from '@/services';
 
 @Injectable({
   providedIn: 'root',
 })
 export class SprintModeBoardHandlerService {
   _sprintModeHandlerService = inject(SprintModeHandlerService);
+  _timerService = inject(GameTimerService);
 
   constructor() {}
 
@@ -17,10 +19,12 @@ export class SprintModeBoardHandlerService {
   }
 
   handleLetterWritten(key: string) {
-    // if (this._appStateService.gameOver()){
-    //   this._gameTimerService.stopGameTimer()
-    //   return;
-    // }
+    if (this._sprintModeHandlerService.gameOver()){
+      console.log("es game over");
+      
+      this._timerService.stopGameTimer()
+      return;
+    }
 
     // console.log(
     //   'index actual letter: ' +
@@ -33,7 +37,6 @@ export class SprintModeBoardHandlerService {
     // console.log(this._sprintModeHandlerService.wordBoard());
 
     if (this.isAValidWord(key)) {
-      console.log('is valid word');
 
       // if(this._appStateService.isSoundActive()){
       //   this.playKeyPressedSound();
@@ -41,10 +44,10 @@ export class SprintModeBoardHandlerService {
 
       // this.scrollToActualWord();
 
-      // if (!this._sprintModeHandlerService.gameOver()){
-      //   this._gameTimerService.startGameTimer();
-      //   this._cpmService.startCPM();
-      // }
+      if (!this._sprintModeHandlerService.gameOver()){
+        this._timerService.startCountDownGameTimer();
+        // this._cpmService.startCPM();
+      }
 
       let updateNewLetter: boolean = false;
       // this._userAccuracyService.addOneTotalLettersWritten();
@@ -64,7 +67,7 @@ export class SprintModeBoardHandlerService {
       }
 
       if (this.isWordCompleted()) {
-        console.log("PASAR A LA SIGUIENTE PALABRA!!!!!!!!");
+        this._sprintModeHandlerService.loadNewWord();
         return;
       }
       this.moveNextLetter();
@@ -94,10 +97,14 @@ export class SprintModeBoardHandlerService {
       ) {
         // console.log('se borra');
 
+        // console.log("texto para borrar ult letra: "+this._sprintModeHandlerService.valueUserWritingSprintMode());
+        
         const valueUserWithoutLastCharacter = this._sprintModeHandlerService
           .valueUserWritingSprintMode()
           .slice(0, -1);
         this._sprintModeHandlerService.valueUserWritingSprintMode.set(valueUserWithoutLastCharacter);
+        
+        // console.log("texto sin ult letra: "+this._sprintModeHandlerService.valueUserWritingSprintMode());
       }
     }
     // console.log('nuevos datos:');
@@ -151,7 +158,7 @@ export class SprintModeBoardHandlerService {
       this._sprintModeHandlerService.wordBoard()[indexActualLetter + 1].isActive = true;
       // this._sprintModeHandlerService.indexActualLetter.set(indexActualLetter+1);
     } else {
-      console.log('es la última letra');
+      // console.log('es la última letra');
     }
     this._sprintModeHandlerService.indexActualLetter.set(indexActualLetter + 1);
   }

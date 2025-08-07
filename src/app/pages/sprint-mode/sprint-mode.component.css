@@ -55,3 +55,16 @@ input:active,
 input:focus-visible {
   outline: none;
 }
+
+app-typing-display {
+  width: 80%;
+  margin: 10px auto 0 auto;
+  display: flex;
+  flex-direction: column;
+}
+@media screen and (max-width: 1000px) {
+  app-typing-display {
+    width: 100%;
+    flex-wrap: wrap;
+  }
+}

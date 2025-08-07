@@ -1,25 +1,11 @@
-
+<!-- <div class="game-content"> -->
   <app-game-info />
-  <!-- <button (click)="this._gameHandlerService.finishGame()">Modal</button> -->
   <div class="board-container">
     <div class="board-title">
       <h1>Texto: "{{this._appStateService.textContent().title}}"</h1>
     </div>
     <app-board />
   </div>
-  <app-typing-display 
-  [input]="this._appStateService.valueUserWriting()" 
-  [currentWord]="this.currentWord"
-  (onInput)="handleInputWritten($event)" 
-  />
-
-<!--   input = input.required<string>();
-  onInput = output<string>(); -->
-
-  <!-- <app-keyboard /> -->
-
-    <!-- @if (this._appStateService.gameOver()) {
-      <div>Juego completado</div>
-      } -->
-
-
+  <app-typing-display [input]="this._appStateService.valueUserWriting()" [currentWord]="this.currentWord"
+    (onInput)="handleInputWritten($event)" />
+<!-- </div> -->
