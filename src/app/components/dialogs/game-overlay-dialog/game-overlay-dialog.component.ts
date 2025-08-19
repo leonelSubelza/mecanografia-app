@@ -25,14 +25,18 @@ export class GameOverlayDialogComponent implements OnInit {
   // _gameHandlerService = inject(GameHandlerService);
   // _cpmService = inject(CpmService);
 
+  gameType = signal<'precision' | 'sprint'>(this._modalData.gameType)
   modalTitle = signal<string>(this._modalData.title);
   isNewRecord = signal<boolean>(this._modalData.isNewRecord);
 
+  //normal mode
   textTitle = signal<string>(this._modalData.textTitle);
   accuracy = signal<string>(this._modalData.accuracy);
   totalTime = signal<string>(this._modalData.totalTime);
   cpmValue = signal<string>(this._modalData.cpmValue);
 
+  //sprint-mode
+  score = signal<number>(this._modalData.score);
 
   /**
    *     <p>Texto: {{this._appStateService.textContent().title}}</p>

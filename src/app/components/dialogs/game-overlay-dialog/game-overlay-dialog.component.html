@@ -2,15 +2,22 @@
 <h1 mat-dialog-title>{{this.modalTitle()}}</h1>
 <label class="new-record-label" [ngClass]="{'active': this.isNewRecord()}">¡Nuevo Record!</label>
 <mat-dialog-content>
+    @if(this.gameType()==='precision') {
     <p>Texto: {{this.textTitle()}}</p>
     <p>Precisión: {{this.accuracy()}}%</p>
     <p>Tiempo: {{this.totalTime()}}</p>
-    <!-- <p>Pulsaciones totales: {{this._cpmService.characterCount()}}</p> -->
     <p>Velocidad: {{this.cpmValue()}}PPM</p>
+    }
+    @if(this.gameType() === 'sprint') {
+    <p>Puntuación: {{ this.score() }}</p>
+    }
+    <!-- <p>Pulsaciones totales: {{this._cpmService.characterCount()}}</p> -->
 </mat-dialog-content>
 <mat-dialog-actions align="end">
+    @if(this.gameType() !== 'sprint') {
     <button mat-raised-button (click)="resetGame()">
         <label>Reiniciar</label> <mat-icon iconPositionEnd>refresh</mat-icon>
     </button>
+    }
     <button mat-flat-button color='primary' cdkFocusInitial (click)="newGame()">Jugar de nuevo</button>
-  </mat-dialog-actions>
+</mat-dialog-actions>

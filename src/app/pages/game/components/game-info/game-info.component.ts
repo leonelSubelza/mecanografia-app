@@ -77,6 +77,7 @@ export class GameInfoComponent implements OnInit{
 
   openModal(){
     const data = {
+      gameType: 'precision',
       title: 'Estadísticas!',
       isNewRecord: false,
       textTitle: this._appStateService.textContent().title,

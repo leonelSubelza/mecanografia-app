@@ -2,26 +2,37 @@
 
 @include mat.core();
 
-html,body {
+html,
+body {
   width: 100%;
   height: 100%;
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
   display: flex;
+  transition: background-color 0.5s ease;
 }
 
 html {
   color-scheme: light;
-  @include mat.theme((
-    color: mat.$azure-palette,
-  ))
+  // Esta propiedad la agregué para que haga la animación de transición aplicada en html, body arriba
+  background-color: var(--mat-sys-background);
+  // --mat-sys-error-container: #ffb6b6 !important;
+  @include mat.theme(
+    (
+      color: mat.$azure-palette,
+    )
+  );
 }
 
 html.dark-theme {
+  background-color: var(--mat-sys-background);
+  // --mat-sys-error-container: #93000a !important;
   color-scheme: dark;
-  @include mat.theme((
-    color: mat.$spring-green-palette,
-  ))
+  @include mat.theme(
+    (
+      color: mat.$spring-green-palette,
+    )
+  );
 }
 
 app-root,

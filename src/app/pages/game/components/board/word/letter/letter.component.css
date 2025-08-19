@@ -6,7 +6,8 @@ div {
 }
 
 div.active {
-    border-bottom: 2px solid #0b85bb;
+    /* border-bottom: 2px solid #0b85bb; */
+    border-bottom: 2px solid var(--mat-sys-primary);;
     animation: fadeBorder 1s infinite;
 }
 
@@ -34,15 +35,15 @@ div.active {
 
 
 div.CORRECT {
-    /* color: #fff; */
-    background-color: #c8e3f3;
-    /* #95c590 */
-    /* border-bottom-color: #0b85bb; */
+    /* background-color: #c8e3f3; */
+    background-color: var(--mat-sys-inverse-primary);
+    /* background-color: var(--mat-sys-primary-fixed-dim); */
 }
 
 div.INCORRECT {
-    /* color: #fff; */
-    background-color: #ffb6b6;
+    /* background-color: #ffb6b6; */
+    background-color: var(--mat-sys-error-container);
+    /* background-color: var(--mat-sys-error); */
 }
 
 p{

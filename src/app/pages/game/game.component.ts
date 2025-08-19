@@ -167,6 +167,7 @@ export class GameComponent implements OnInit, AfterViewInit {
 
   openModal(isNewRecord: boolean) {
     const data = {
+      gameType: 'precision',
       title: 'Juego Completado!',
       isNewRecord: isNewRecord,
       textTitle: this._appStateService.textContent().title,

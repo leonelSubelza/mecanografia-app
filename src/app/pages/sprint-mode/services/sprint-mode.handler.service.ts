@@ -1,6 +1,10 @@
 import { effect, inject, Injectable, signal } from '@angular/core';
 import { Letter, LetterStatus } from '../../../interfaces/entities';
 import { GameTimerService, GeneralStatsService } from '@/services';
+import {
+  GameOverlayDialogComponent,
+  GameOverlayDialogService,
+} from '@/components';
 
 const CORRECT_LETTER_DEFAULT_VALUE = {
   id: '00',
@@ -30,6 +34,7 @@ async function getWordsByLength(length: number): Promise<string[]> {
 export class SprintModeHandlerService {
   _generalStatsService = inject(GeneralStatsService);
   _timerService = inject(GameTimerService);
+  _gameOverlayDialogService = inject(GameOverlayDialogService);
 
   gameOver = signal<boolean>(false);
   userTime = signal<string>('');
@@ -75,6 +80,7 @@ export class SprintModeHandlerService {
         // LOGIC TO FINISH THE GAME
         if (this._timerService.isTimerCountdownFinished()) {
           this.finishGame();
+          this.openGameOverlayDialog();
           return;
         }
       },
@@ -157,7 +163,8 @@ export class SprintModeHandlerService {
     this.gameOver.set(false);
     this.userScore.set(0);
 
-    const bestScoreLoaded = this._generalStatsService.generalStats().sprintMode?.bestScore;
+    const bestScoreLoaded =
+      this._generalStatsService.generalStats().sprintMode?.bestScore;
     this.bestScore.set(bestScoreLoaded ? bestScoreLoaded : 0);
 
     this._timerService.resetUserTimeCountdown();
@@ -172,7 +179,7 @@ export class SprintModeHandlerService {
     this._timerService.stopGameTimer();
     this.gameOver.set(true);
 
-    if(this.userScore() > this.bestScore()) {
+    if (this.isActualScoreBestScore()) {
       this.updateBestScore();
     }
   }
@@ -189,13 +196,64 @@ export class SprintModeHandlerService {
   updateBestScore() {
     this.bestScore.set(this.userScore());
     let generalStatsValue = this._generalStatsService.generalStats();
-    if(generalStatsValue.sprintMode){
+    if (generalStatsValue.sprintMode) {
       generalStatsValue.sprintMode.bestScore = this.userScore();
-    }else {
+    } else {
       generalStatsValue.sprintMode = {
-        bestScore: this.userScore()
-      }
+        bestScore: this.userScore(),
+      };
     }
     this._generalStatsService.setStatsLocalStorage(generalStatsValue);
+  }
+
+  isActualScoreBestScore(): boolean {
+    return this.userScore() > this.bestScore();
+  }
+
+  openGameOverlayDialog() {
+    const data = {
+      gameType: 'sprint',
+      modalTitle: 'Juego Terminado',
+      isNewRecord: this.isActualScoreBestScore(),
+      score: this.userScore(),
+      time: this._timerService.userTime(),
+    };
+    const dialogRef =
+      this._gameOverlayDialogService.openModal<GameOverlayDialogComponent>(
+        GameOverlayDialogComponent,
+        data
+      );
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (!result) return;
+
+      switch (result.action) {
+        case 'newGame':
+          this.startNewGameSprintMode();
+          break;
+        case 'resetGame':
+          this.startNewGameSprintMode();
+          break;
+        default:
+          break;
+      }
+    });
+    /**
+     *     const data = { message: '¿Está seguro que desea iniciar una nueva partida?'};
+         const dialogRef = this._confirmationDialogService.openModal<ConfirmationDialogComponent>(ConfirmationDialogComponent,data);
+     
+         dialogRef.afterClosed().subscribe((result) => {
+           if (!result) return;
+     
+           switch (result.action) {
+             case 'accept':
+               // this._gameHandlerService.startNewGame();
+               this.onStartNewGame.emit();
+               break;
+             default:
+               break;
+           }
+         });
+     */
   }
 }

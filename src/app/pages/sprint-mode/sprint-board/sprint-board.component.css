@@ -26,12 +26,16 @@
 
 .letter.active {
   /* color: #0b85bb; */
-  border-bottom: 3px solid #0b85bb;
+  border-bottom: 3px solid var(--mat-sys-primary);
+    /* background-color: var(--mat-sys-error); */
+
 }
 
 .letter.correct {
-  color: #0b85bb;
+  /* color: #0b85bb; */
+  color: var(--mat-sys-primary);
 }
 .letter.incorrect {
-  color: #ffb6b6;
+  /* color: #ffb6b6; */
+  color: var(--mat-sys-error-container);
 }
