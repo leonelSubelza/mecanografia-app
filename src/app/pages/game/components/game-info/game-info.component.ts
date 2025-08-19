@@ -10,11 +10,10 @@ import { CpmService } from '@/services';
 import { GameOverlayDialogComponent, GameOverlayDialogService } from '@/components';
 
 @Component({
-  selector: 'app-game-info',
-  standalone: true,
-  imports: [MatProgressBarModule, MatButtonModule, MatIconModule],
-  templateUrl: './game-info.component.html',
-  styleUrl: './game-info.component.css'
+    selector: 'app-game-info',
+    imports: [MatProgressBarModule, MatButtonModule, MatIconModule],
+    templateUrl: './game-info.component.html',
+    styleUrl: './game-info.component.css'
 })
 export class GameInfoComponent implements OnInit{
   _gameHandlerService = inject(GameHandlerService);

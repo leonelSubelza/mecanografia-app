@@ -11,13 +11,11 @@ import { SnackBarService } from '@/services/snack-bar.service';
 import { ToolbarComponent } from '@/components';
 
 @Component({
-  selector: 'app-user',
-  standalone: true,
-  imports: [MatCardModule,MatFormFieldModule, MatInputModule, MatSelectModule,MatIconModule,MatButtonModule,FormsModule,ToolbarComponent],
-  templateUrl: './user.component.html',
-  styleUrl: './user.component.css',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-
+    selector: 'app-user',
+    imports: [MatCardModule, MatFormFieldModule, MatInputModule, MatSelectModule, MatIconModule, MatButtonModule, FormsModule, ToolbarComponent],
+    templateUrl: './user.component.html',
+    styleUrl: './user.component.css',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class UserComponent {
   _generalStatsService = inject(GeneralStatsService);

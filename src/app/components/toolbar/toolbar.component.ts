@@ -14,11 +14,10 @@ import { AppStateService } from '@/services';
 const ANGULAR_MATERIAL_IMPORTS = [MatToolbarModule, MatButtonModule, MatIconModule, MatCardModule,MatMenuModule, MatTooltipModule];
 
 @Component({
-  selector: 'app-toolbar',
-  standalone: true,
-  imports: [ANGULAR_MATERIAL_IMPORTS,RouterLink,NgClass],
-  templateUrl: './toolbar.component.html',
-  styleUrl: './toolbar.component.css'
+    selector: 'app-toolbar',
+    imports: [ANGULAR_MATERIAL_IMPORTS, RouterLink, NgClass],
+    templateUrl: './toolbar.component.html',
+    styleUrl: './toolbar.component.css'
 })
 export class ToolbarComponent {
   _appStateService = inject(AppStateService);

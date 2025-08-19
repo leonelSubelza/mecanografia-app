@@ -6,11 +6,10 @@ import { NgClass } from '@angular/common';
 import { AppStateService } from '@/pages/game/services/app-state.service';
 
 @Component({
-  selector: 'app-word',
-  standalone: true,
-  imports: [LetterComponent,NgClass],
-  templateUrl: './word.component.html',
-  styleUrl: './word.component.css'
+    selector: 'app-word',
+    imports: [LetterComponent, NgClass],
+    templateUrl: './word.component.html',
+    styleUrl: './word.component.css'
 })
 export class WordComponent implements OnInit{
   index = input.required<number>();

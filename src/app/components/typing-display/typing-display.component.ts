@@ -5,11 +5,10 @@ import { MatButtonModule } from '@angular/material/button';
 import {  NgClass } from '@angular/common';
 
 @Component({
-  selector: 'app-typing-display',
-  standalone: true,
-  imports: [MatCardModule, NgClass, MatButtonModule],
-  templateUrl: './typing-display.component.html',
-  styleUrl: './typing-display.component.css',
+    selector: 'app-typing-display',
+    imports: [MatCardModule, NgClass, MatButtonModule],
+    templateUrl: './typing-display.component.html',
+    styleUrl: './typing-display.component.css'
 })
 export class TypingDisplayComponent implements OnInit {
   _appStateService = inject(AppStateService);

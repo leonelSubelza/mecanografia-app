@@ -3,11 +3,10 @@ import { Key, keys } from './keys.mock';
 // import { BoardHandlerService } from '../board/board-handler.service';
 
 @Component({
-  selector: 'app-keyboard',
-  standalone: true,
-  imports: [],
-  templateUrl: './keyboard.component.html',
-  styleUrl: './keyboard.component.css',
+    selector: 'app-keyboard',
+    imports: [],
+    templateUrl: './keyboard.component.html',
+    styleUrl: './keyboard.component.css'
 })
 // Al final este componente no se usa, pero lo dejo por si en el futuro se quiere implementar un teclado virtual
 export class KeyboardComponent {

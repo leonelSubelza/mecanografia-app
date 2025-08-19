@@ -4,11 +4,10 @@ import { Letter } from '@/interfaces/entities';
 import { SprintModeHandlerService } from '@/services';
 
 @Component({
-  selector: 'app-sprint-board',
-  standalone: true,
-  imports: [NgClass],
-  templateUrl: './sprint-board.component.html',
-  styleUrl: './sprint-board.component.css'
+    selector: 'app-sprint-board',
+    imports: [NgClass],
+    templateUrl: './sprint-board.component.html',
+    styleUrl: './sprint-board.component.css'
 })
 export class SprintBoardComponent implements OnInit {
   _sprintModeHandlerService = inject(SprintModeHandlerService);

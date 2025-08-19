@@ -5,11 +5,10 @@ import { MatButtonModule } from '@angular/material/button';
 import { ConfirmationDialogService } from './confirmation-dialog.service';
 
 @Component({
-  selector: 'app-confirmation-modal',
-  standalone: true,
-  imports: [MatDialogModule, MatButtonModule],
-  templateUrl: './confirmation-dialog.component.html',
-  styles: ``
+    selector: 'app-confirmation-modal',
+    imports: [MatDialogModule, MatButtonModule],
+    templateUrl: './confirmation-dialog.component.html',
+    styles: ``
 })
 export class ConfirmationDialogComponent {
   private readonly _modalData = inject(MAT_DIALOG_DATA);

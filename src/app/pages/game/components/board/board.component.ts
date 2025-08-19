@@ -8,11 +8,10 @@ import { UserAccuracyService } from '@/pages/game/services/user-accuracy.service
 import { BoardHandlerService } from './board-handler.service';
 
 @Component({
-  selector: 'app-board',
-  standalone: true,
-  imports: [WordComponent,MatCardModule],
-  templateUrl: './board.component.html',
-  styleUrl: './board.component.css'
+    selector: 'app-board',
+    imports: [WordComponent, MatCardModule],
+    templateUrl: './board.component.html',
+    styleUrl: './board.component.css'
 })
 export class BoardComponent {
   _gameHandlerService = inject(GameHandlerService);

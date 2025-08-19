@@ -5,11 +5,10 @@ import { GameHandlerService } from '@game-mode/game.handler.service';
 import { AppStateService } from '@/pages/game/services/app-state.service';
 
 @Component({
-  selector: 'app-letter',
-  standalone: true,
-  imports: [NgClass],
-  templateUrl: './letter.component.html',
-  styleUrl: './letter.component.css'
+    selector: 'app-letter',
+    imports: [NgClass],
+    templateUrl: './letter.component.html',
+    styleUrl: './letter.component.css'
 })
 export class LetterComponent implements OnInit {
   letter = input.required<Letter>();

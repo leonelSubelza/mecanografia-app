@@ -11,11 +11,10 @@ import { ToolbarComponent, TypingDisplayComponent } from '@/components';
 const ANGULAR_MATERIAL_IMPORTS = [MatCardModule, MatButtonModule,MatCardModule, MatButtonModule, ];
 
 @Component({
-  selector: 'app-sprint-mode',
-  standalone: true,
-  imports: [ANGULAR_MATERIAL_IMPORTS,SprintBoardComponent,FormsModule,TypingDisplayComponent,ToolbarComponent],
-  templateUrl: './sprint-mode.component.html',
-  styleUrl: './sprint-mode.component.css'
+    selector: 'app-sprint-mode',
+    imports: [ANGULAR_MATERIAL_IMPORTS, SprintBoardComponent, FormsModule, TypingDisplayComponent, ToolbarComponent],
+    templateUrl: './sprint-mode.component.html',
+    styleUrl: './sprint-mode.component.css'
 })
 export class SprintModeComponent implements OnInit {
   _sprintModeHandlerService = inject(SprintModeHandlerService);

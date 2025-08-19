@@ -8,11 +8,10 @@ import { GameOverlayDialogService } from './game-overlay-dialog.service';
 const MATERIAL_MODULES = [MatDialogModule, MatButtonModule, MatIconModule]
 
 @Component({
-  selector: 'app-modal',
-  standalone: true,
-  imports: [MATERIAL_MODULES, NgClass],
-  templateUrl: './game-overlay-dialog.component.html',
-  styleUrl: './game-overlay-dialog.component.css',
+    selector: 'app-modal',
+    imports: [MATERIAL_MODULES, NgClass],
+    templateUrl: './game-overlay-dialog.component.html',
+    styleUrl: './game-overlay-dialog.component.css'
 })
 export class GameOverlayDialogComponent implements OnInit {
   _modalService = inject(GameOverlayDialogService);

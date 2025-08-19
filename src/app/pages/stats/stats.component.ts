@@ -4,11 +4,10 @@ import { GeneralStatsService } from '@/services/general-stats.service';
 import { ToolbarComponent } from '@/components';
 
 @Component({
-  selector: 'app-stats',
-  standalone: true,
-  imports: [MatCardModule,ToolbarComponent],
-  templateUrl: './stats.component.html',
-  styleUrl: './stats.component.css'
+    selector: 'app-stats',
+    imports: [MatCardModule, ToolbarComponent],
+    templateUrl: './stats.component.html',
+    styleUrl: './stats.component.css'
 })
 export class StatsComponent {
   _generalStatsService = inject(GeneralStatsService);

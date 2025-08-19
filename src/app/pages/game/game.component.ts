@@ -21,11 +21,10 @@ import { BoardHandlerService } from './components/board/board-handler.service';
 import { GameOverlayDialogComponent, GameOverlayDialogService, ToolbarComponent, TypingDisplayComponent } from '@/components';
 
 @Component({
-  selector: 'app-game',
-  standalone: true,
-  imports: [TypingDisplayComponent, BoardComponent, GameInfoComponent, ToolbarComponent],
-  templateUrl: './game.component.html',
-  styleUrl: './game.component.css',
+    selector: 'app-game',
+    imports: [TypingDisplayComponent, BoardComponent, GameInfoComponent, ToolbarComponent],
+    templateUrl: './game.component.html',
+    styleUrl: './game.component.css'
 })
 export class GameComponent implements OnInit, AfterViewInit {
   _gameHandlerService = inject(GameHandlerService);
