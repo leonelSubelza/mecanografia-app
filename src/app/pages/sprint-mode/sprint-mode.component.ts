@@ -6,14 +6,14 @@ import { SprintBoardComponent } from './sprint-board/sprint-board.component';
 import { SprintModeBoardHandlerService } from './sprint-mode-board.handler.service';
 import { FormsModule } from '@angular/forms';
 import { GameTimerService } from '@/services';
-import { TypingDisplayComponent } from '@/components';
+import { ToolbarComponent, TypingDisplayComponent } from '@/components';
 
 const ANGULAR_MATERIAL_IMPORTS = [MatCardModule, MatButtonModule,MatCardModule, MatButtonModule, ];
 
 @Component({
   selector: 'app-sprint-mode',
   standalone: true,
-  imports: [ANGULAR_MATERIAL_IMPORTS,SprintBoardComponent,FormsModule,TypingDisplayComponent],
+  imports: [ANGULAR_MATERIAL_IMPORTS,SprintBoardComponent,FormsModule,TypingDisplayComponent,ToolbarComponent],
   templateUrl: './sprint-mode.component.html',
   styleUrl: './sprint-mode.component.css'
 })
@@ -38,14 +38,12 @@ export class SprintModeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this._sprintModeHandlerService.resetValues();
     this._sprintModeHandlerService.startNewGameSprintMode();
-    this._timerService.resetUserTimeCountdown();
   }
 
   handleInputWritten($event: string) {
 
-    // console.log("key pulsada en modo sprint:" + $event);
+    console.log("key pulsada en modo sprint:" + $event);
     this._sprintModeBoardHandlerService.handleLetterWritten($event);
   }
   /*
@@ -85,4 +83,10 @@ export class SprintModeComponent implements OnInit {
 
   }
   */
+ handleRestartGame() {
+  this._sprintModeHandlerService.startNewGameSprintMode();
+ }
+ handleNewGame() {
+  this._sprintModeHandlerService.startNewGameSprintMode();
+ }
 }

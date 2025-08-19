@@ -1,11 +1,29 @@
+app-toolbar {
+  color: var(--mat-sys-primary);
+    /* background: var(--mat-app-background-color) */
+    background-color: var(--mat-sys-inverse-primary);
+    
+}
+
+.game-content {
+  height: 100%;
+  width: 85%;
+  display: flex;
+  margin: 0 auto;
+  flex-direction: column;
+  /* background-color: #fff; */
+}
+
 .sprint-mode-header-container {
   display: flex;
+  justify-content: space-between;
+  width: 100%;
   border:1px solid black;
 }
 
 .sprint-mode-header-container div{
-  width: 20%;
-  height: 100%;
+  width: 33%;
+  /* height: 100%; */
   border:1px solid black;
   display: flex;
   justify-content: center;
@@ -32,7 +50,7 @@ app-sprint-board {
 mat-card {
   width: 50%;
   /* margin: 5px auto auto 15px; */
-  background-color: #fff;
+  /* background-color: #fff; */
   display: flex;
   margin: 20px auto 20px auto;
 }
@@ -66,5 +84,11 @@ app-typing-display {
   app-typing-display {
     width: 100%;
     flex-wrap: wrap;
+  }
+  .sprint-mode-header-container{
+    flex-wrap: wrap;
+  }
+  span {
+    display: none;
   }
 }

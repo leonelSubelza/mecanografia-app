@@ -8,11 +8,12 @@ import { MatButtonModule } from '@angular/material/button';
 import { GeneralStatsService } from '@/services/general-stats.service';
 import { FormsModule } from '@angular/forms';
 import { SnackBarService } from '@/services/snack-bar.service';
+import { ToolbarComponent } from '@/components';
 
 @Component({
   selector: 'app-user',
   standalone: true,
-  imports: [MatCardModule,MatFormFieldModule, MatInputModule, MatSelectModule,MatIconModule,MatButtonModule,FormsModule],
+  imports: [MatCardModule,MatFormFieldModule, MatInputModule, MatSelectModule,MatIconModule,MatButtonModule,FormsModule,ToolbarComponent],
   templateUrl: './user.component.html',
   styleUrl: './user.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,

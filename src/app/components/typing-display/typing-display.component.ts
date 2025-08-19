@@ -1,8 +1,6 @@
 import { Component, effect, inject, input, OnInit, output, signal } from '@angular/core';
-import { GameHandlerService } from '@game-mode/game.handler.service';
 import { MatCardModule } from '@angular/material/card';
 import { AppStateService } from '@/pages/game/services/app-state.service';
-import { BoardHandlerService } from '../../pages/game/components/board/board-handler.service';
 import { MatButtonModule } from '@angular/material/button';
 import {  NgClass } from '@angular/common';
 

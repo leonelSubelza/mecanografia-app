@@ -1,9 +1,19 @@
 div {
-    display: flex;
-    /* width: 50%; */
+  display: flex;
+  /* width: 50%; */
 }
 
 mat-progress-bar {
-    width: 100%;
-    margin: 0 auto;
+  width: 100%;
+  margin: 0 auto;
+}
+
+mat-icon{
+  margin: 0 !important;
+}
+
+.options-button-container {
+    display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
 }

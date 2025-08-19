@@ -15,7 +15,7 @@ export const appConfig: ApplicationConfig = {
     provideClientHydration(),
     provideAnimationsAsync(), provideAnimationsAsync(),
     provideAnimations(),
-    importProvidersFrom(MatNativeDateModule), provideAnimationsAsync()
+    importProvidersFrom(MatNativeDateModule), provideAnimationsAsync(), provideAnimationsAsync()
   ]
 };
 

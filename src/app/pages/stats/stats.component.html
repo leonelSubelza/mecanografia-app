@@ -1,12 +1,13 @@
+<app-toolbar [showButtons]="false" />
 <div class="stats-container-page">
     <mat-card appearance="outlined">
         <mat-card-header>
             <div class="container-hdp">
             <mat-card-title>Estadísticas Generales</mat-card-title>
-            <mat-card-subtitle>Mejor texto: {{this._generalStatsService.generalStats().bestTextContent.title}}</mat-card-subtitle>
-            <mat-card-subtitle>Tiempo: {{this._generalStatsService.generalStats().bestTime}}</mat-card-subtitle>
-            <mat-card-subtitle>Precisión: {{this._generalStatsService.generalStats().bestAccuracy}}%</mat-card-subtitle>
-            <mat-card-subtitle>Velocidad: {{this._generalStatsService.generalStats().cpm}}PPM</mat-card-subtitle>
+            <mat-card-subtitle>Mejor texto: {{this._generalStatsService.generalStats().normalMode?.bestTextContent?.title}}</mat-card-subtitle>
+            <mat-card-subtitle>Tiempo: {{this._generalStatsService.generalStats().normalMode?.bestTime}}</mat-card-subtitle>
+            <mat-card-subtitle>Precisión: {{this._generalStatsService.generalStats().normalMode?.bestAccuracy}}%</mat-card-subtitle>
+            <mat-card-subtitle>Velocidad: {{this._generalStatsService.generalStats().normalMode?.cpm}}PPM</mat-card-subtitle>
         </div>
           </mat-card-header>
   </mat-card>

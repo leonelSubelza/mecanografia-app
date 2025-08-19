@@ -1,23 +1,32 @@
-import {  Injectable, signal } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import { Stats } from '../interfaces/entities';
 
 const DEFAULT_GENERAL_STATE_VALUE: Stats = {
   username: '',
-  bestTextContent: {
-    title: '-',
-    text: '-',
-    letterCount: 0,
+  normalMode: {
+    bestTextContent: {
+      title: '-',
+      text: '-',
+      letterCount: 0,
+    },
+    bestTime: '00:00:00',
+    bestAccuracy: 0,
+    cpm: 0,
   },
-  bestTime: '00:00:00',
-  bestAccuracy: 0,
-  cpm: 0,
+  sprintMode: {
+    bestScore: 0,
+  },
 };
 
 @Injectable({
   providedIn: 'root',
 })
 export class GeneralStatsService {
-  generalStats = signal<Stats>(this.getItem('stats'));
+  generalStats = signal<Stats>(DEFAULT_GENERAL_STATE_VALUE);
+
+  constructor() {
+    this.generalStats.set(this.getItem('stats'));
+  }
 
   getItem(key: string): Stats {
     const data = localStorage.getItem(key);
@@ -36,10 +45,14 @@ export class GeneralStatsService {
   }
 
   actualGameIsBetter(actualState: Stats): boolean {
-    if (actualState.bestAccuracy >= this.generalStats().bestAccuracy) {
-      return true;
-    }
-    return false;
+    const generalStatsValue = this.generalStats(); // guardamos el valor actual
+
+    if (!actualState.normalMode || !generalStatsValue.normalMode) return false;
+
+    return (
+      actualState.normalMode.bestAccuracy >=
+      generalStatsValue.normalMode.bestAccuracy
+    );
   }
   // private loadInitialStats(): Stats | null {
   //   const storedStats = this.getItem<Stats>('stats');

@@ -107,12 +107,11 @@ export class BoardHandlerService {
         // return;
         // aca le quite el return porque asi se pone el indexActualWord en +1 para actualizar el gamePercent
       }
-      if (this._gameHandlerService.isGameCompleted() && this._gameHandlerService.gameMode() === GameMode.SPRINT){
 
-
+      // if (this._gameHandlerService.isGameCompleted() && this._gameHandlerService.gameMode() === GameMode.SPRINT){
         //EN GAME HANDLER SERVICE HACER UNA FUNCION QUE PASE A LA SIGUIENTE PALABRA GUARDADA Y RENUEVE LA SIGUIENTE PALABRA
-
-      }
+      // }
+      
       //we pass to the next word
       this.setNextWord(true);
       return;

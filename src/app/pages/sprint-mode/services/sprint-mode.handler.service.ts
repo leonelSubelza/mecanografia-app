@@ -1,6 +1,6 @@
 import { effect, inject, Injectable, signal } from '@angular/core';
 import { Letter, LetterStatus } from '../../../interfaces/entities';
-import { GameTimerService } from '@/services';
+import { GameTimerService, GeneralStatsService } from '@/services';
 
 const CORRECT_LETTER_DEFAULT_VALUE = {
   id: '00',
@@ -10,12 +10,15 @@ const CORRECT_LETTER_DEFAULT_VALUE = {
   status: LetterStatus.DEFAULT,
 };
 
+const PUNCTUATION_PERFECT_SCORE = 10;
+const PUNCTUATION_NORMAL_SCORE = 5;
+
 async function getWordsByLength(length: number): Promise<string[]> {
   switch (length) {
     case 5:
-      return (await import('../../../shared/mock/words/5')).fiveLetterWords;
+      return (await import('@/shared/mock/words/5')).fiveLetterWords;
     case 6:
-      return (await import('../../../shared/mock/words/6')).sixLetterWords;
+      return (await import('@/shared/mock/words/6')).sixLetterWords;
     default:
       throw new Error('Unsupported word length');
   }
@@ -25,11 +28,13 @@ async function getWordsByLength(length: number): Promise<string[]> {
   providedIn: 'root',
 })
 export class SprintModeHandlerService {
+  _generalStatsService = inject(GeneralStatsService);
   _timerService = inject(GameTimerService);
 
   gameOver = signal<boolean>(false);
   userTime = signal<string>('');
   userScore = signal<number>(0);
+  bestScore = signal<number>(0);
   isSoundActive = signal<boolean>(true);
   difficulty = signal<number>(5);
 
@@ -65,16 +70,21 @@ export class SprintModeHandlerService {
  */
   constructor() {
     // Esto es como un "thread reactivo"
-    effect(() => {
-      if (this._timerService.isTimerCountdownFinished()) {
-        this.finishGame();
-        return;
-      }
-    }, {allowSignalWrites: true});
+    effect(
+      () => {
+        // LOGIC TO FINISH THE GAME
+        if (this._timerService.isTimerCountdownFinished()) {
+          this.finishGame();
+          return;
+        }
+      },
+      { allowSignalWrites: true }
+    );
   }
 
   startNewGameSprintMode() {
     // this.resetAllValues();
+    this.resetValues();
     this.setNewRandomWordSprintMode(this.difficulty());
   }
 
@@ -94,7 +104,8 @@ export class SprintModeHandlerService {
       this.wordsPlayed.set([...this.wordsPlayed(), this.currentWord()]);
     }
 
-    const randomWord: string = this.getRandomWordFromListLoaded(arrayRandomWords);
+    const randomWord: string =
+      this.getRandomWordFromListLoaded(arrayRandomWords);
 
     this.currentWord.set(randomWord);
     this.listWordsLoaded.set(arrayRandomWords);
@@ -143,14 +154,48 @@ export class SprintModeHandlerService {
 
   resetValues() {
     this.valueUserWritingSprintMode.set('');
+    this.gameOver.set(false);
+    this.userScore.set(0);
+
+    const bestScoreLoaded = this._generalStatsService.generalStats().sprintMode?.bestScore;
+    this.bestScore.set(bestScoreLoaded ? bestScoreLoaded : 0);
+
+    this._timerService.resetUserTimeCountdown();
   }
 
   loadNewWord() {
+    this.addScore();
     this.setNewRandomWordSprintMode(this.difficulty());
   }
 
   finishGame() {
     this._timerService.stopGameTimer();
     this.gameOver.set(true);
+
+    if(this.userScore() > this.bestScore()) {
+      this.updateBestScore();
+    }
+  }
+
+  addScore(type: 'perfect' | 'normal' = 'normal') {
+    if (type === 'perfect') {
+      this.userScore.update((prev: number) => prev + PUNCTUATION_PERFECT_SCORE);
+    }
+    if (type === 'normal') {
+      this.userScore.update((prev: number) => prev + PUNCTUATION_NORMAL_SCORE);
+    }
+  }
+
+  updateBestScore() {
+    this.bestScore.set(this.userScore());
+    let generalStatsValue = this._generalStatsService.generalStats();
+    if(generalStatsValue.sprintMode){
+      generalStatsValue.sprintMode.bestScore = this.userScore();
+    }else {
+      generalStatsValue.sprintMode = {
+        bestScore: this.userScore()
+      }
+    }
+    this._generalStatsService.setStatsLocalStorage(generalStatsValue);
   }
 }

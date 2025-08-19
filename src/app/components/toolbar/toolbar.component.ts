@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, input, output, signal } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu'
 import { MatTooltipModule } from '@angular/material/tooltip';
@@ -11,10 +11,12 @@ import { GameHandlerService } from '@/pages/game/game.handler.service';
 import { ConfirmationDialogComponent, ConfirmationDialogService } from '../dialogs';
 import { AppStateService } from '@/services';
 
+const ANGULAR_MATERIAL_IMPORTS = [MatToolbarModule, MatButtonModule, MatIconModule, MatCardModule,MatMenuModule, MatTooltipModule];
+
 @Component({
   selector: 'app-toolbar',
   standalone: true,
-  imports: [MatToolbarModule, MatButtonModule, MatIconModule, MatCardModule, RouterLink,NgClass,MatMenuModule, MatTooltipModule],
+  imports: [ANGULAR_MATERIAL_IMPORTS,RouterLink,NgClass],
   templateUrl: './toolbar.component.html',
   styleUrl: './toolbar.component.css'
 })
@@ -24,11 +26,17 @@ export class ToolbarComponent {
   _confirmationDialogService = inject(ConfirmationDialogService);
   _router = inject(Router)
 
+  showButtons = input<boolean>(true);
+  onRestartGame = output();
+  onStartNewGame = output();
+
+  isLightMode = signal<boolean>(true);
+
   onMenuItemClick(path: string) {
      this._router.navigateByUrl(path);
   }
 
-  onStartNewGame() {
+  onStartNewGameClick() {
     const data = { message: '¿Está seguro que desea iniciar una nueva partida?'};
     const dialogRef = this._confirmationDialogService.openModal<ConfirmationDialogComponent>(ConfirmationDialogComponent,data);
 
@@ -37,7 +45,8 @@ export class ToolbarComponent {
 
       switch (result.action) {
         case 'accept':
-          this._gameHandlerService.startNewGame();
+          // this._gameHandlerService.startNewGame();
+          this.onStartNewGame.emit();
           break;
         default:
           break;
@@ -49,7 +58,19 @@ export class ToolbarComponent {
     this._appStateService.setIsSoundActive(!this._appStateService.isSoundActive());
   }
 
-  onRefreshClick(){
-    this._gameHandlerService.restartGame();
+  onRefreshClick() {
+    this.onRestartGame.emit();
+    // this._gameHandlerService.restartGame();
+  }
+
+  onChangeTheme() {
+    this.isLightMode.set(!this.isLightMode());
+    if(!this.isLightMode()){
+      document.getElementsByTagName("html")[0].className = 'dark-theme';
+      document.getElementsByTagName("html")[0].classList.remove("light-theme");
+    }else {
+      document.getElementsByTagName("html")[0].className = 'light-theme';
+      document.getElementsByTagName("html")[0].classList.remove("dark-theme");
+    }
   }
 }

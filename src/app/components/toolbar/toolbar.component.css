@@ -1,5 +1,14 @@
-mat-toolbar{
+mat-toolbar, mat-icon, label, span {
     overflow-y: auto;
+    /* background-color: var(--mat-badge-background-color);
+    color: var(--mat-badge-text-color); */
+    
+    /*#005cbb*/
+    /* background-color: var(--mat-toolbar-container-background-color);
+    color:var(--mat-toolbar-container-text-color); */
+    background-color: var(--toolbar-bg-color);
+    color: var(--toolbar-color);
+    
 }
 .items-container {
     margin: auto;
@@ -22,12 +31,23 @@ mat-toolbar{
     display: flex;
 }
 
+.item-page-theme {
+    display: none;
+}
+.item-page-theme.active {
+    display: flex;
+}
+
 .m-r{
     margin:auto 0 auto auto;
 }
 
 .m-l{
     margin:auto auto auto 0;
+}
+
+.hidden {
+    opacity: 0;
 }
 
 @media screen and (max-width: 720px) {

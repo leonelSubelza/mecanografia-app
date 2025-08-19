@@ -18,12 +18,12 @@ import {
   GeneralStatsService,
 } from '@/services';
 import { BoardHandlerService } from './components/board/board-handler.service';
-import { GameOverlayDialogComponent, GameOverlayDialogService, TypingDisplayComponent } from '@/components';
+import { GameOverlayDialogComponent, GameOverlayDialogService, ToolbarComponent, TypingDisplayComponent } from '@/components';
 
 @Component({
   selector: 'app-game',
   standalone: true,
-  imports: [TypingDisplayComponent, BoardComponent, GameInfoComponent],
+  imports: [TypingDisplayComponent, BoardComponent, GameInfoComponent, ToolbarComponent],
   templateUrl: './game.component.html',
   styleUrl: './game.component.css',
 })
@@ -131,10 +131,12 @@ export class GameComponent implements OnInit, AfterViewInit {
   updateActualGameStats(): boolean {
     const actualGameStats: Stats = {
       username: this._generalStatsService.generalStats().username,
-      bestTextContent: this._appStateService.textContent(),
-      bestTime: this._appStateService.userTime(),
-      bestAccuracy: this._appStateService.userAccuracy(),
-      cpm: this._cpmService.cpm(),
+      normalMode: {
+        bestTextContent: this._appStateService.textContent(),
+        bestTime: this._appStateService.userTime(),
+        bestAccuracy: this._appStateService.userAccuracy(),
+        cpm: this._cpmService.cpm(),
+      }
     };
     if (this._generalStatsService.actualGameIsBetter(actualGameStats)) {
       this._generalStatsService.setStatsLocalStorage(actualGameStats);
@@ -191,5 +193,13 @@ export class GameComponent implements OnInit, AfterViewInit {
           break;
       }
     });
+  }
+
+  handleNewGame() {
+    this._gameHandlerService.startNewGame();
+  }
+
+  handleRestartGame() {
+    this._gameHandlerService.restartGame();
   }
 }

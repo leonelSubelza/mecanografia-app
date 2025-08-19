@@ -1,8 +1,7 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
-import { SprintModeHandlerService } from '../services/sprint-mode.handler.service';
 import { NgClass } from '@angular/common';
-import { SprintModeBoardHandlerService } from '../sprint-mode-board.handler.service';
-import { Letter } from '../../../interfaces/entities';
+import { Letter } from '@/interfaces/entities';
+import { SprintModeHandlerService } from '@/services';
 
 @Component({
   selector: 'app-sprint-board',

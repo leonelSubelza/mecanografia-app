@@ -1,4 +1,8 @@
-<!-- <div class="game-content"> -->
+<app-toolbar 
+(onRestartGame)="handleRestartGame()"
+(onStartNewGame)="handleNewGame()"
+/>
+<div class="game-content">
   <app-game-info />
   <div class="board-container">
     <div class="board-title">
@@ -8,4 +12,4 @@
   </div>
   <app-typing-display [input]="this._appStateService.valueUserWriting()" [currentWord]="this.currentWord"
     (onInput)="handleInputWritten($event)" />
-<!-- </div> -->
+</div>

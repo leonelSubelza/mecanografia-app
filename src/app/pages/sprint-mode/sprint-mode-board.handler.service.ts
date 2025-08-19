@@ -141,14 +141,14 @@ export class SprintModeBoardHandlerService {
     return this._sprintModeHandlerService.wordBoard()[indexActualLetter];
   }
 
-  isLastLetter() {
-    const indexActualLetter =
-      this._sprintModeHandlerService.indexActualLetter();
-    return (
-      this._sprintModeHandlerService.wordBoard().length - 1 ===
-      indexActualLetter
-    );
-  }
+  // isLastLetter() {
+  //   const indexActualLetter =
+  //     this._sprintModeHandlerService.indexActualLetter();
+  //   return (
+  //     this._sprintModeHandlerService.wordBoard().length - 1 ===
+  //     indexActualLetter
+  //   );
+  // }
 
   moveNextLetter() {
     let indexActualLetter = this._sprintModeHandlerService.indexActualLetter();

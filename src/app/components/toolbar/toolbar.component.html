@@ -1,4 +1,4 @@
-<mat-toolbar color='primary'>
+<mat-toolbar  color='primary'>
   <div class="items-container m-l">
     <a mat-button class="item-page-name" routerLink="/">
       <span>Mecanography app</span>
@@ -40,18 +40,21 @@
     </a>
   </div>
   <div class="items-container m-r">
-    <div class="item-page" (click)="onStartNewGame()">
+    <div class="item-page" (click)="onStartNewGameClick()" [ngClass]="{hidden: !this.showButtons()}">
       <a mat-button matTooltip="Nuevo juego"><mat-icon>autorenew</mat-icon></a>
     </div>
-    <div class="item-page">
-      <a mat-button (click)="onRefreshClick()" matTooltip="Reiniciar"><mat-icon>refresh</mat-icon></a>
+    <div class="item-page" (click)="onRefreshClick()" [ngClass]="{hidden: !this.showButtons()}">
+      <a mat-button matTooltip="Reiniciar"><mat-icon>refresh</mat-icon></a>
     </div>
     <div class="item-page" (click)="onClickSound()">
-      <a mat-button class="item-page-sound"
+      <a mat-button class="item-page-sound" matTooltip="Sonido On/Off"
         [ngClass]="{active: this._appStateService.isSoundActive()}"><mat-icon>volume_up</mat-icon></a>
-      <a mat-button class="item-page-sound"
+      <a mat-button class="item-page-sound" matTooltip="Sonido On/Off"
         [ngClass]="{active: !this._appStateService.isSoundActive()}"><mat-icon>volume_off</mat-icon></a>
     </div>
-
+    <div class="item-page" (click)="onChangeTheme()">
+      <a mat-button class="item-page-theme" [ngClass]="{active: this.isLightMode()}"><mat-icon>light_mode</mat-icon></a>
+      <a mat-button class="item-page-theme" [ngClass]="{active: !this.isLightMode()}"><mat-icon>dark_mode</mat-icon></a>
+    </div>
   </div>
 </mat-toolbar>
