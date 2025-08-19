@@ -15,6 +15,7 @@ import { ToolbarComponent } from '@/components';
     imports: [MatCardModule, MatFormFieldModule, MatInputModule, MatSelectModule, MatIconModule, MatButtonModule, FormsModule, ToolbarComponent],
     templateUrl: './user.component.html',
     styleUrl: './user.component.css',
+    standalone: true,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class UserComponent {

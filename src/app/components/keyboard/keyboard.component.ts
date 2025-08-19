@@ -5,6 +5,7 @@ import { Key, keys } from './keys.mock';
 @Component({
     selector: 'app-keyboard',
     imports: [],
+    standalone: true,
     templateUrl: './keyboard.component.html',
     styleUrl: './keyboard.component.css'
 })

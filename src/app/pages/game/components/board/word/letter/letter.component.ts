@@ -7,6 +7,7 @@ import { AppStateService } from '@/pages/game/services/app-state.service';
 @Component({
     selector: 'app-letter',
     imports: [NgClass],
+    standalone: true,
     templateUrl: './letter.component.html',
     styleUrl: './letter.component.css'
 })

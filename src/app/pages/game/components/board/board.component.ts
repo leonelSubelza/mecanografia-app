@@ -10,6 +10,7 @@ import { BoardHandlerService } from './board-handler.service';
 @Component({
     selector: 'app-board',
     imports: [WordComponent, MatCardModule],
+    standalone: true,
     templateUrl: './board.component.html',
     styleUrl: './board.component.css'
 })

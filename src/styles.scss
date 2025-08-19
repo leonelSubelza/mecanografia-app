@@ -1,43 +1,28 @@
-// @use "@angular/material" as mat;
+@use "@angular/material" as mat;
 
-// @include mat.core();
+@include mat.core();
 
-// // Tema claro (Azure)
-// $light-theme: mat.define-theme(
-//   (
-//     color: (
-//       theme-type: light,
-//       primary: mat.$azure-palette,
-//     ),
-//   )
-// );
+html,body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  display: flex;
+}
 
-// // Tema oscuro (Cyan)
-// $dark-theme: mat.define-theme(
-//   (
-//     color: (
-//       theme-type: dark,
-//       primary: mat.$cyan-palette,
-//     ),
-//   )
-// );
+html {
+  color-scheme: light;
+  @include mat.theme((
+    color: mat.$azure-palette,
+  ))
+}
 
-// html {
-//   background: var(--mat-app-background-color);
-//   color: var(--mat-app-text-color);
-// }
-
-// html.light-theme {
-//   @include mat.all-component-themes($light-theme);
-//   --toolbar-color: #005cbb;
-//   --toolbar-bg-color: #d7e3ff;
-// }
-
-// html.dark-theme {
-//   @include mat.all-component-themes($dark-theme);
-//   --toolbar-color: #0dd;
-//   --toolbar-bg-color: #004f4f;
-// }
+html.dark-theme {
+  color-scheme: dark;
+  @include mat.theme((
+    color: mat.$spring-green-palette,
+  ))
+}
 
 app-root,
 app-game,
@@ -47,21 +32,3 @@ app-sprint-mode {
   display: flex;
   flex-direction: column;
 }
-
-/* app-game, app-sprint-mode {
-  height: 100%;
-  width: 85%;
-  display: flex;
-  margin: 0 auto;
-  flex-direction: column;
-  background-color: #fff;
-}
-
-@media screen and (max-width: 1000px) {
-  app-game {
-    height: 80%;
-  }
-  app-game, app-sprint-mode {
-    width: 98%;
-  }
-} */

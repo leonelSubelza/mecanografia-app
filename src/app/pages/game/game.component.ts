@@ -23,6 +23,7 @@ import { GameOverlayDialogComponent, GameOverlayDialogService, ToolbarComponent,
 @Component({
     selector: 'app-game',
     imports: [TypingDisplayComponent, BoardComponent, GameInfoComponent, ToolbarComponent],
+    standalone: true,
     templateUrl: './game.component.html',
     styleUrl: './game.component.css'
 })

@@ -7,6 +7,7 @@ import {  NgClass } from '@angular/common';
 @Component({
     selector: 'app-typing-display',
     imports: [MatCardModule, NgClass, MatButtonModule],
+    standalone: true,
     templateUrl: './typing-display.component.html',
     styleUrl: './typing-display.component.css'
 })

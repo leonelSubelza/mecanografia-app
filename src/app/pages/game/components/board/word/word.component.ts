@@ -8,6 +8,7 @@ import { AppStateService } from '@/pages/game/services/app-state.service';
 @Component({
     selector: 'app-word',
     imports: [LetterComponent, NgClass],
+    standalone: true,
     templateUrl: './word.component.html',
     styleUrl: './word.component.css'
 })

@@ -10,6 +10,7 @@ const MATERIAL_MODULES = [MatDialogModule, MatButtonModule, MatIconModule]
 @Component({
     selector: 'app-modal',
     imports: [MATERIAL_MODULES, NgClass],
+    standalone: true,
     templateUrl: './game-overlay-dialog.component.html',
     styleUrl: './game-overlay-dialog.component.css'
 })

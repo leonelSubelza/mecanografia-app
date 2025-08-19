@@ -13,6 +13,7 @@ const ANGULAR_MATERIAL_IMPORTS = [MatCardModule, MatButtonModule,MatCardModule, 
 @Component({
     selector: 'app-sprint-mode',
     imports: [ANGULAR_MATERIAL_IMPORTS, SprintBoardComponent, FormsModule, TypingDisplayComponent, ToolbarComponent],
+    standalone: true,
     templateUrl: './sprint-mode.component.html',
     styleUrl: './sprint-mode.component.css'
 })

@@ -16,6 +16,7 @@ const ANGULAR_MATERIAL_IMPORTS = [MatToolbarModule, MatButtonModule, MatIconModu
 @Component({
     selector: 'app-toolbar',
     imports: [ANGULAR_MATERIAL_IMPORTS, RouterLink, NgClass],
+    standalone: true,
     templateUrl: './toolbar.component.html',
     styleUrl: './toolbar.component.css'
 })

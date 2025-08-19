@@ -24,8 +24,10 @@ mat-card {
 }
 
 mat-card.show-tooltip {
-  /* border: 1px solid #0fca0f; */
-  border: 1px solid #3f51b5;
+  /* border: 1px solid #3f51b5; */
+  border: 1px solid var(--mat-sys-primary);
+
+
   /* box-shadow: #3f51b5 0px 5px 15px; */
   animation: flickering-shadow 2.5s infinite;
   /* box-shadow: #3f51b5 5px 5px 5px; */

@@ -1,4 +1,4 @@
-mat-toolbar, mat-icon, label, span {
+mat-toolbar,mat-toolbar mat-icon,mat-toolbar label,mat-toolbar span {
     overflow-y: auto;
     /* background-color: var(--mat-badge-background-color);
     color: var(--mat-badge-text-color); */
@@ -6,8 +6,11 @@ mat-toolbar, mat-icon, label, span {
     /*#005cbb*/
     /* background-color: var(--mat-toolbar-container-background-color);
     color:var(--mat-toolbar-container-text-color); */
-    background-color: var(--toolbar-bg-color);
-    color: var(--toolbar-color);
+    /* background-color: var(--toolbar-bg-color);
+    color: var(--toolbar-color); */
+
+    background-color: var(--mat-sys-primary);
+    color: var(--mat-sys-on-primary);
     
 }
 .items-container {
@@ -47,7 +50,7 @@ mat-toolbar, mat-icon, label, span {
 }
 
 .hidden {
-    opacity: 0;
+    display: none;
 }
 
 @media screen and (max-width: 720px) {

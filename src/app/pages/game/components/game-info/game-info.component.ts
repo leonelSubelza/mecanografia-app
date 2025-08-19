@@ -12,6 +12,7 @@ import { GameOverlayDialogComponent, GameOverlayDialogService } from '@/componen
 @Component({
     selector: 'app-game-info',
     imports: [MatProgressBarModule, MatButtonModule, MatIconModule],
+    standalone: true,
     templateUrl: './game-info.component.html',
     styleUrl: './game-info.component.css'
 })

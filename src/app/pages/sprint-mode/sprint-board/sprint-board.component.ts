@@ -6,6 +6,7 @@ import { SprintModeHandlerService } from '@/services';
 @Component({
     selector: 'app-sprint-board',
     imports: [NgClass],
+    standalone: true,
     templateUrl: './sprint-board.component.html',
     styleUrl: './sprint-board.component.css'
 })

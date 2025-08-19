@@ -25,7 +25,7 @@ div.active {
         border-bottom: 2px solid #fff;
     }
     50% {
-        border-bottom: 2px solid #0b85bb;
+        border-bottom: 2px solid var(--mat-sys-primary);
     }
     100% {
         border-bottom: 2px solid #fff;

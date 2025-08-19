@@ -27,11 +27,15 @@ mat-icon{
     width: auto;
     height: auto;
 
-    background-color: #fff;
+    /* background-color: #fff; */
     border-radius: 50%;
 }
 
 mat-form-field{
     margin: 40px 0;
     width: 100%;
+}
+
+button {
+    border-radius: 5px;
 }

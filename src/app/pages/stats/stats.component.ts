@@ -6,6 +6,7 @@ import { ToolbarComponent } from '@/components';
 @Component({
     selector: 'app-stats',
     imports: [MatCardModule, ToolbarComponent],
+    standalone: true,
     templateUrl: './stats.component.html',
     styleUrl: './stats.component.css'
 })

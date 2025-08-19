@@ -7,6 +7,7 @@ import { ConfirmationDialogService } from './confirmation-dialog.service';
 @Component({
     selector: 'app-confirmation-modal',
     imports: [MatDialogModule, MatButtonModule],
+    standalone: true,
     templateUrl: './confirmation-dialog.component.html',
     styles: ``
 })
