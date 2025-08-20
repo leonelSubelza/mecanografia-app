@@ -9,13 +9,15 @@ body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
   display: flex;
-  transition: background-color 0.5s ease;
+  transition: background-color 0.2s ease;
 }
 
 html {
   color-scheme: light;
   // Esta propiedad la agregué para que haga la animación de transición aplicada en html, body arriba
   background-color: var(--mat-sys-background);
+  --color-error-sprint-mode: var(--mat-sys-error);
+  --bg-error-precision-mode: #ffb6b6;
   // --mat-sys-error-container: #ffb6b6 !important;
   @include mat.theme(
     (
@@ -26,6 +28,8 @@ html {
 
 html.dark-theme {
   background-color: var(--mat-sys-background);
+  --color-error-sprint-mode: var(--mat-sys-error-container);
+  --bg-error-precision-mode: var(--mat-sys-error-container);
   // --mat-sys-error-container: #93000a !important;
   color-scheme: dark;
   @include mat.theme(

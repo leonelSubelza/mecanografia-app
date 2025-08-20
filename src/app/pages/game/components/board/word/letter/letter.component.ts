@@ -33,7 +33,7 @@ export class LetterComponent implements OnInit {
           this.isValidPosition = false;
         }
       }
-    }, {allowSignalWrites: true})
+    })
   }
 
   ngOnInit() {

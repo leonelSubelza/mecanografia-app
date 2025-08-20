@@ -1,6 +1,6 @@
 import { effect, inject, Injectable, signal } from '@angular/core';
 import { Letter, LetterStatus } from '../../../interfaces/entities';
-import { GameTimerService, GeneralStatsService } from '@/services';
+import { CpmService, GameTimerService, GeneralStatsService } from '@/services';
 import {
   GameOverlayDialogComponent,
   GameOverlayDialogService,
@@ -35,6 +35,7 @@ export class SprintModeHandlerService {
   _generalStatsService = inject(GeneralStatsService);
   _timerService = inject(GameTimerService);
   _gameOverlayDialogService = inject(GameOverlayDialogService);
+  _cpmService = inject(CpmService);
 
   gameOver = signal<boolean>(false);
   userTime = signal<string>('');
@@ -50,41 +51,18 @@ export class SprintModeHandlerService {
   wordBoard = signal<Letter[]>([]);
   indexActualLetter = signal<number>(0);
   indexCorrectLetter = signal<number>(0);
-  // correctLetter = signal<Letter>(CORRECT_LETTER_DEFAULT_VALUE);
   valueUserWritingSprintMode = signal<string>('');
-  /**
- *   board = signal<Word[]>([]);
-   gameOver = signal<boolean>(false);
-   textContent = signal<TextContent>(texts[0]);
-   isSoundActive = signal<boolean>(true);
-   indexActualWord = signal<number>(0);
-   indexActualLetter = signal<number>(0);
- 
-   indexCorrectWord = signal<number>(0);
-   indexCorrectLetter = signal<number>(0);
-   correctLetter = signal<Letter>(CORRECT_LETTER_DEFAULT_VALUE);
- 
-   valueUserWriting = signal<string>('');
- 
-   userTime = signal<string>('');
- 
-   userAccuracy = signal<number>(100);
- 
-   gamePercentCompleted = signal<number>(0);
- * 
- */
   constructor() {
     // Esto es como un "thread reactivo"
     effect(
       () => {
         // LOGIC TO FINISH THE GAME
-        if (this._timerService.isTimerCountdownFinished()) {
-          this.finishGame();
+        if (this._timerService.isTimerCountdownFinished() && !this.gameOver()) {
           this.openGameOverlayDialog();
+          this.finishGame();
           return;
         }
-      },
-      { allowSignalWrites: true }
+      }
     );
   }
 
@@ -94,7 +72,7 @@ export class SprintModeHandlerService {
     this.setNewRandomWordSprintMode(this.difficulty());
   }
 
-  async setNewRandomWordSprintMode(cantLetters: number = 5) {
+  async setNewRandomWordSprintMode(cantLetters: number = 5, includeWordsWithAccents: boolean = false) {
     let arrayRandomWords: string[];
     if (
       this.difficulty() !== cantLetters ||
@@ -102,6 +80,9 @@ export class SprintModeHandlerService {
       this.listWordsLoaded().length === 0
     ) {
       arrayRandomWords = await getWordsByLength(cantLetters);
+      if(!includeWordsWithAccents) {
+        arrayRandomWords = this.removeWordsWithAccents(arrayRandomWords);
+      }
     } else {
       arrayRandomWords = this.listWordsLoaded();
     }
@@ -138,11 +119,23 @@ export class SprintModeHandlerService {
     }));
   }
 
+  removeWordsWithAccents(loadedWords: string[]): string[] {
+    const accents = ['á','é','í','ó','ú','Á','É','Í','Ó','Ú','ü','Ü'];
+    
+    return loadedWords.filter(word => 
+      !accents.some(acc => word.includes(acc))
+    );
+  }
+
   getRandomWordFromListLoaded(arrayRandomWords: string[]): string {
     let indexRandomWord: number = Math.floor(
       Math.random() * arrayRandomWords.length
     );
 
+    if(this.wordsPlayed().length === arrayRandomWords.length) {
+      alert("NO HAY MÁS PALABRAS XD");
+      return '';
+    }
     while (this.wordsPlayed().includes(arrayRandomWords[indexRandomWord])) {
       indexRandomWord = Math.floor(Math.random() * arrayRandomWords.length);
     }
@@ -162,6 +155,7 @@ export class SprintModeHandlerService {
     this.valueUserWritingSprintMode.set('');
     this.gameOver.set(false);
     this.userScore.set(0);
+    this._cpmService.resetCPM();
 
     const bestScoreLoaded =
       this._generalStatsService.generalStats().sprintMode?.bestScore;
@@ -178,6 +172,7 @@ export class SprintModeHandlerService {
   finishGame() {
     this._timerService.stopGameTimer();
     this.gameOver.set(true);
+    this._cpmService.finishCPM();
 
     if (this.isActualScoreBestScore()) {
       this.updateBestScore();
@@ -213,10 +208,11 @@ export class SprintModeHandlerService {
   openGameOverlayDialog() {
     const data = {
       gameType: 'sprint',
-      modalTitle: 'Juego Terminado',
+      title: 'Juego Terminado',
       isNewRecord: this.isActualScoreBestScore(),
       score: this.userScore(),
       time: this._timerService.userTime(),
+      cpmValue: this._cpmService.cpm(),
     };
     const dialogRef =
       this._gameOverlayDialogService.openModal<GameOverlayDialogComponent>(
@@ -238,22 +234,5 @@ export class SprintModeHandlerService {
           break;
       }
     });
-    /**
-     *     const data = { message: '¿Está seguro que desea iniciar una nueva partida?'};
-         const dialogRef = this._confirmationDialogService.openModal<ConfirmationDialogComponent>(ConfirmationDialogComponent,data);
-     
-         dialogRef.afterClosed().subscribe((result) => {
-           if (!result) return;
-     
-           switch (result.action) {
-             case 'accept':
-               // this._gameHandlerService.startNewGame();
-               this.onStartNewGame.emit();
-               break;
-             default:
-               break;
-           }
-         });
-     */
   }
 }

@@ -71,8 +71,7 @@ export class GameComponent implements OnInit, AfterViewInit {
           el4?.focus();
           this.isMobile.set(false);
         }
-      },
-      { allowSignalWrites: true }
+      }
     );
   }
 

@@ -3,6 +3,7 @@ import { Stats } from '../interfaces/entities';
 
 const DEFAULT_GENERAL_STATE_VALUE: Stats = {
   username: '',
+  theme: 'light',
   normalMode: {
     bestTextContent: {
       title: '-',

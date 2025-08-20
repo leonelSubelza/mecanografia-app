@@ -42,7 +42,8 @@ div.CORRECT {
 
 div.INCORRECT {
     /* background-color: #ffb6b6; */
-    background-color: var(--mat-sys-error-container);
+    /* background-color: var(--mat-sys-error-container); */
+    background-color: var(--bg-error-precision-mode);
     /* background-color: var(--mat-sys-error); */
 }
 

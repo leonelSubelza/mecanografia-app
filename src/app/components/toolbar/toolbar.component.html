@@ -40,10 +40,10 @@
     </a>
   </div>
   <div class="items-container m-r">
-    <div class="item-page" (click)="onStartNewGameClick()" [ngClass]="{hidden: !this.showButtons()}">
+    <div class="item-page" (click)="onStartNewGameClick()" [ngClass]="{hidden: !this.showNewGameButton()}">
       <a mat-button matTooltip="Nuevo juego"><mat-icon>autorenew</mat-icon></a>
     </div>
-    <div class="item-page" (click)="onRefreshClick()" [ngClass]="{hidden: !this.showButtons()}">
+    <div class="item-page" (click)="onRefreshClick()" [ngClass]="{hidden: !this.showRestartButton()}">
       <a mat-button matTooltip="Reiniciar"><mat-icon>refresh</mat-icon></a>
     </div>
     <div class="item-page" (click)="onClickSound()">

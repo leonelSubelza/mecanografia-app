@@ -1,14 +1,16 @@
 import { inject, Injectable } from '@angular/core';
 import { SprintModeHandlerService } from '@/pages/sprint-mode/services/sprint-mode.handler.service';
 import { Letter, LetterStatus } from '@/interfaces/entities';
-import { GameTimerService } from '@/services';
+import { CpmService, GameTimerService } from '@/services';
 
 @Injectable({
   providedIn: 'root',
 })
 export class SprintModeBoardHandlerService {
-  _sprintModeHandlerService = inject(SprintModeHandlerService);
-  _timerService = inject(GameTimerService);
+  private _sprintModeHandlerService = inject(SprintModeHandlerService);
+  private _timerService = inject(GameTimerService);
+  private _cpmService = inject(CpmService);
+
 
   constructor() {}
 
@@ -46,12 +48,12 @@ export class SprintModeBoardHandlerService {
 
       if (!this._sprintModeHandlerService.gameOver()){
         this._timerService.startCountDownGameTimer();
-        // this._cpmService.startCPM();
+        this._cpmService.startCPM();
       }
 
       let updateNewLetter: boolean = false;
       // this._userAccuracyService.addOneTotalLettersWritten();
-      // this._cpmService.addCharacterCount();
+      this._cpmService.addCharacterCount();
 
       // Si la letra activa es igual a la letra pulsada se pasa a la siguiente
       if (this.isActualLetterInLetterRange()) {
@@ -78,7 +80,7 @@ export class SprintModeBoardHandlerService {
       this._sprintModeHandlerService.valueUserWritingSprintMode.set(this._sprintModeHandlerService.valueUserWritingSprintMode()+key);
     }
     if (key === 'Backspace') {
-      // this._cpmService.addCharacterCount();
+      this._cpmService.addCharacterCount();
       if (this._sprintModeHandlerService.indexActualLetter() === 0) {
         return;
       }

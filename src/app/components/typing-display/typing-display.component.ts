@@ -1,15 +1,23 @@
-import { Component, effect, inject, input, OnInit, output, signal } from '@angular/core';
+import {
+  Component,
+  effect,
+  inject,
+  input,
+  OnInit,
+  output,
+  signal,
+} from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { AppStateService } from '@/pages/game/services/app-state.service';
 import { MatButtonModule } from '@angular/material/button';
-import {  NgClass } from '@angular/common';
+import { NgClass } from '@angular/common';
 
 @Component({
-    selector: 'app-typing-display',
-    imports: [MatCardModule, NgClass, MatButtonModule],
-    standalone: true,
-    templateUrl: './typing-display.component.html',
-    styleUrl: './typing-display.component.css'
+  selector: 'app-typing-display',
+  imports: [MatCardModule, NgClass, MatButtonModule],
+  standalone: true,
+  templateUrl: './typing-display.component.html',
+  styleUrl: './typing-display.component.css',
 })
 export class TypingDisplayComponent implements OnInit {
   _appStateService = inject(AppStateService);
@@ -33,28 +41,23 @@ export class TypingDisplayComponent implements OnInit {
   // inputElement = viewChild<HTMLInputElement>('inputRef');
 
   constructor() {
-    effect(
-      () => {
-        // if (!this._appStateService.gameOver()) {
-        //   this.handleUpdateCurrentWord();
-        // }
-
-        // if (this._appStateService.indexCorrectWord()) {
-        //   this.handleUpdateCurrentWord();
-        // }
-
-        // if (window.innerWidth < 1000) {
-        //   const el4 = document.getElementById('textareaRef');
-        //   el4?.focus();
-        //   this.isMobile.set(true);
-        // } else {
-        //   const el4 = document.getElementById('inputRef');
-        //   el4?.focus();
-        //   this.isMobile.set(false);
-        // }
-      },
-      { allowSignalWrites: true }
-    );
+    effect(() => {
+      // if (!this._appStateService.gameOver()) {
+      //   this.handleUpdateCurrentWord();
+      // }
+      // if (this._appStateService.indexCorrectWord()) {
+      //   this.handleUpdateCurrentWord();
+      // }
+      // if (window.innerWidth < 1000) {
+      //   const el4 = document.getElementById('textareaRef');
+      //   el4?.focus();
+      //   this.isMobile.set(true);
+      // } else {
+      //   const el4 = document.getElementById('inputRef');
+      //   el4?.focus();
+      //   this.isMobile.set(false);
+      // }
+    });
     7;
   }
 
@@ -76,46 +79,44 @@ export class TypingDisplayComponent implements OnInit {
   //   }
   // }
 
-  handleInput($event: any){
+  handleInput($event: any) {
     $event.preventDefault();
-    this.hideTooltip()
-    let key: string=$event.data;
-
+    this.hideTooltip();
+    let key: string = $event.data;
 
     // On mobile, there was a bug where the keyboard, when typing a word one letter long, executed the letter's input event twice, which generated an error, for example you write "y " and its generated "yy " as events.
-    // Therefore, the variable inputEvaluated was created to compare the texts that were already executed so as not to execute the same event twice.    
+    // Therefore, the variable inputEvaluated was created to compare the texts that were already executed so as not to execute the same event twice.
     const textWritten = $event.target.value;
-    if(this.inputEvaluated() === ''){
+    if (this.inputEvaluated() === '') {
       this.inputEvaluated.set(textWritten);
-    }else{
-      if(this.inputEvaluated() === textWritten) {
+    } else {
+      if (this.inputEvaluated() === textWritten) {
         return;
       }
     }
 
-
     // console.log("texto escrito: "+this.input());
-    
+
     // if the input has text, then we handle the delete. This is because of the mobile not recognize the keyboard if the input has text
     // if(key===null&&this._appStateService.valueUserWriting()!=='') {
-    if(key===null&&this.input()!=='') {
-      key='Backspace';
+    if (key === null && this.input() !== '') {
+      key = 'Backspace';
     }
     // if the key is null means the user pressed on Backspace button
     // if(key===null&&this._appStateService.valueUserWriting()==='') {
-    if(key===null&&this.input()==='') {
+    if (key === null && this.input() === '') {
       return;
     }
     // if(this.isMobile()) {
-      // this.inputStack.set([...this.inputStack(), key]);    
-      // return;
+    // this.inputStack.set([...this.inputStack(), key]);
+    // return;
     // }
 
-    this.inputEvaluated.set(textWritten);  
+    this.inputEvaluated.set(textWritten);
     // this._boardHandlerService.handleLetterWritten(key);
     this.onInput.emit(key);
   }
-  
+
   preventPaste(event: ClipboardEvent) {
     event.preventDefault(); // Evita que ocurra la acción de pegar
     alert('no podes pegar pelotudo');

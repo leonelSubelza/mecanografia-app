@@ -7,16 +7,19 @@ import { MatButtonModule } from '@angular/material/button';
 import { Word } from '@/interfaces/entities';
 import { MatIconModule } from '@angular/material/icon';
 import { CpmService } from '@/services';
-import { GameOverlayDialogComponent, GameOverlayDialogService } from '@/components';
+import {
+  GameOverlayDialogComponent,
+  GameOverlayDialogService,
+} from '@/components';
 
 @Component({
-    selector: 'app-game-info',
-    imports: [MatProgressBarModule, MatButtonModule, MatIconModule],
-    standalone: true,
-    templateUrl: './game-info.component.html',
-    styleUrl: './game-info.component.css'
+  selector: 'app-game-info',
+  imports: [MatProgressBarModule, MatButtonModule, MatIconModule],
+  standalone: true,
+  templateUrl: './game-info.component.html',
+  styleUrl: './game-info.component.css',
 })
-export class GameInfoComponent implements OnInit{
+export class GameInfoComponent implements OnInit {
   _gameHandlerService = inject(GameHandlerService);
   _appStateService = inject(AppStateService);
   _gameOverlayDialogService = inject(GameOverlayDialogService);
@@ -24,58 +27,59 @@ export class GameInfoComponent implements OnInit{
   _cpmService = inject(CpmService);
   _gameTimerService = inject(GameTimerService);
 
-  constructor(){
-    effect(()=>{
-      if(this._appStateService.gameOver()){
-        this.updatePercentCompleted()
+  constructor() {
+    effect(() => {
+      if (this._appStateService.gameOver()) {
+        this.updatePercentCompleted();
         return;
       }
 
-      if(this._appStateService.indexActualWord() || this._appStateService.indexActualWord()===0){
+      if (
+        this._appStateService.indexActualWord() ||
+        this._appStateService.indexActualWord() === 0
+      ) {
         this.updatePercentCompleted();
       }
-      if(this._userTimerService.userTime()){
+      if (this._userTimerService.userTime()) {
         this._appStateService.setUserTime(this._userTimerService.userTime());
       }
-    }, {allowSignalWrites: true})
+    });
   }
 
-  ngOnInit(): void {
-    
-  }
+  ngOnInit(): void {}
 
-  updatePercentCompleted(){
+  updatePercentCompleted() {
     const totalWords = this._appStateService.board().length;
     // console.log("total words: "+totalWords);
-    
+
     // const totalWordCompleted = this._appStateService.indexActualWord();
     const totalWordCompleted = this.getTotalWordsCompleted();
     // console.log("total words completed: "+totalWordCompleted);
-    
+
     // console.log((totalWordCompleted*100));
-    
-    const totalPercent = (totalWordCompleted*100)/totalWords;
+
+    const totalPercent = (totalWordCompleted * 100) / totalWords;
     this._appStateService.setGamePercentCompleted(Math.floor(totalPercent));
   }
 
-  startTimer(){
+  startTimer() {
     this._userTimerService.startGameTimer();
   }
-  stopTimer(){
+  stopTimer() {
     this._userTimerService.stopGameTimer();
   }
 
-  getTotalWordsCompleted(): number{
+  getTotalWordsCompleted(): number {
     let cantWordCompleted = 0;
-    this._appStateService.board().forEach( (word: Word) => {
-      if(word.isCompleted){
+    this._appStateService.board().forEach((word: Word) => {
+      if (word.isCompleted) {
         cantWordCompleted++;
       }
-    })
+    });
     return cantWordCompleted;
   }
 
-  openModal(){
+  openModal() {
     const data = {
       gameType: 'precision',
       title: 'Estadísticas!',
@@ -85,7 +89,11 @@ export class GameInfoComponent implements OnInit{
       totalTime: this._gameTimerService.userTime(),
       cpmValue: this._cpmService.cpm(),
     };
-    const dialogRef = this._gameOverlayDialogService.openModal<GameOverlayDialogComponent>(GameOverlayDialogComponent,data);
+    const dialogRef =
+      this._gameOverlayDialogService.openModal<GameOverlayDialogComponent>(
+        GameOverlayDialogComponent,
+        data
+      );
 
     dialogRef.afterClosed().subscribe((result) => {
       if (!result) return;

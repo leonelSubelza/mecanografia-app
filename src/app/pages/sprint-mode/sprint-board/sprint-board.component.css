@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
 .span-container {
   display: flex;
   width: 100%;
@@ -13,12 +15,13 @@
   width: 100%;
   height: 50%;
   justify-content: center;
-
   text-align: center;
 }
 
 .letter {
-  font-size: xx-large;
+  font-family: "Courier Prime", monospace;
+  font-weight: 500;
+  font-size: 50px;
   height: auto;
   margin: 0 15px auto 15px;
   padding: 10px;
@@ -37,5 +40,6 @@
 }
 .letter.incorrect {
   /* color: #ffb6b6; */
-  color: var(--mat-sys-error-container);
+  /* color: var(--mat-sys-error-container); */
+  color: var(--color-error-sprint-mode);
 }

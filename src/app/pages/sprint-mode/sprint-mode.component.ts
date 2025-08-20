@@ -33,7 +33,7 @@ export class SprintModeComponent implements OnInit {
       //  console.log(this._appStateService.board());
       //  console.log(this._appStateService.correctLetter());
       // }
-    }, {allowSignalWrites: true})
+    })
 
   }
 
@@ -42,8 +42,7 @@ export class SprintModeComponent implements OnInit {
   }
 
   handleInputWritten($event: string) {
-
-    console.log("key pulsada en modo sprint:" + $event);
+    // console.log("key pulsada en modo sprint:" + $event);
     this._sprintModeBoardHandlerService.handleLetterWritten($event);
   }
   /*
