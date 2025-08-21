@@ -48,9 +48,9 @@
     </div>
     <div class="item-page" (click)="onClickSound()">
       <a mat-button class="item-page-sound" matTooltip="Sonido On/Off"
-        [ngClass]="{active: this._appStateService.isSoundActive()}"><mat-icon>volume_up</mat-icon></a>
+        [ngClass]="{active: this._generalStatsService.generalStats().sound}"><mat-icon>volume_up</mat-icon></a>
       <a mat-button class="item-page-sound" matTooltip="Sonido On/Off"
-        [ngClass]="{active: !this._appStateService.isSoundActive()}"><mat-icon>volume_off</mat-icon></a>
+        [ngClass]="{active: !this._generalStatsService.generalStats().sound}"><mat-icon>volume_off</mat-icon></a>
     </div>
     <div class="item-page" (click)="onChangeTheme()">
       <a mat-button class="item-page-theme" [ngClass]="{active: this.isLightMode()}"><mat-icon>light_mode</mat-icon></a>

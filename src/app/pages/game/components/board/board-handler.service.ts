@@ -2,12 +2,13 @@ import { inject, Injectable } from '@angular/core';
 import { GameHandlerService } from '@game-mode/game.handler.service';
 import { GameMode, LetterStatus, Word } from '@/interfaces/entities';
 import { CpmService } from '@/services/cpm.service';
-import { AppStateService, GameTimerService, UserAccuracyService } from '@/services';
+import { AppStateService, GameTimerService, GeneralStatsService, UserAccuracyService } from '@/services';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BoardHandlerService {
+  private _generalStatsService = inject(GeneralStatsService);
   _gameHandlerService = inject(GameHandlerService);
   _appStateService = inject(AppStateService);
   _gameTimerService = inject(GameTimerService);
@@ -23,7 +24,7 @@ export class BoardHandlerService {
     }
     // const { key } = event;
     if (this._gameHandlerService.isAValidWord(key)) {
-      if(this._appStateService.isSoundActive()){
+      if(this._generalStatsService.generalStats().sound){
         this.playKeyPressedSound();
       }
 
@@ -178,7 +179,7 @@ export class BoardHandlerService {
   }
 
   playKeyPressedSound() {
-    const audio = new Audio('sounds/keyPressedSound.mp3');
+    const audio = new Audio('sounds/precision-mode/keyPressedSound.mp3');
     audio.play();
   }
 }

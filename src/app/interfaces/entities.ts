@@ -31,6 +31,7 @@ export interface Letter {
 export interface Stats {
   username: string;
   theme?: 'light' | 'dark';
+  sound: boolean;
   normalMode?: {
     bestTextContent: TextContent;
     bestTime: string;

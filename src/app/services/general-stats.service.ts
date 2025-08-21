@@ -4,6 +4,7 @@ import { Stats } from '../interfaces/entities';
 const DEFAULT_GENERAL_STATE_VALUE: Stats = {
   username: '',
   theme: 'light',
+  sound: true,
   normalMode: {
     bestTextContent: {
       title: '-',
@@ -34,11 +35,7 @@ export class GeneralStatsService {
     return data === null ? DEFAULT_GENERAL_STATE_VALUE : JSON.parse(data);
   }
 
-  setUsername(value: string) {
-    this.generalStats().username = value;
-  }
-
-  setStatsLocalStorage(value: Stats): void {
+  setStats(value: Stats): void {
     localStorage.setItem('stats', JSON.stringify(value));
     if (value) {
       this.generalStats.set(value);

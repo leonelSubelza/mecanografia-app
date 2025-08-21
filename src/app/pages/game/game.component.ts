@@ -1,5 +1,4 @@
 import {
-  AfterViewInit,
   Component,
   OnInit,
   effect,
@@ -8,7 +7,6 @@ import {
 } from '@angular/core';
 import { GameHandlerService } from './game.handler.service';
 import { BoardComponent } from '@game-mode/components/board/board.component';
-import * as confetti from 'canvas-confetti';
 import { Stats, Word } from '@/interfaces/entities';
 import { GameInfoComponent } from './components/game-info/game-info.component';
 import {
@@ -27,7 +25,7 @@ import { GameOverlayDialogComponent, GameOverlayDialogService, ToolbarComponent,
     templateUrl: './game.component.html',
     styleUrl: './game.component.css'
 })
-export class GameComponent implements OnInit, AfterViewInit {
+export class GameComponent implements OnInit {
   _gameHandlerService = inject(GameHandlerService);
   _appStateService = inject(AppStateService);
   _generalStatsService = inject(GeneralStatsService);
@@ -39,7 +37,6 @@ export class GameComponent implements OnInit, AfterViewInit {
   isMobile = signal<boolean>(false);
   currentWord!: string;
 
-  private confettiInstance: any;
   private gameFinished: boolean = false;
 
   constructor() {
@@ -76,6 +73,7 @@ export class GameComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
+    this._gameHandlerService.resetAllValues();
     this._gameHandlerService.startNewGame();
 
     let correctWord: Word = this._appStateService.getActualWord();
@@ -95,13 +93,6 @@ export class GameComponent implements OnInit, AfterViewInit {
   //   }
   // }
 
-  ngAfterViewInit() {
-    // Crear el lienzo que cubrirá toda la ventana
-    this.confettiInstance = confetti.create(undefined, {
-      resize: true, // Asegura que el lienzo se redimensione con la ventana
-      useWorker: true, // Opcional: mejora el rendimiento en algunos casos
-    });
-  }
 
   handleUpdateCurrentWord() {
     let correctWord =
@@ -114,22 +105,11 @@ export class GameComponent implements OnInit, AfterViewInit {
     }
   }
 
-  celebrate() {
-    const duration = 3000; // en milisegundos
-    this.confettiInstance({
-      particleCount: 100,
-      spread: 160,
-      startVelocity: 30,
-      origin: { x: 0.5, y: 0.5 }, // Centrado en la pantalla
-    });
-
-    // Limpiar el confeti después de cierto tiempo
-    setTimeout(() => this.confettiInstance.reset(), duration);
-  }
 
   updateActualGameStats(): boolean {
     const actualGameStats: Stats = {
       username: this._generalStatsService.generalStats().username,
+      sound: this._generalStatsService.generalStats().sound,
       normalMode: {
         bestTextContent: this._appStateService.textContent(),
         bestTime: this._appStateService.userTime(),
@@ -138,21 +118,13 @@ export class GameComponent implements OnInit, AfterViewInit {
       }
     };
     if (this._generalStatsService.actualGameIsBetter(actualGameStats)) {
-      this._generalStatsService.setStatsLocalStorage(actualGameStats);
-
-      if (this._appStateService.isSoundActive()) {
-        this.playApplauseSound();
-      }
-      this.celebrate();
+      this._generalStatsService.setStats(actualGameStats);
       return true;
     }
     return false;
   }
 
-  playApplauseSound() {
-    const audio = new Audio('sounds/applauseSound.mp3');
-    audio.play();
-  }
+
 
   handleGameFinished(isNewRecord: boolean) {
     this.gameFinished = true;

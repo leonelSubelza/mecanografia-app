@@ -31,8 +31,8 @@ export class UserComponent {
   }
 
   onSave(){
-    this._generalStatsService.setUsername(this.username());
-    this._generalStatsService.setStatsLocalStorage(this._generalStatsService.generalStats());
+    this._generalStatsService.generalStats().username = this.username();
+    this._generalStatsService.setStats(this._generalStatsService.generalStats());
 
     this._snackBarService.showSnackBar('Nombre guardado!')
   }

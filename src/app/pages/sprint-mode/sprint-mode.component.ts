@@ -38,6 +38,7 @@ export class SprintModeComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this._sprintModeHandlerService.resetValues();
     this._sprintModeHandlerService.startNewGameSprintMode();
   }
 

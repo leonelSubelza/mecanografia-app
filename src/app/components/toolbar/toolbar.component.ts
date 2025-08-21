@@ -65,7 +65,8 @@ export class ToolbarComponent {
   }
 
   onClickSound(){
-    this._appStateService.setIsSoundActive(!this._appStateService.isSoundActive());
+    this._generalStatsService.generalStats().sound = !this._generalStatsService.generalStats().sound;
+    this._generalStatsService.setStats(this._generalStatsService.generalStats());
   }
 
   onRefreshClick() {
@@ -84,6 +85,6 @@ export class ToolbarComponent {
       document.getElementsByTagName("html")[0].classList.remove("dark-theme");
       this._generalStatsService.generalStats().theme = 'light';
     }
-    this._generalStatsService.setStatsLocalStorage(this._generalStatsService.generalStats());
+    this._generalStatsService.setStats(this._generalStatsService.generalStats());
   }
 }

@@ -174,6 +174,8 @@ export class SprintModeHandlerService {
     this.gameOver.set(true);
     this._cpmService.finishCPM();
 
+    if(this._generalStatsService.generalStats().sound) this.playFinishSound();
+
     if (this.isActualScoreBestScore()) {
       this.updateBestScore();
     }
@@ -198,7 +200,7 @@ export class SprintModeHandlerService {
         bestScore: this.userScore(),
       };
     }
-    this._generalStatsService.setStatsLocalStorage(generalStatsValue);
+    this._generalStatsService.setStats(generalStatsValue);
   }
 
   isActualScoreBestScore(): boolean {
@@ -206,6 +208,7 @@ export class SprintModeHandlerService {
   }
 
   openGameOverlayDialog() {
+    this._cpmService.finishCPM();
     const data = {
       gameType: 'sprint',
       title: 'Juego Terminado',
@@ -234,5 +237,9 @@ export class SprintModeHandlerService {
           break;
       }
     });
+  }
+
+  playFinishSound() {
+    new Audio('sounds/sprint-mode/gong.wav').play();    
   }
 }

@@ -25,7 +25,7 @@ export class AppStateService {
   board = signal<Word[]>([]);
   gameOver = signal<boolean>(false);
   textContent = signal<TextContent>(texts[0]);
-  isSoundActive = signal<boolean>(true);
+  // isSoundActive = signal<boolean>(true);
   indexActualWord = signal<number>(0);
   indexActualLetter = signal<number>(0);
 
@@ -111,7 +111,7 @@ export class AppStateService {
     this.board()[this.indexActualWord()].isCompleted = value;
   }
 
-  setIsSoundActive(value: boolean){
-    this.isSoundActive.set(value);
-  }
+  // setIsSoundActive(value: boolean){
+  //   this.isSoundActive.set(value);
+  // }
 }
