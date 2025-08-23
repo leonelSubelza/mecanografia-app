@@ -14,11 +14,20 @@
     }
     <!-- <p>Pulsaciones totales: {{this._cpmService.characterCount()}}</p> -->
 </mat-dialog-content>
+@if(this.gameType() !== 'sprint') {
 <mat-dialog-actions align="end">
-    @if(this.gameType() !== 'sprint') {
     <button mat-raised-button (click)="resetGame()">
         <label>Reiniciar</label> <mat-icon iconPositionEnd>refresh</mat-icon>
     </button>
-    }
-    <button mat-flat-button color='primary' cdkFocusInitial (click)="newGame()">Jugar de nuevo</button>
+    <button mat-flat-button color='primary' cdkFocusInitial (click)="newGame()">Jugar de nuevo!</button>
 </mat-dialog-actions>
+}@else {
+<mat-dialog-actions align="end">
+    <button mat-raised-button (click)="newGame()">
+        <label>Salir</label> <mat-icon iconPositionEnd>exit_to_app</mat-icon>
+    </button>
+    <button mat-flat-button color='primary' cdkFocusInitial (click)="resetGame()">
+        <label>Jugar de nuevo!</label> <!-- <mat-icon iconPositionEnd>refresh</mat-icon> -->
+    </button>
+</mat-dialog-actions>
+}

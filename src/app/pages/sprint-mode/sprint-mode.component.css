@@ -9,8 +9,9 @@ app-toolbar {
 
 .start-screen {
   display: none;
+  flex-direction: column;
   font-family: "Courier Prime", monospace;
-  min-height: 50%;
+  min-height: 70%;
   justify-content: center;
   align-items: center;
   position: relative;
@@ -20,9 +21,30 @@ app-toolbar {
   display: flex !important;
 }
 
+.header-container {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  transition: opacity .2s ease-in-out;
+}
+
+.header-container h1 {
+  font-size: 40px;
+}
+.header-container p{
+  font-size: 18px;
+
+}
+
+.header-container h1, .header-container p{
+  height: 50%;
+  margin: 0 0 20px 0;
+}
+
 .start-button-container {
   display: flex;
   width: 100%;
+  margin-top: 20px;
   justify-content: center;
 }
 
@@ -44,10 +66,10 @@ app-toolbar {
 
 }
 
-.start-button.fade-out {
+.fade-out {
   opacity: 0;
 }
-.start-button.fade-in {
+.fade-in {
   opacity: 1;
 }
 .start-button:hover{

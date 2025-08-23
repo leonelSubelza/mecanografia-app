@@ -62,9 +62,10 @@ export class TypingDisplayComponent implements OnInit {
         this.isMobile.set(false);
       }
       if(!this._sprintModeHandlerService.showStartScreen() && !this._sprintModeHandlerService.gameOver()){
-        if(this.isMobile()) {
+        if(this.isMobile() && this.textareaRef) {
           this.textareaRef.nativeElement.focus();
-        }else{
+        }
+        if(!this.isMobile() && this.inputRef) {
           this.inputRef.nativeElement.focus();
         }
       }

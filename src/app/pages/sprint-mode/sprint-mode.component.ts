@@ -46,13 +46,12 @@ export class SprintModeComponent implements OnInit {
 
   _timerService = inject(GameTimerService);
 
-  sequence = ['', '3', '2', '1', 'GO!'];
-  currentIndex = signal<number | null>(null); // cuál mostrar
-  isVisible = signal(false); // para animación fade
-  intervalTime = 300; // 0.5s
-
-  private countdownTimer: any;
-  showButton = signal(true);
+  // sequence = ['', '3', '2', '1', 'GO!'];
+  // currentIndex = signal<number | null>(null); // cuál mostrar
+  // isVisible = signal(false); // para animación fade
+  // intervalTime = 300; // 0.5s
+  // private countdownTimer: any;
+  // showButton = signal(true);
 
   inputElement = viewChild<HTMLInputElement>('inputRef');
 
@@ -78,51 +77,51 @@ export class SprintModeComponent implements OnInit {
     this._sprintModeBoardHandlerService.handleLetterWritten($event);
   }
   handleRestartGame() {
-    this._sprintModeHandlerService.startNewGameSprintMode();
+    this._sprintModeHandlerService.restartGameAndStartPlaying();
   }
   handleNewGame() {
-    this._sprintModeHandlerService.startNewGameSprintMode();
+    this._sprintModeHandlerService.restartGameAndGoToStartScreen();
   }
 
-  onStartButtonClick() {
+  // onStartButtonClick() {
     // Ocultamos el botón con fade-out
-    this.showButton.set(false);
+    // this.showButton.set(false);
 
     // Esperamos 0.5s para iniciar la cuenta (cuando termina la animación del botón)
-    setTimeout(() => {
-      this.startCountdown();
+    // setTimeout(() => {
+      // this.startCountdown();
       // this.showButton.set(true);
-    }, 200);
-  }
+    // }, 200);
+  // }
 
-  private startCountdown() {
-    let index = 0;
-    this.currentIndex.set(index);
-    this.isVisible.set(true);
+  // private startCountdown() {
+  //   let index = 0;
+  //   this.currentIndex.set(index);
+  //   this.isVisible.set(true);
 
-    this.countdownTimer = setInterval(() => {
-      this.isVisible.set(false);
+  //   this.countdownTimer = setInterval(() => {
+  //     this.isVisible.set(false);
 
-      setTimeout(() => {
-        index++;
-        if (index < this.sequence.length) {
-          this.currentIndex.set(index);
-          this.isVisible.set(true);
-        } else {
-          clearInterval(this.countdownTimer);
+  //     setTimeout(() => {
+  //       index++;
+  //       if (index < this.sequence.length) {
+  //         this.currentIndex.set(index);
+  //         this.isVisible.set(true);
+  //       } else {
+  //         clearInterval(this.countdownTimer);
 
-          // Cuando termina, restauramos todo
-          setTimeout(() => {
-            this.currentIndex.set(null);
-            this.showButton.set(true);
-            this._sprintModeHandlerService.showStartScreen.set(false);
-            this._sprintModeHandlerService.startGame();
-            // this.setFocusOnInput();
-          }, 150);
-        }
-      }, 150);
-    }, 600);
-  }
+  //         // Cuando termina, restauramos todo
+  //         setTimeout(() => {
+  //           this.currentIndex.set(null);
+  //           this.showButton.set(true);
+  //           this._sprintModeHandlerService.showStartScreen.set(false);
+  //           this._sprintModeHandlerService.startGame();
+  //           // this.setFocusOnInput();
+  //         }, 150);
+  //       }
+  //     }, 150);
+  //   }, 600);
+  // }
 
   // setFocusOnInput() {
   //   if (this.isMobile()) {

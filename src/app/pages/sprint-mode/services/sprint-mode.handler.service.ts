@@ -53,18 +53,19 @@ export class SprintModeHandlerService {
   indexActualLetter = signal<number>(0);
   indexCorrectLetter = signal<number>(0);
   valueUserWritingSprintMode = signal<string>('');
+
+  //start screen
+
   constructor() {
     // Esto es como un "thread reactivo"
-    effect(
-      () => {
-        // LOGIC TO FINISH THE GAME
-        if (this._timerService.isTimerCountdownFinished() && !this.gameOver()) {
-          this.openGameOverlayDialog();
-          this.finishGame();
-          return;
-        }
+    effect(() => {
+      // LOGIC TO FINISH THE GAME
+      if (this._timerService.isTimerCountdownFinished() && !this.gameOver()) {
+        this.openGameOverlayDialog();
+        this.finishGame();
+        return;
       }
-    );
+    });
   }
 
   startNewGameSprintMode() {
@@ -73,7 +74,10 @@ export class SprintModeHandlerService {
     this.setNewRandomWordSprintMode(this.difficulty());
   }
 
-  async setNewRandomWordSprintMode(cantLetters: number = 5, includeWordsWithAccents: boolean = false) {
+  async setNewRandomWordSprintMode(
+    cantLetters: number = 5,
+    includeWordsWithAccents: boolean = false
+  ) {
     let arrayRandomWords: string[];
     if (
       this.difficulty() !== cantLetters ||
@@ -81,7 +85,7 @@ export class SprintModeHandlerService {
       this.listWordsLoaded().length === 0
     ) {
       arrayRandomWords = await getWordsByLength(cantLetters);
-      if(!includeWordsWithAccents) {
+      if (!includeWordsWithAccents) {
         arrayRandomWords = this.removeWordsWithAccents(arrayRandomWords);
       }
     } else {
@@ -121,10 +125,23 @@ export class SprintModeHandlerService {
   }
 
   removeWordsWithAccents(loadedWords: string[]): string[] {
-    const accents = ['á','é','í','ó','ú','Á','É','Í','Ó','Ú','ü','Ü'];
-    
-    return loadedWords.filter(word => 
-      !accents.some(acc => word.includes(acc))
+    const accents = [
+      'á',
+      'é',
+      'í',
+      'ó',
+      'ú',
+      'Á',
+      'É',
+      'Í',
+      'Ó',
+      'Ú',
+      'ü',
+      'Ü',
+    ];
+
+    return loadedWords.filter(
+      (word) => !accents.some((acc) => word.includes(acc))
     );
   }
 
@@ -133,8 +150,8 @@ export class SprintModeHandlerService {
       Math.random() * arrayRandomWords.length
     );
 
-    if(this.wordsPlayed().length === arrayRandomWords.length) {
-      alert("NO HAY MÁS PALABRAS XD");
+    if (this.wordsPlayed().length === arrayRandomWords.length) {
+      alert('NO HAY MÁS PALABRAS XD');
       return '';
     }
     while (this.wordsPlayed().includes(arrayRandomWords[indexRandomWord])) {
@@ -176,7 +193,7 @@ export class SprintModeHandlerService {
     this.gameOver.set(true);
     this._cpmService.finishCPM();
 
-    if(this._generalStatsService.generalStats().sound) this.playFinishSound();
+    if (this._generalStatsService.generalStats().sound) this.playFinishSound();
 
     if (this.isActualScoreBestScore()) {
       this.updateBestScore();
@@ -186,6 +203,17 @@ export class SprintModeHandlerService {
   startGame() {
     this._timerService.startCountDownGameTimer();
     this._cpmService.startCPM();
+  }
+
+  restartGameAndGoToStartScreen() {
+    this.resetValues();
+    this.startNewGameSprintMode();
+  }
+
+  restartGameAndStartPlaying() {
+    this.resetValues();
+    this.startNewGameSprintMode();
+    this.startButtonClick();
   }
 
   addScore(type: 'perfect' | 'normal' = 'normal') {
@@ -235,10 +263,10 @@ export class SprintModeHandlerService {
 
       switch (result.action) {
         case 'newGame':
-          this.startNewGameSprintMode();
+          this.restartGameAndGoToStartScreen();
           break;
         case 'resetGame':
-          this.startNewGameSprintMode();
+          this.restartGameAndStartPlaying();
           break;
         default:
           break;
@@ -246,7 +274,59 @@ export class SprintModeHandlerService {
     });
   }
 
+  // VA A HABER QUE MOVER LA LOGICA DEL BOTON COMENZAR A ACÁ
+
   playFinishSound() {
-    new Audio('sounds/sprint-mode/gong.wav').play();    
+    new Audio('sounds/sprint-mode/gong.wav').play();
+  }
+
+  sequence = ['', '3', '2', '1', 'GO!'];
+  currentIndex = signal<number | null>(null); // cuál mostrar
+  isVisible = signal(false); // para animación fade
+  intervalTime = 300; // 0.5s
+
+  private countdownTimer: any;
+  showButton = signal(true);
+
+  startButtonClick() {
+    // Ocultamos el botón con fade-out
+    console.log('se oculta el botón');
+
+    this.showButton.set(false);
+
+    // Esperamos 0.5s para iniciar la cuenta (cuando termina la animación del botón)
+    setTimeout(() => {
+      this.startCountdown();
+      // this.showButton.set(true);
+    }, 200);
+  }
+
+  private startCountdown() {
+    let index = 0;
+    this.currentIndex.set(index);
+    this.isVisible.set(true);
+
+    this.countdownTimer = setInterval(() => {
+      this.isVisible.set(false);
+
+      setTimeout(() => {
+        index++;
+        if (index < this.sequence.length) {
+          this.currentIndex.set(index);
+          this.isVisible.set(true);
+        } else {
+          clearInterval(this.countdownTimer);
+
+          // Cuando termina, restauramos todo
+          setTimeout(() => {
+            this.currentIndex.set(null);
+            this.showButton.set(true);
+            this.showStartScreen.set(false);
+            this.startGame();
+            // this.setFocusOnInput();
+          }, 150);
+        }
+      }, 150);
+    }, 600);
   }
 }
