@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
 app-toolbar {
   color: var(--mat-sys-primary);
     /* background: var(--mat-app-background-color) */
@@ -5,11 +7,86 @@ app-toolbar {
     
 }
 
+.start-screen {
+  display: none;
+  font-family: "Courier Prime", monospace;
+  min-height: 50%;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.show-in-screen {
+  display: flex !important;
+}
+
+.start-button-container {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+}
+
+.start-button {
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  border: 1px solid transparent;
+  color: var(--mat-sys-on-primary);
+  background-color: var(--mat-sys-primary);
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 30px;
+  opacity: 0;
+  transition: opacity .2s ease-in-out;
+  z-index: 50;
+
+}
+
+.start-button.fade-out {
+  opacity: 0;
+}
+.start-button.fade-in {
+  opacity: 1;
+}
+.start-button:hover{
+  filter: brightness(105%);
+}
+
+.countdown-seq-container {
+  position: absolute;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  font-size: 50px;
+  z-index: 49;
+}
+
+.countdown-item {
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.countdown-item.show {
+  opacity: 1;
+}
+
+/* .start-screen button {
+  flex-direction: row-reverse;
+}
+
+.start-screen button,.start-screen button mat-icon {
+  margin: auto 0  !important;
+} */
+
 .game-content {
   height: 100%;
   width: 85%;
-  display: flex;
   margin: 0 auto;
+  display: none;
   flex-direction: column;
   /* background-color: #fff; */
 }

@@ -1,5 +1,26 @@
 <app-toolbar [showRestartButton]="false" (onStartNewGame)="handleNewGame()" />
-<div class="game-content">
+
+<div class="start-screen" [ngClass]="{'show-in-screen': this._sprintModeHandlerService.showStartScreen()}">
+  <!-- @if(this.showButton()) { -->
+  <div class="start-button-container">
+    <button class="start-button" [class.fade-out]="!showButton()" [class.fade-in]="showButton()"
+      (click)="onStartButtonClick()">
+      Empezar!
+    </button>
+  </div>
+
+  <!-- } -->
+
+  <div class="countdown-seq-container">
+    @if(currentIndex() !== null) {
+    <div class="countdown-item" [class.show]="isVisible()">
+      {{ sequence[currentIndex()!] }}
+    </div>
+    }
+  </div>
+
+</div>
+<div class="game-content" [ngClass]="{'show-in-screen': !this._sprintModeHandlerService.showStartScreen()}">
   <div class="sprint-mode-header-container">
     <div>
       Puntuación: {{this._sprintModeHandlerService.userScore()}}

@@ -38,6 +38,7 @@ export class SprintModeHandlerService {
   _cpmService = inject(CpmService);
 
   gameOver = signal<boolean>(false);
+  showStartScreen = signal<boolean>(true);
   userTime = signal<string>('');
   userScore = signal<number>(0);
   bestScore = signal<number>(0);
@@ -156,6 +157,7 @@ export class SprintModeHandlerService {
     this.gameOver.set(false);
     this.userScore.set(0);
     this._cpmService.resetCPM();
+    this.showStartScreen.set(true);
 
     const bestScoreLoaded =
       this._generalStatsService.generalStats().sprintMode?.bestScore;
@@ -179,6 +181,11 @@ export class SprintModeHandlerService {
     if (this.isActualScoreBestScore()) {
       this.updateBestScore();
     }
+  }
+
+  startGame() {
+    this._timerService.startCountDownGameTimer();
+    this._cpmService.startCPM();
   }
 
   addScore(type: 'perfect' | 'normal' = 'normal') {

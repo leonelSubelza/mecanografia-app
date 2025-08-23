@@ -43,10 +43,11 @@ export class SprintModeBoardHandlerService {
 
       // this.scrollToActualWord();
 
-      if (!this._sprintModeHandlerService.gameOver()) {
-        this._timerService.startCountDownGameTimer();
-        this._cpmService.startCPM();
-      }
+      // ESTO INICIA EL JUEGO
+      // if (!this._sprintModeHandlerService.gameOver()) {
+      //   this._timerService.startCountDownGameTimer();
+      //   this._cpmService.startCPM();
+      // }
 
       let updateNewLetter: boolean = false;
       // this._userAccuracyService.addOneTotalLettersWritten();
@@ -69,6 +70,7 @@ export class SprintModeBoardHandlerService {
 
       if (this.isWordCompleted()) {
         this._sprintModeHandlerService.loadNewWord();
+        if(this._generalStatsService.generalStats().sound) new Audio('sounds/sprint-mode/ding.wav').play();
         return;
       }
       this.moveNextLetter();

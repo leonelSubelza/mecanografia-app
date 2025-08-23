@@ -1,16 +1,21 @@
 import {
+  AfterViewInit,
   Component,
   effect,
+  ElementRef,
   inject,
   input,
   OnInit,
   output,
   signal,
+  ViewChild,
+  viewChild,
 } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { AppStateService } from '@/pages/game/services/app-state.service';
 import { MatButtonModule } from '@angular/material/button';
 import { NgClass } from '@angular/common';
+import { GeneralStatsService, SprintModeHandlerService } from '@/services';
 
 @Component({
   selector: 'app-typing-display',
@@ -21,13 +26,14 @@ import { NgClass } from '@angular/common';
 })
 export class TypingDisplayComponent implements OnInit {
   _appStateService = inject(AppStateService);
+  _sprintModeHandlerService = inject(SprintModeHandlerService);
   // _boardHandlerService = inject(BoardHandlerService);
 
   input = input.required<string>();
   currentWord = input<string>();
   onInput = output<string>();
 
-  // isMobile = signal<boolean>(false);
+  isMobile = signal<boolean>(false);
   textAux = '';
 
   inputEvaluated = signal<string>('');
@@ -38,7 +44,9 @@ export class TypingDisplayComponent implements OnInit {
   // currentWord!: string;
 
   showTooltipMessage: boolean = true;
-  // inputElement = viewChild<HTMLInputElement>('inputRef');
+
+  @ViewChild('inputRef') inputRef!: ElementRef<HTMLInputElement>;
+  @ViewChild('textareaRef') textareaRef!: ElementRef<HTMLInputElement>;
 
   constructor() {
     effect(() => {
@@ -48,15 +56,18 @@ export class TypingDisplayComponent implements OnInit {
       // if (this._appStateService.indexCorrectWord()) {
       //   this.handleUpdateCurrentWord();
       // }
-      // if (window.innerWidth < 1000) {
-      //   const el4 = document.getElementById('textareaRef');
-      //   el4?.focus();
-      //   this.isMobile.set(true);
-      // } else {
-      //   const el4 = document.getElementById('inputRef');
-      //   el4?.focus();
-      //   this.isMobile.set(false);
-      // }
+      if (window.innerWidth < 1000) {
+        this.isMobile.set(true);
+      } else {
+        this.isMobile.set(false);
+      }
+      if(!this._sprintModeHandlerService.showStartScreen() && !this._sprintModeHandlerService.gameOver()){
+        if(this.isMobile()) {
+          this.textareaRef.nativeElement.focus();
+        }else{
+          this.inputRef.nativeElement.focus();
+        }
+      }
     });
     7;
   }

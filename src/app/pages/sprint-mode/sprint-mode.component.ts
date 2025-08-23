@@ -1,40 +1,71 @@
-import { Component, effect, inject, OnInit, signal } from '@angular/core';
+import {
+  Component,
+  effect,
+  inject,
+  OnInit,
+  signal,
+  viewChild,
+} from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { SprintModeHandlerService } from '@/pages/sprint-mode/services/sprint-mode.handler.service';
 import { SprintBoardComponent } from './sprint-board/sprint-board.component';
 import { SprintModeBoardHandlerService } from './sprint-mode-board.handler.service';
 import { FormsModule } from '@angular/forms';
-import { GameTimerService } from '@/services';
+import { GameTimerService, GeneralStatsService } from '@/services';
 import { ToolbarComponent, TypingDisplayComponent } from '@/components';
+import { MatIconModule } from '@angular/material/icon';
+import { NgClass } from '@angular/common';
 
-const ANGULAR_MATERIAL_IMPORTS = [MatCardModule, MatButtonModule,MatCardModule, MatButtonModule, ];
+const ANGULAR_MATERIAL_IMPORTS = [
+  MatCardModule,
+  MatButtonModule,
+  MatCardModule,
+  MatButtonModule,
+  MatIconModule,
+];
 
 @Component({
-    selector: 'app-sprint-mode',
-    imports: [ANGULAR_MATERIAL_IMPORTS, SprintBoardComponent, FormsModule, TypingDisplayComponent, ToolbarComponent],
-    standalone: true,
-    templateUrl: './sprint-mode.component.html',
-    styleUrl: './sprint-mode.component.css'
+  selector: 'app-sprint-mode',
+  imports: [
+    ANGULAR_MATERIAL_IMPORTS,
+    SprintBoardComponent,
+    FormsModule,
+    TypingDisplayComponent,
+    ToolbarComponent,
+    NgClass,
+  ],
+  standalone: true,
+  templateUrl: './sprint-mode.component.html',
+  styleUrl: './sprint-mode.component.css',
 })
 export class SprintModeComponent implements OnInit {
   _sprintModeHandlerService = inject(SprintModeHandlerService);
   _sprintModeBoardHandlerService = inject(SprintModeBoardHandlerService);
+  _generalStatsService = inject(GeneralStatsService);
 
   _timerService = inject(GameTimerService);
-  // _boardHandlerService = inject(BoardHandlerService);
-  // _appStateService = inject(AppStateService);
-  // valueUserWriting: string = '';
-  // inputEvaluated = signal<string>('');
+
+  sequence = ['', '3', '2', '1', 'GO!'];
+  currentIndex = signal<number | null>(null); // cuál mostrar
+  isVisible = signal(false); // para animación fade
+  intervalTime = 300; // 0.5s
+
+  private countdownTimer: any;
+  showButton = signal(true);
+
+  inputElement = viewChild<HTMLInputElement>('inputRef');
+
+  isMobile = signal<boolean>(false);
 
   constructor() {
-    effect(()=>{
-      // if(this._appStateService.gameOver()){
-      //  console.log(this._appStateService.board());
-      //  console.log(this._appStateService.correctLetter());
-      // }
-    })
-
+    effect(() => {
+      if (window.innerWidth < 1000) {
+        this.isMobile.set(true);
+      } else {
+        this.isMobile.set(false);
+      }
+    });
   }
 
   ngOnInit(): void {
@@ -46,47 +77,60 @@ export class SprintModeComponent implements OnInit {
     // console.log("key pulsada en modo sprint:" + $event);
     this._sprintModeBoardHandlerService.handleLetterWritten($event);
   }
-  /*
-  handleInput($event: any){
-    $event.preventDefault();
-    let key: string=$event.data;
-
-    
-    const textWritten = $event.target.value;
-    if(this.inputEvaluated() === ''){
-      this.inputEvaluated.set(textWritten);
-    }else{
-      if(this.inputEvaluated() === textWritten) {
-        return;
-      }
-    }
-    
-    // if the input has text, then we handle the delete. This is because of the mobile not recognize the keyboard if the input has text
-    if(key===null && this._sprintModeHandlerService.valueUserWritingSprintMode()!=='') {
-      key='Backspace';
-      console.log("se cambia key a Backspace");
-      
-    }
-    // if the key is null means the user pressed on Backspace button
-    if(key===null && this._sprintModeHandlerService.valueUserWritingSprintMode()==='') {
-      console.log("el input era vacio. return");
-      return;
-    }
-    
-    
-    this.inputEvaluated.set(textWritten);  
-    this._sprintModeBoardHandlerService.handleLetterWritten(key);
-    this._sprintModeHandlerService.valueUserWritingSprintMode.set(this.valueUserWriting);
+  handleRestartGame() {
+    this._sprintModeHandlerService.startNewGameSprintMode();
+  }
+  handleNewGame() {
+    this._sprintModeHandlerService.startNewGameSprintMode();
   }
 
-  preventPaste($event: any){
+  onStartButtonClick() {
+    // Ocultamos el botón con fade-out
+    this.showButton.set(false);
 
+    // Esperamos 0.5s para iniciar la cuenta (cuando termina la animación del botón)
+    setTimeout(() => {
+      this.startCountdown();
+      // this.showButton.set(true);
+    }, 200);
   }
-  */
- handleRestartGame() {
-  this._sprintModeHandlerService.startNewGameSprintMode();
- }
- handleNewGame() {
-  this._sprintModeHandlerService.startNewGameSprintMode();
- }
+
+  private startCountdown() {
+    let index = 0;
+    this.currentIndex.set(index);
+    this.isVisible.set(true);
+
+    this.countdownTimer = setInterval(() => {
+      this.isVisible.set(false);
+
+      setTimeout(() => {
+        index++;
+        if (index < this.sequence.length) {
+          this.currentIndex.set(index);
+          this.isVisible.set(true);
+        } else {
+          clearInterval(this.countdownTimer);
+
+          // Cuando termina, restauramos todo
+          setTimeout(() => {
+            this.currentIndex.set(null);
+            this.showButton.set(true);
+            this._sprintModeHandlerService.showStartScreen.set(false);
+            this._sprintModeHandlerService.startGame();
+            // this.setFocusOnInput();
+          }, 150);
+        }
+      }, 150);
+    }, 600);
+  }
+
+  // setFocusOnInput() {
+  //   if (this.isMobile()) {
+  //     const el4 = document.getElementById('textareaRef');
+  //     el4?.focus();
+  //   } else {
+  //     const el4 = document.getElementById('inputRef');
+  //     el4?.focus();
+  //   }
+  // }
 }
