@@ -51,6 +51,7 @@ export class GameOverlayDialogComponent implements OnInit {
 
   //sprint-mode
   score = signal<number>(this._modalData.score);
+  totalWordsWritten = signal<number>(this._modalData.totalWordsWritten)
 
   private confettiInstance: any;
 

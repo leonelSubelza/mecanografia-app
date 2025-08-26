@@ -65,6 +65,7 @@ export class SprintModeBoardHandlerService {
           if (this._generalStatsService.generalStats().sound)
             this.playErrorSound();
           this.setActualLetterStatus(LetterStatus.INCORRECT);
+          this._sprintModeHandlerService.isPerfectScore.set(false);
         }
       }
 

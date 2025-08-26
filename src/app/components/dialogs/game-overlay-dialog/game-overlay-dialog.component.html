@@ -10,6 +10,7 @@
     }
     @if(this.gameType() === 'sprint') {
     <p>Tu puntuación final es: {{ this.score() }}</p>
+    <p>Cantidad de palabras escritas: {{ this.totalWordsWritten() }}</p>
     <p>Velocidad: {{this.cpmValue()}}PPM</p>
     }
     <!-- <p>Pulsaciones totales: {{this._cpmService.characterCount()}}</p> -->

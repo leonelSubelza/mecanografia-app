@@ -28,5 +28,5 @@ app-word {
     display: flex;
     margin:5px 0;
     /* border-bottom: 1px solid oklch(0.9175 0.004 301.42); */
-    border-bottom: 1px solid var(--mat-sys-outline-variant);
+    /* border-bottom: 1px solid var(--mat-sys-outline-variant); */
 }

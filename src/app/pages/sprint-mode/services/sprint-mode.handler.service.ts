@@ -37,6 +37,7 @@ export class SprintModeHandlerService {
   userScore = signal<number>(0);
   bestScore = signal<number>(0);
   scoreToShowStack = signal<ScoreToShow[]>([]);
+  isPerfectScore = signal<boolean>(true);
 
   isSoundActive = signal<boolean>(true);
   difficulty = signal<number>(5);
@@ -171,6 +172,9 @@ export class SprintModeHandlerService {
     this.userScore.set(0);
     this._cpmService.resetCPM();
     this.showStartScreen.set(true);
+    this.scoreToShowStack.set([]);
+    this.isPerfectScore.set(true);
+    this.wordsPlayed.set([]);
 
     const bestScoreLoaded =
       this._generalStatsService.generalStats().sprintMode?.bestScore;
@@ -180,7 +184,10 @@ export class SprintModeHandlerService {
   }
 
   loadNewWord() {
-    this.addScore();
+    console.log(this.isPerfectScore() ? 'perfect' : 'normal');
+    
+    this.addScore(this.isPerfectScore() ? 'perfect' : 'normal');
+    this.isPerfectScore.set(true);
     this.setNewRandomWordSprintMode(this.difficulty());
   }
 
@@ -256,6 +263,7 @@ export class SprintModeHandlerService {
       title: 'Juego Terminado',
       isNewRecord: this.isActualScoreBestScore(),
       score: this.userScore(),
+      totalWordsWritten: this.wordsPlayed().length,
       time: this._timerService.userTime(),
       cpmValue: this._cpmService.cpm(),
     };
@@ -296,9 +304,8 @@ export class SprintModeHandlerService {
   showButton = signal(true);
 
   startButtonClick() {
+    if(!this.showButton()) return;
     // Ocultamos el botón con fade-out
-    console.log('se oculta el botón');
-
     this.showButton.set(false);
 
     // Esperamos 0.5s para iniciar la cuenta (cuando termina la animación del botón)
