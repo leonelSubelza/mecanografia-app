@@ -3,7 +3,7 @@
 <div class="start-screen" [ngClass]="{'show-in-screen': this._sprintModeHandlerService.showStartScreen()}">
   <!-- @if(this.showButton()) { -->
   <div class="header-container" [class.fade-out]="!this._sprintModeHandlerService.showButton()"
-      [class.fade-in]="this._sprintModeHandlerService.showButton()">
+    [class.fade-in]="this._sprintModeHandlerService.showButton()">
     <h1>Sprint Mode</h1>
     <p>Escribe tantas palabras de 5 letras como puedas en menos de 30 segundos.</p>
   </div>
@@ -30,16 +30,17 @@
 <div class="game-content" [ngClass]="{'show-in-screen': !this._sprintModeHandlerService.showStartScreen()}">
   <div class="sprint-mode-header-container">
     <div>
-      Puntuación: {{this._sprintModeHandlerService.userScore()}}
+      <label>Puntuación:</label> <mat-icon>stars</mat-icon>{{this._sprintModeHandlerService.userScore()}}
     </div>
     <div>
-      Record: {{ this._sprintModeHandlerService.bestScore() }}
+      <label>Record:</label><mat-icon>workspace_premium</mat-icon>{{ this._sprintModeHandlerService.bestScore() }}
     </div>
     <span></span>
     <div>
-      Tiempo: {{ this._timerService.userTime() }}
+      <label>Tiempo:</label><mat-icon>schedule</mat-icon>{{ this._timerService.userTime() }}
     </div>
   </div>
+
   <app-sprint-board />
   <app-typing-display [input]="this._sprintModeHandlerService.valueUserWritingSprintMode()"
     (onInput)="handleInputWritten($event)" />

@@ -1,18 +1,11 @@
 import { effect, inject, Injectable, signal } from '@angular/core';
-import { Letter, LetterStatus } from '../../../interfaces/entities';
+import { Letter, LetterStatus, ScoreToShow } from '@/interfaces/entities';
 import { CpmService, GameTimerService, GeneralStatsService } from '@/services';
 import {
   GameOverlayDialogComponent,
   GameOverlayDialogService,
 } from '@/components';
-
-const CORRECT_LETTER_DEFAULT_VALUE = {
-  id: '00',
-  letter: '',
-  index: 0,
-  isActive: false,
-  status: LetterStatus.DEFAULT,
-};
+import { Router } from '@angular/router';
 
 const PUNCTUATION_PERFECT_SCORE = 10;
 const PUNCTUATION_NORMAL_SCORE = 5;
@@ -40,8 +33,11 @@ export class SprintModeHandlerService {
   gameOver = signal<boolean>(false);
   showStartScreen = signal<boolean>(true);
   userTime = signal<string>('');
+
   userScore = signal<number>(0);
   bestScore = signal<number>(0);
+  scoreToShowStack = signal<ScoreToShow[]>([]);
+
   isSoundActive = signal<boolean>(true);
   difficulty = signal<number>(5);
 
@@ -54,13 +50,13 @@ export class SprintModeHandlerService {
   indexCorrectLetter = signal<number>(0);
   valueUserWritingSprintMode = signal<string>('');
 
-  //start screen
+  router = inject(Router);
 
   constructor() {
     // Esto es como un "thread reactivo"
     effect(() => {
       // LOGIC TO FINISH THE GAME
-      if (this._timerService.isTimerCountdownFinished() && !this.gameOver()) {
+      if (this._timerService.isTimerCountdownFinished() && !this.gameOver() && this.router.url === '/sprint-mode') {
         this.openGameOverlayDialog();
         this.finishGame();
         return;
@@ -219,10 +215,21 @@ export class SprintModeHandlerService {
   addScore(type: 'perfect' | 'normal' = 'normal') {
     if (type === 'perfect') {
       this.userScore.update((prev: number) => prev + PUNCTUATION_PERFECT_SCORE);
+      this.scoreToShowStack().push({
+        message: '+' + PUNCTUATION_PERFECT_SCORE,
+        type,
+      });
     }
     if (type === 'normal') {
       this.userScore.update((prev: number) => prev + PUNCTUATION_NORMAL_SCORE);
+      this.scoreToShowStack().push({
+        message: '+' + PUNCTUATION_NORMAL_SCORE,
+        type,
+      });
     }
+    setTimeout(() => {
+      this.scoreToShowStack().pop();
+    }, 500);
   }
 
   updateBestScore() {

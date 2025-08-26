@@ -8,4 +8,8 @@
     'incorrect': getLetterStatus(letter) === 'INCORRECT',
     }" class="letter">{{ letter.letter }}</div>
   }
+  @for (value of this._sprintModeHandlerService.scoreToShowStack(); track $index) {
+  <label [class.normal]="value.type === 'normal'" [class.perfect]="value.type === 'perfect'">{{ value.message
+    }}</label>
+  }
 </div>

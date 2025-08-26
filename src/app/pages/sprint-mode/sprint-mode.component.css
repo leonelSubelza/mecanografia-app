@@ -1,10 +1,9 @@
-@import url('https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&display=swap");
 
 app-toolbar {
   color: var(--mat-sys-primary);
-    /* background: var(--mat-app-background-color) */
-    background-color: var(--mat-sys-inverse-primary);
-    
+  /* background: var(--mat-app-background-color) */
+  background-color: var(--mat-sys-inverse-primary);
 }
 
 .start-screen {
@@ -25,18 +24,18 @@ app-toolbar {
   display: flex;
   flex-direction: column;
   text-align: center;
-  transition: opacity .2s ease-in-out;
+  transition: opacity 0.2s ease-in-out;
 }
 
 .header-container h1 {
   font-size: 40px;
 }
-.header-container p{
+.header-container p {
   font-size: 18px;
-
 }
 
-.header-container h1, .header-container p{
+.header-container h1,
+.header-container p {
   height: 50%;
   margin: 0 0 20px 0;
 }
@@ -61,9 +60,8 @@ app-toolbar {
   cursor: pointer;
   font-size: 30px;
   opacity: 0;
-  transition: opacity .2s ease-in-out;
+  transition: opacity 0.2s ease-in-out;
   z-index: 50;
-
 }
 
 .fade-out {
@@ -72,7 +70,7 @@ app-toolbar {
 .fade-in {
   opacity: 1;
 }
-.start-button:hover{
+.start-button:hover {
   filter: brightness(105%);
 }
 
@@ -120,13 +118,21 @@ app-toolbar {
   width: 100%;
 }
 
-.sprint-mode-header-container div{
+.sprint-mode-header-container div {
   width: 33%;
   /* height: 100%; */
   display: flex;
   justify-content: center;
   align-items: center;
   font-size: 16px;
+}
+
+.sprint-mode-header-container div mat-icon, .sprint-mode-header-container div label {
+  margin: auto 3px;
+}
+
+.sprint-mode-header-container div mat-icon {
+  display: none;
 }
 
 .sprint-mode-header-container span {
@@ -181,10 +187,16 @@ app-typing-display {
     width: 100%;
     flex-wrap: wrap;
   }
-  .sprint-mode-header-container{
+  .sprint-mode-header-container {
     flex-wrap: wrap;
   }
   span {
+    display: none;
+  }
+  .sprint-mode-header-container div mat-icon {
+    display: block;
+  }
+  .sprint-mode-header-container div label {
     display: none;
   }
 }

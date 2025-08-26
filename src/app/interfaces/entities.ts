@@ -47,3 +47,8 @@ export enum GameMode {
   NORMAL = 'NORMAL',
   SPRINT = 'SPRINT',
 }
+
+export interface ScoreToShow {
+  message: string;
+  type: 'perfect' | 'normal';
+}
