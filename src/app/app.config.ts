@@ -19,4 +19,4 @@ export const appConfig: ApplicationConfig = {
   ]
 };
 
-// Para abrir desde el mobile iniciar con "ng serve --host 0.0.0.0"
+// Para abrir desde el mobile iniciar con ng serve --host 0.0.0.0

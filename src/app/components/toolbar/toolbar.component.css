@@ -1,69 +1,95 @@
-mat-toolbar,mat-toolbar mat-icon,mat-toolbar label,mat-toolbar span {
-    overflow-y: auto;
-    /* background-color: var(--mat-badge-background-color);
+mat-toolbar,
+mat-toolbar mat-icon,
+mat-toolbar label,
+mat-toolbar span {
+  padding: 0;
+  /* background-color: var(--mat-badge-background-color);
     color: var(--mat-badge-text-color); */
-    
-    /*#005cbb*/
-    /* background-color: var(--mat-toolbar-container-background-color);
+
+  /*#005cbb*/
+  /* background-color: var(--mat-toolbar-container-background-color);
     color:var(--mat-toolbar-container-text-color); */
-    /* background-color: var(--toolbar-bg-color);
+  /* background-color: var(--toolbar-bg-color);
     color: var(--toolbar-color); */
-    background-color: var(--mat-sys-primary);
-    color: var(--mat-sys-on-primary);
-    
+  background-color: var(--mat-sys-primary);
+  color: var(--mat-sys-on-primary);
 }
+
+mat-toolbar {
+  width: 85%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+}
+
 .items-container {
-    margin: auto;
-    display: flex;
+  margin: auto 0;
+  display: flex;
+  width: 33%;
 }
 
-.items-container a {
-    margin:auto 5px;
+.item-mobile-container {
+  width: auto;
+  display: none;
 }
 
-.item-page-name.none{
-    opacity: 0;
-    user-select: none;
+.item-page-name.none {
+  opacity: 0;
+  user-select: none;
 }
 
-.item-page-sound{
-    display: none;
+.w-33 {
+  width: 33%;
 }
-.item-page-sound.active{
-    display: flex;
+
+.justify-center {
+  justify-content: center;
+}
+
+.justify-end {
+  justify-content: flex-end;
+}
+
+.item-page-sound {
+  display: none;
+}
+.item-page-sound.active {
+  display: flex;
 }
 
 .item-page-theme {
-    display: none;
+  display: none;
 }
 .item-page-theme.active {
-    display: flex;
-}
-
-.m-r{
-    margin:auto 0 auto auto;
-}
-
-.m-l{
-    margin:auto auto auto 0;
+  display: flex;
 }
 
 .hidden {
-    display: none;
+  display: none;
 }
 
-@media screen and (max-width: 720px) {
-    .item-page-name,.spacer-vertical {
-        display: none;
-    }
-    .item-span-txt{
-        display: none;
-    }
+@media screen and (max-width: 1000px) {
+  mat-toolbar {
+    width: 98%;
+  }
+  .spacer-vertical,
+  .items-container a span,
+  .items-container .item-page-name mat-icon{
+    display: none;
+  }
 
-    .items-container{
-        justify-content: space-between;
-    }
-    .items-container.m-r{
-        justify-content: flex-end;
-    }
+  .items-container .item-page-name span {
+    display: block;
+  }
+
+}
+@media screen and (max-width: 768px) {
+  .items-container{
+    display: none;
+  }
+
+  .item-mobile-container {
+    display: block;
+    padding: 0 2px
+  }
 }

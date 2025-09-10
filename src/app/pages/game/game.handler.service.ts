@@ -15,8 +15,6 @@ export class GameHandlerService {
   private _cpmService = inject(CpmService);
   // private _sprintModeHandlerService = inject(SprintModeHandlerService);
 
-  gameMode = signal<GameMode>(GameMode.NORMAL);
-
   isAValidWord(key: string): boolean {
     const regexString: string = `^[a-zA-Z0-9\\s.,;:?!'"()\\-áéíóúÁÉÍÓÚñÑüÜ]$`;
     const regex: RegExp = new RegExp(regexString);
@@ -158,10 +156,6 @@ export class GameHandlerService {
     this._appStateService.setActualWordIsActive(true);
     this._appStateService.setIndexCorrectWord(0);
     this.updateCorrectLetter();
-  }
-
-  updateGameMode(newMode: GameMode) {
-    this.gameMode.set(newMode);
   }
 
 }

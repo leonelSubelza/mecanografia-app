@@ -1,5 +1,7 @@
-import { Injectable, signal } from '@angular/core';
-import { Stats } from '../interfaces/entities';
+import { effect, inject, Injectable, signal } from '@angular/core';
+import { GameMode, Stats } from '../interfaces/entities';
+import { NavigationEnd, Router } from '@angular/router';
+import { filter } from 'rxjs';
 
 const DEFAULT_GENERAL_STATE_VALUE: Stats = {
   username: '',
@@ -17,6 +19,8 @@ const DEFAULT_GENERAL_STATE_VALUE: Stats = {
   },
   sprintMode: {
     bestScore: 0,
+    totalWordsWritten: 0,
+    cpm: 0,
   },
 };
 
@@ -25,9 +29,26 @@ const DEFAULT_GENERAL_STATE_VALUE: Stats = {
 })
 export class GeneralStatsService {
   generalStats = signal<Stats>(DEFAULT_GENERAL_STATE_VALUE);
+  gameMode = signal<GameMode>(GameMode.PRECISION_MODE);
+  _router = inject(Router);
 
   constructor() {
     this.generalStats.set(this.getItem('stats'));
+    
+    this._router.events
+      .pipe(filter(event => event instanceof NavigationEnd))
+      .subscribe((event: NavigationEnd) => {
+        switch (event.urlAfterRedirects) {
+          case '/':
+            this.gameMode.set(GameMode.PRECISION_MODE);
+            break;
+          case '/sprint-mode':
+            this.gameMode.set(GameMode.SPRINT_MODE);
+            break;
+          default:
+            this.gameMode.set(GameMode.PRECISION_MODE);
+        }
+      });
   }
 
   getItem(key: string): Stats {

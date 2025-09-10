@@ -32,7 +32,7 @@ app-game-info {
 .board-title {
   width: 95%;
   height: 10%;
-  margin: auto;
+  margin: auto 0;
   display: flex;
   padding: 10px 0;
 }
@@ -41,6 +41,11 @@ h1 {
   margin: auto 0;
   line-height: normal;
   font-size: 18px;
+  font-weight: 400;
+}
+
+app-board {
+  background-color: var(--precision-mode-bg) !important;
 }
 
 app-typing-display {
@@ -70,13 +75,4 @@ app-keyboard {
     overflow-y: auto;
     overflow-x: hidden;
   }
-  /* .board-title {
-    display: none;
-  } */
-
-
-  /* app-keyboard {
-    display: grid;
-    height: 40%;
-  } */
 }

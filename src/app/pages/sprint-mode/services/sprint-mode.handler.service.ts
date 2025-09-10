@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 
 const PUNCTUATION_PERFECT_SCORE = 10;
 const PUNCTUATION_NORMAL_SCORE = 5;
+const DEFAULT_VALUE_COUNTDOWN_TIMER = 30000;
 
 async function getWordsByLength(length: number): Promise<string[]> {
   switch (length) {
@@ -33,6 +34,7 @@ export class SprintModeHandlerService {
   gameOver = signal<boolean>(false);
   showStartScreen = signal<boolean>(true);
   userTime = signal<string>('');
+  countdownTimerSprintMode = signal<number>(DEFAULT_VALUE_COUNTDOWN_TIMER);
 
   userScore = signal<number>(0);
   bestScore = signal<number>(0);
@@ -57,7 +59,11 @@ export class SprintModeHandlerService {
     // Esto es como un "thread reactivo"
     effect(() => {
       // LOGIC TO FINISH THE GAME
-      if (this._timerService.isTimerCountdownFinished() && !this.gameOver() && this.router.url === '/sprint-mode') {
+      if (
+        this._timerService.isTimerCountdownFinished() &&
+        !this.gameOver() &&
+        this.router.url === '/sprint-mode'
+      ) {
         this.openGameOverlayDialog();
         this.finishGame();
         return;
@@ -184,8 +190,7 @@ export class SprintModeHandlerService {
   }
 
   loadNewWord() {
-    console.log(this.isPerfectScore() ? 'perfect' : 'normal');
-    
+    this.valueUserWritingSprintMode.set('');
     this.addScore(this.isPerfectScore() ? 'perfect' : 'normal');
     this.isPerfectScore.set(true);
     this.setNewRandomWordSprintMode(this.difficulty());
@@ -199,12 +204,12 @@ export class SprintModeHandlerService {
     if (this._generalStatsService.generalStats().sound) this.playFinishSound();
 
     if (this.isActualScoreBestScore()) {
-      this.updateBestScore();
+      this.updateSprintModeStats();
     }
   }
 
   startGame() {
-    this._timerService.startCountDownGameTimer();
+    this._timerService.startCountDownGameTimer(this.countdownTimerSprintMode());
     this._cpmService.startCPM();
   }
 
@@ -239,14 +244,14 @@ export class SprintModeHandlerService {
     }, 500);
   }
 
-  updateBestScore() {
+  updateSprintModeStats() {
     this.bestScore.set(this.userScore());
     let generalStatsValue = this._generalStatsService.generalStats();
     if (generalStatsValue.sprintMode) {
-      generalStatsValue.sprintMode.bestScore = this.userScore();
-    } else {
       generalStatsValue.sprintMode = {
         bestScore: this.userScore(),
+        totalWordsWritten: this.wordsPlayed().length,
+        cpm: this._cpmService.cpm(),
       };
     }
     this._generalStatsService.setStats(generalStatsValue);
@@ -264,7 +269,7 @@ export class SprintModeHandlerService {
       isNewRecord: this.isActualScoreBestScore(),
       score: this.userScore(),
       totalWordsWritten: this.wordsPlayed().length,
-      time: this._timerService.userTime(),
+      // time: this._timerService.userTime(),
       cpmValue: this._cpmService.cpm(),
     };
     const dialogRef =
@@ -304,7 +309,7 @@ export class SprintModeHandlerService {
   showButton = signal(true);
 
   startButtonClick() {
-    if(!this.showButton()) return;
+    if (!this.showButton()) return;
     // Ocultamos el botón con fade-out
     this.showButton.set(false);
 

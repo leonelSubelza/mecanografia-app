@@ -15,9 +15,10 @@ body {
 html {
   color-scheme: light;
   // Esta propiedad la agregué para que haga la animación de transición aplicada en html, body arriba
-  background-color: var(--mat-sys-background);
+  background-color: rgb(253, 251, 255);
   --color-error-sprint-mode: var(--mat-sys-error);
   --bg-error-precision-mode: #ffb6b6;
+  --precision-mode-bg: #fff;
   // --mat-sys-error-container: #ffb6b6 !important;
   @include mat.theme(
     (
@@ -30,6 +31,7 @@ html.dark-theme {
   background-color: var(--mat-sys-background);
   --color-error-sprint-mode: var(--mat-sys-error-container);
   --bg-error-precision-mode: var(--mat-sys-error-container);
+  --precision-mode-bg: var(--mat-sys-background);;
   // --mat-sys-error-container: #93000a !important;
   color-scheme: dark;
   @include mat.theme(
@@ -46,4 +48,13 @@ app-sprint-mode {
   height: 100%;
   display: flex;
   flex-direction: column;
+}
+
+app-toolbar {
+  color: var(--mat-sys-on-primary);
+  /* background: var(--mat-app-background-color) */
+  background-color: var(--mat-sys-primary);
+}
+
+@media screen and (max-width: 768px) {
 }

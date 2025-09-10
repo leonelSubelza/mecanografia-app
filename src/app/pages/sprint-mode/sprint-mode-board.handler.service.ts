@@ -26,6 +26,7 @@ export class SprintModeBoardHandlerService {
       return;
     }
 
+    if(key != 'Backspace')  key = key.toLocaleLowerCase();
     // console.log(
     //   'index actual letter: ' +
     //     this._sprintModeHandlerService.indexActualLetter()
@@ -117,7 +118,6 @@ export class SprintModeBoardHandlerService {
         this._sprintModeHandlerService.valueUserWritingSprintMode.set(
           valueUserWithoutLastCharacter
         );
-
         // console.log("texto sin ult letra: "+this._sprintModeHandlerService.valueUserWritingSprintMode());
       }
     }

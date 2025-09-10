@@ -7,33 +7,21 @@
 <div class="input-container">
   <mat-card appearance="outlined" [ngClass]="{'show-tooltip': this.showTooltipMessage}">
     <mat-card-content>
-      <input 
-      id="inputRef" 
-      autofocus 
-      #inputRef 
-      type="text" 
-      [attr.autocapitalize]="'off'" 
-      [attr.autocorrect]="'off'"
-      [attr.autocomplete]="'off'" 
-      [spellcheck]="false" 
-      (paste)="preventPaste($event)"
-      [value]="this.input()" placeholder="Escribe la palabra actual!..."
-      (input)="handleInput($event)" 
-      matTooltip="Info about the action"
-      />
+      <input id="inputRef" autofocus #inputRef type="text" [attr.autocapitalize]="'off'" [attr.autocorrect]="'off'"
+        [attr.autocomplete]="'off'" [spellcheck]="false" (paste)="preventPaste($event)" [value]="this.input()"
+        placeholder="Escribe la palabra actual!..." (input)="handleInput($event)" />
       <textarea id="textareaRef" autofocus #textareaRef type="text" [attr.autocapitalize]="'off'"
         [attr.autocorrect]="'off'" [attr.autocomplete]="'off'" [spellcheck]="false" (paste)="preventPaste($event)"
-        [value]="this.input()" placeholder="Escribe la palabra actual!..."
-        (input)="handleInput($event)"></textarea>
+        [value]="this.input()" placeholder="Escribe la palabra actual!..." (input)="handleInput($event)"></textarea>
     </mat-card-content>
   </mat-card>
-  <!-- <div class="tooltip-msg-container"> -->
-    <!-- <p class="tooltip-msg" [ngClass]="{'show-tooltip': this.showTooltipMessage}">Comienza a escribir para comenzar!</p> -->
-    <!-- <button mat-fab extended aria-label="Example icon button with a delete icon"  [ngClass]="{'show-tooltip': this.showTooltipMessage}">
-          Comienza a escribir para comenzar!
-    </button> -->
+  @if(this.isPrecisionModeScreen()){
+  <div class="tooltip-msg-container">
+    <p class="tooltip-msg" [ngClass]="{'show-tooltip': this.showTooltipMessage}">Comienza a escribir para comenzar!</p>
     <!-- <button mat-raised-button color="primary" class="tooltip-msg" [ngClass]="{'show-tooltip': this.showTooltipMessage}">Comienza a escribir para comenzar!</button> -->
-  <!-- </div> -->
+  </div>
+  }
+
 </div>
 
 <!-- <div style="display: flex; flex-direction:column; width: 100%; border: 1px solid black;">

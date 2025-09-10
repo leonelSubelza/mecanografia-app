@@ -1,5 +1,4 @@
 import {
-  AfterViewInit,
   Component,
   effect,
   ElementRef,
@@ -9,17 +8,18 @@ import {
   output,
   signal,
   ViewChild,
-  viewChild,
 } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { AppStateService } from '@/pages/game/services/app-state.service';
 import { MatButtonModule } from '@angular/material/button';
 import { NgClass } from '@angular/common';
 import { GeneralStatsService, SprintModeHandlerService } from '@/services';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { GameMode } from '@/interfaces/entities';
 
 @Component({
   selector: 'app-typing-display',
-  imports: [MatCardModule, NgClass, MatButtonModule],
+  imports: [MatCardModule, NgClass, MatButtonModule, MatTooltipModule],
   standalone: true,
   templateUrl: './typing-display.component.html',
   styleUrl: './typing-display.component.css',
@@ -27,6 +27,7 @@ import { GeneralStatsService, SprintModeHandlerService } from '@/services';
 export class TypingDisplayComponent implements OnInit {
   _appStateService = inject(AppStateService);
   _sprintModeHandlerService = inject(SprintModeHandlerService);
+  _generalStatsService = inject(GeneralStatsService);
   // _boardHandlerService = inject(BoardHandlerService);
 
   input = input.required<string>();
@@ -34,11 +35,9 @@ export class TypingDisplayComponent implements OnInit {
   onInput = output<string>();
 
   isMobile = signal<boolean>(false);
-  textAux = '';
 
   inputEvaluated = signal<string>('');
 
-  comparadorStack = signal<string[]>([]);
   inputStack = signal<string[]>([]);
 
   // currentWord!: string;
@@ -136,5 +135,9 @@ export class TypingDisplayComponent implements OnInit {
 
   hideTooltip() {
     this.showTooltipMessage = false;
+  }
+
+  isPrecisionModeScreen(): boolean {
+    return this._generalStatsService.gameMode() === GameMode.PRECISION_MODE;
   }
 }

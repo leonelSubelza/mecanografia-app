@@ -1,11 +1,32 @@
 <mat-toolbar>
-  <div class="items-container m-l">
-    <a mat-button class="item-page-name" routerLink="/">
-      <span>Mecanography app</span>
-      <mat-icon>favorite</mat-icon>
+  <div class="items-container item-mobile-container">
+    <button matIconButton [matMenuTriggerFor]="optionsMenu" aria-label="Example icon-button with a menu">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <mat-menu #optionsMenu="matMenu">
+      <button mat-menu-item (click)="onMenuItemClick('/user')">
+        <span class="item-span-txt">Usuario</span>
+        <mat-icon>person</mat-icon>
+      </button>
+
+      <button mat-menu-item [matMenuTriggerFor]="optionsMenuGameMode">
+        <span class="item-span-txt">Modo</span>
+        <mat-icon>sports_esports</mat-icon>
+      </button>
+
+      <button mat-menu-item (click)="onMenuItemClick('/stats')">
+        <span class="item-span-txt">Estadísticas</span>
+        <mat-icon>bar_chart</mat-icon>
+      </button>
+    </mat-menu>
+  </div>
+  <div class="items-container w-33">
+    <a class="item-page-name" mat-button routerLink="/">
+      <span class="item-span-txt">Mecanography app</span>
+      <mat-icon>keyboard</mat-icon>
     </a>
   </div>
-  <div class="items-container">
+  <div class="items-container justify-center w-33">
     <a mat-button routerLink="/user">
       <span class="item-span-txt">Usuario</span>
       <mat-icon>person</mat-icon>
@@ -13,20 +34,14 @@
 
     <div mat-button>
       <button mat-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
-        <!-- <mat-icon>more_vert</mat-icon> -->
         <span class="item-span-txt">Modo</span>
-        <mat-icon>keyboard</mat-icon>
+        <mat-icon>sports_esports</mat-icon>
       </button>
       <mat-menu #menu="matMenu">
         <button mat-menu-item (click)="onMenuItemClick('/')">
           <mat-icon>keyboard</mat-icon>
           <label>Precisión</label>
         </button>
-
-        <!-- <button mat-menu-item disabled>
-                    <mat-icon>voicemail</mat-icon>
-                    <span>Check voice mail</span>
-                </button> -->
         <button mat-menu-item (click)="onMenuItemClick('/sprint-mode')">
           <mat-icon>flash_on</mat-icon>
           <span>Sprint</span>
@@ -39,7 +54,7 @@
       <mat-icon>bar_chart</mat-icon>
     </a>
   </div>
-  <div class="items-container m-r">
+  <div class="items-container justify-end w-33">
     <div class="item-page" (click)="onStartNewGameClick()" [ngClass]="{hidden: !this.showNewGameButton()}">
       <a mat-button matTooltip="Nuevo juego"><mat-icon>autorenew</mat-icon></a>
     </div>
@@ -53,8 +68,56 @@
         [ngClass]="{active: !this._generalStatsService.generalStats().sound}"><mat-icon>volume_off</mat-icon></a>
     </div>
     <div class="item-page" (click)="onChangeTheme()">
-      <a mat-button class="item-page-theme" [ngClass]="{active: this.isLightMode()}"><mat-icon>light_mode</mat-icon></a>
-      <a mat-button class="item-page-theme" [ngClass]="{active: !this.isLightMode()}"><mat-icon>dark_mode</mat-icon></a>
+      <a mat-button class="item-page-theme" [ngClass]="{active: this.isLightMode()}"
+        matTooltip="Light On"><mat-icon>light_mode</mat-icon></a>
+      <a mat-button class="item-page-theme" [ngClass]="{active: !this.isLightMode()}"
+        matTooltip="Dark On"><mat-icon>dark_mode</mat-icon></a>
     </div>
   </div>
+
+  <div class="items-container item-mobile-container">
+    <button matIconButton [matMenuTriggerFor]="configMenuGameMode" aria-label="Example icon-button with a menu">
+      <mat-icon>settings</mat-icon>
+    </button>
+  </div>
 </mat-toolbar>
+
+<!-- Options menu mobile view -->
+<mat-menu #optionsMenuGameMode="matMenu">
+  <button mat-menu-item (click)="onMenuItemClick('/')">
+    <mat-icon>keyboard</mat-icon>
+    <label>Precisión</label>
+  </button>
+  <button mat-menu-item (click)="onMenuItemClick('/sprint-mode')">
+    <mat-icon>flash_on</mat-icon>
+    <span>Sprint</span>
+  </button>
+</mat-menu>
+
+<!-- Config menu mobile view -->
+<mat-menu #configMenuGameMode="matMenu" xPosition="before">
+  <button mat-menu-item (click)="onMenuItemClick('/')">
+    <mat-icon>autorenew</mat-icon>
+    <label>Nuevo Juego</label>
+  </button>
+  <button mat-menu-item (click)="onMenuItemClick('/sprint-mode')">
+    <mat-icon>refresh</mat-icon>
+    <span>Reiniciar</span>
+  </button>
+  <button mat-menu-item (click)="onClickSound()">
+    @if(this._generalStatsService.generalStats().sound) {
+      <mat-icon>volume_up</mat-icon>
+    }@else {
+      <mat-icon>volume_off</mat-icon>
+    }
+    <label>Sonido On/Off</label>
+  </button>
+  <button mat-menu-item (click)="onChangeTheme()">
+    @if(this.isLightMode()) {
+      <mat-icon>light_mode</mat-icon>
+    }@else {
+      <mat-icon>dark_mode</mat-icon>
+    }
+    <span>Light/Dark Mode</span>
+  </button>
+</mat-menu>

@@ -1,13 +1,8 @@
 @import url("https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&display=swap");
 
-app-toolbar {
-  color: var(--mat-sys-primary);
-  /* background: var(--mat-app-background-color) */
-  background-color: var(--mat-sys-inverse-primary);
-}
-
 .start-screen {
   display: none;
+  width: 98%;
   flex-direction: column;
   font-family: "Courier Prime", monospace;
   min-height: 70%;
@@ -183,6 +178,7 @@ app-typing-display {
   flex-direction: column;
 }
 @media screen and (max-width: 1000px) {
+
   app-typing-display {
     width: 100%;
     flex-wrap: wrap;
@@ -190,13 +186,22 @@ app-typing-display {
   .sprint-mode-header-container {
     flex-wrap: wrap;
   }
-  span {
-    display: none;
+  .sprint-mode-header-container div {
+    width: auto;
   }
   .sprint-mode-header-container div mat-icon {
     display: block;
   }
   .sprint-mode-header-container div label {
     display: none;
+  }
+  .sprint-mode-header-container span {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .game-content {
+    width: 98%;
   }
 }

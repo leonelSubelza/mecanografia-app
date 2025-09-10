@@ -43,6 +43,8 @@ export class ToolbarComponent {
   }
 
   onMenuItemClick(path: string) {
+    console.log(path);
+    
      this._router.navigateByUrl(path);
   }
 

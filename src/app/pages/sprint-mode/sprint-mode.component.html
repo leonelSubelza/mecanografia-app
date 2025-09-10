@@ -30,13 +30,13 @@
 <div class="game-content" [ngClass]="{'show-in-screen': !this._sprintModeHandlerService.showStartScreen()}">
   <div class="sprint-mode-header-container">
     <div>
-      <label>Puntuación:</label> <mat-icon>stars</mat-icon>{{this._sprintModeHandlerService.userScore()}}
+      <label>Puntuación:</label> <mat-icon>emoji_events</mat-icon>{{this._sprintModeHandlerService.userScore()}}
     </div>
     <!-- <div>
       <label>Total palabras escritas:{{ this._sprintModeHandlerService.wordsPlayed().length }}</label>
     </div> -->
     <div>
-      <label>Record:</label><mat-icon>workspace_premium</mat-icon>{{ this._sprintModeHandlerService.bestScore() }}
+      <label>Record:</label><mat-icon>military_tech</mat-icon>{{ this._sprintModeHandlerService.bestScore() }}
     </div>
     <span></span>
     <div>

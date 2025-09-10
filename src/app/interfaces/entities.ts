@@ -40,12 +40,14 @@ export interface Stats {
   };
   sprintMode?: {
     bestScore: number;
+    totalWordsWritten: number,
+    cpm: number,
   };
 }
 
 export enum GameMode {
-  NORMAL = 'NORMAL',
-  SPRINT = 'SPRINT',
+  PRECISION_MODE = 'PRECISION_MODE',
+  SPRINT_MODE = 'SPRINT_MODE',
 }
 
 export interface ScoreToShow {

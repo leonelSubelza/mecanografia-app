@@ -72,3 +72,13 @@
     opacity: 0;
   }
 }
+
+@media screen and (max-width: 1000px) {
+  .letter-container {
+    height: auto;
+  }
+
+  .letter {
+    padding: 5px;
+  }
+}

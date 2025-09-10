@@ -1,14 +1,58 @@
 <app-toolbar [showRestartButton]="false" [showNewGameButton]="false" />
-<div class="stats-container-page">
-    <mat-card appearance="outlined">
-        <mat-card-header>
-            <div class="container-hdp">
-            <mat-card-title>Estadísticas Generales</mat-card-title>
-            <mat-card-subtitle>Mejor texto: {{this._generalStatsService.generalStats().normalMode?.bestTextContent?.title}}</mat-card-subtitle>
-            <mat-card-subtitle>Tiempo: {{this._generalStatsService.generalStats().normalMode?.bestTime}}</mat-card-subtitle>
-            <mat-card-subtitle>Precisión: {{this._generalStatsService.generalStats().normalMode?.bestAccuracy}}%</mat-card-subtitle>
-            <mat-card-subtitle>Velocidad: {{this._generalStatsService.generalStats().normalMode?.cpm}}PPM</mat-card-subtitle>
-        </div>
-          </mat-card-header>
+<!-- <div class="stats-container-page">
+  <mat-card appearance="outlined">
+    <mat-card-header>
+      <div class="container-hdp">
+        <mat-card-title>Estadísticas Generales</mat-card-title>
+        <mat-card-subtitle>Mejor texto:
+          {{this._generalStatsService.generalStats().normalMode?.bestTextContent?.title}}</mat-card-subtitle>
+        <mat-card-subtitle>Tiempo: {{this._generalStatsService.generalStats().normalMode?.bestTime}}</mat-card-subtitle>
+        <mat-card-subtitle>Precisión:
+          {{this._generalStatsService.generalStats().normalMode?.bestAccuracy}}%</mat-card-subtitle>
+        <mat-card-subtitle>Velocidad:
+          {{this._generalStatsService.generalStats().normalMode?.cpm}}PPM</mat-card-subtitle>
+      </div>
+    </mat-card-header>
+  </mat-card>
+</div> -->
+
+<div class="stats-screen-container">
+  @if (this._generalStatsService.generalStats().username) {
+  <mat-card appearance="outlined">
+    <mat-card-header><mat-card-title><b>Usuario:</b> {{ this._generalStatsService.generalStats().username
+        }}</mat-card-title></mat-card-header>
+  </mat-card>
+  }
+
+  <mat-card appearance="outlined">
+    <mat-card-header><mat-card-title><b>Precision Mode</b></mat-card-title></mat-card-header>
+    <mat-card-content>
+      <mat-card-subtitle><b>Mejor texto:</b>
+        {{this._generalStatsService.generalStats().normalMode?.bestTextContent?.title}}</mat-card-subtitle>
+      <mat-card-subtitle><b>Tiempo:</b>
+        {{this._generalStatsService.generalStats().normalMode?.bestTime}}</mat-card-subtitle>
+      <mat-card-subtitle><b>Precisión:</b>
+        {{this._generalStatsService.generalStats().normalMode?.bestAccuracy}}%</mat-card-subtitle>
+      <mat-card-subtitle><b>Velocidad:</b>
+        {{this._generalStatsService.generalStats().normalMode?.cpm}}PPM</mat-card-subtitle>
+    </mat-card-content>
+    <mat-card-actions align="end">
+      <button matButton (click)="this.onResetValues(this.getGameTypeEnum('precision_mode'))">Reiniciar</button>
+    </mat-card-actions>
+  </mat-card>
+
+  <mat-card appearance="outlined">
+    <mat-card-header><mat-card-title><b>Sprint Mode</b></mat-card-title></mat-card-header>
+    <mat-card-content>
+      <mat-card-subtitle><b>Máxima puntuación:</b>
+        {{this._generalStatsService.generalStats().sprintMode?.bestScore}}</mat-card-subtitle>
+      <mat-card-subtitle><b>Velocidad:</b>
+        {{this._generalStatsService.generalStats().sprintMode?.cpm}}PPM</mat-card-subtitle>
+      <mat-card-subtitle><b>Total de palabras escritas:</b>
+        {{this._generalStatsService.generalStats().sprintMode?.totalWordsWritten}}</mat-card-subtitle>
+    </mat-card-content>
+    <mat-card-actions align="end">
+      <button matButton (click)="this.onResetValues(this.getGameTypeEnum('sprint_mode'))">Reiniciar</button>
+    </mat-card-actions>
   </mat-card>
 </div>

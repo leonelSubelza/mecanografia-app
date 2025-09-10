@@ -103,7 +103,7 @@ export class BoardHandlerService {
     //if its the last letter in the word
     if (this._appStateService.indexActualLetter() === actualWord.word.length - 1) {
       //if it is the last word in the game
-      if (this._gameHandlerService.isGameCompleted() && this._gameHandlerService.gameMode() === GameMode.NORMAL) {
+      if (this._gameHandlerService.isGameCompleted() && this._generalStatsService.gameMode() === GameMode.PRECISION_MODE) {
         this._appStateService.setGameOver(true);
         // return;
         // aca le quite el return porque asi se pone el indexActualWord en +1 para actualizar el gamePercent
