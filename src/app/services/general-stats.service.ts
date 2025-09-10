@@ -77,4 +77,19 @@ export class GeneralStatsService {
   //   const storedStats = this.getItem<Stats>('stats');
   //   return storedStats ?? DEFAULT_GENERAL_STATE_VALUE;
   // }
+
+  setFavicon(isLightMode: boolean) {
+    let iconPath: string = 'images/keyboard-light.svg';
+    if(isLightMode) {
+      iconPath = 'images/keyboard-dark.svg';
+    }
+    let link: HTMLLinkElement | null = document.querySelector("link[rel*='icon']");
+    
+    if (!link) {
+      link = document.createElement('link');
+      link.rel = 'icon';
+      document.head.appendChild(link);
+    }
+    link.href = iconPath;
+  }
 }

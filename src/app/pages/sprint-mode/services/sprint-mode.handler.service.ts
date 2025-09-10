@@ -294,8 +294,6 @@ export class SprintModeHandlerService {
     });
   }
 
-  // VA A HABER QUE MOVER LA LOGICA DEL BOTON COMENZAR A ACÁ
-
   playFinishSound() {
     new Audio('sounds/sprint-mode/gong.wav').play();
   }

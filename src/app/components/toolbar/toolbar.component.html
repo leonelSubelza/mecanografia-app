@@ -96,11 +96,11 @@
 
 <!-- Config menu mobile view -->
 <mat-menu #configMenuGameMode="matMenu" xPosition="before">
-  <button mat-menu-item (click)="onMenuItemClick('/')">
+  <button mat-menu-item (click)="onStartNewGameClick()">
     <mat-icon>autorenew</mat-icon>
     <label>Nuevo Juego</label>
   </button>
-  <button mat-menu-item (click)="onMenuItemClick('/sprint-mode')">
+  <button mat-menu-item (click)="onRefreshClick()">
     <mat-icon>refresh</mat-icon>
     <span>Reiniciar</span>
   </button>

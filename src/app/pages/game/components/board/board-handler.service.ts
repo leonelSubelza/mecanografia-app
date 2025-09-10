@@ -2,10 +2,15 @@ import { inject, Injectable } from '@angular/core';
 import { GameHandlerService } from '@game-mode/game.handler.service';
 import { GameMode, LetterStatus, Word } from '@/interfaces/entities';
 import { CpmService } from '@/services/cpm.service';
-import { AppStateService, GameTimerService, GeneralStatsService, UserAccuracyService } from '@/services';
+import {
+  AppStateService,
+  GameTimerService,
+  GeneralStatsService,
+  UserAccuracyService,
+} from '@/services';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class BoardHandlerService {
   private _generalStatsService = inject(GeneralStatsService);
@@ -15,22 +20,22 @@ export class BoardHandlerService {
   _userAccuracyService = inject(UserAccuracyService);
   _cpmService = inject(CpmService);
 
-  constructor() { }
+  constructor() {}
 
-  handleLetterWritten(key: string){
-    if (this._appStateService.gameOver()){
-      this._gameTimerService.stopGameTimer()
+  handleLetterWritten(key: string) {
+    if (this._appStateService.gameOver()) {
+      this._gameTimerService.stopGameTimer();
       return;
     }
     // const { key } = event;
     if (this._gameHandlerService.isAValidWord(key)) {
-      if(this._generalStatsService.generalStats().sound){
+      if (this._generalStatsService.generalStats().sound) {
         this.playKeyPressedSound();
       }
 
       this.scrollToActualWord();
 
-      if (!this._appStateService.gameOver()){
+      if (!this._appStateService.gameOver()) {
         this._gameTimerService.startGameTimer();
         this._cpmService.startCPM();
       }
@@ -42,48 +47,61 @@ export class BoardHandlerService {
       if (this._gameHandlerService.isCorrectLetter(key)) {
         // console.log("la letra es correcta");
         this._appStateService.setActualLetterStatus(LetterStatus.CORRECT);
-          this._userAccuracyService.addOneCorrectLetter();
-          updateNewLetter = true;
-        
+        this._userAccuracyService.addOneCorrectLetter();
+        updateNewLetter = true;
       } else {
         this._appStateService.setActualLetterStatus(LetterStatus.INCORRECT);
       }
-      if(this._gameHandlerService.isLastLetterInTheGame() && this._appStateService.getActualLetter().status !== LetterStatus.CORRECT){
+      if (
+        this._gameHandlerService.isLastLetterInTheGame() &&
+        this._appStateService.getActualLetter().status !== LetterStatus.CORRECT
+      ) {
         return;
       }
       this.moveNextLetter();
-      if (updateNewLetter && this._appStateService.getActualWord()){
+      if (updateNewLetter && this._appStateService.getActualWord()) {
         this._gameHandlerService.updateCorrectLetter();
         // this.scrollToActualWord();
-      } 
+      }
 
-      this._appStateService.setValueUserWriting(this._appStateService.valueUserWriting()+key);
+      this._appStateService.setValueUserWriting(
+        this._appStateService.valueUserWriting() + key
+      );
     }
-    if (key === "Backspace") {
+    if (key === 'Backspace') {
       this._cpmService.addCharacterCount();
-      if(this._appStateService.indexActualLetter() === 0
-      && this._appStateService.indexActualWord() === 0) {
+      this.scrollToActualWord();
+      if (
+        this._appStateService.indexActualLetter() === 0 &&
+        this._appStateService.indexActualWord() === 0
+      ) {
         return;
       }
       let statePrevLetter = this._gameHandlerService.getPrevLetter().status;
       this.movePrevLetter();
-      if(statePrevLetter === LetterStatus.CORRECT) {
+      if (statePrevLetter === LetterStatus.CORRECT) {
         this._gameHandlerService.updateCorrectLetter();
         // this.scrollToActualWord();
       }
-      
+
       // we erase the last letter of the value user
-      if(this._appStateService.valueUserWriting().length>0){
-        const valueUserWithoutLastCharacter = this._appStateService.valueUserWriting().slice(0, -1);
-        this._appStateService.setValueUserWriting(valueUserWithoutLastCharacter);
+      if (this._appStateService.valueUserWriting().length > 0) {
+        const valueUserWithoutLastCharacter = this._appStateService
+          .valueUserWriting()
+          .slice(0, -1);
+        this._appStateService.setValueUserWriting(
+          valueUserWithoutLastCharacter
+        );
       }
     }
   }
 
   movePrevLetter() {
     // if its the first word and the first letter
-    if(this._appStateService.indexActualLetter() === 0
-    && this._appStateService.indexActualWord() === 0) {
+    if (
+      this._appStateService.indexActualLetter() === 0 &&
+      this._appStateService.indexActualWord() === 0
+    ) {
       return;
     }
     this._appStateService.setActualLetterIsActive(false);
@@ -101,38 +119,43 @@ export class BoardHandlerService {
     this._appStateService.setActualLetterIsActive(false);
     let actualWord: Word = this._appStateService.getActualWord();
     //if its the last letter in the word
-    if (this._appStateService.indexActualLetter() === actualWord.word.length - 1) {
+    if (
+      this._appStateService.indexActualLetter() ===
+      actualWord.word.length - 1
+    ) {
       //if it is the last word in the game
-      if (this._gameHandlerService.isGameCompleted() && this._generalStatsService.gameMode() === GameMode.PRECISION_MODE) {
+      if (
+        this._gameHandlerService.isGameCompleted() &&
+        this._generalStatsService.gameMode() === GameMode.PRECISION_MODE
+      ) {
         this._appStateService.setGameOver(true);
         // return;
         // aca le quite el return porque asi se pone el indexActualWord en +1 para actualizar el gamePercent
       }
 
       // if (this._gameHandlerService.isGameCompleted() && this._gameHandlerService.gameMode() === GameMode.SPRINT){
-        //EN GAME HANDLER SERVICE HACER UNA FUNCION QUE PASE A LA SIGUIENTE PALABRA GUARDADA Y RENUEVE LA SIGUIENTE PALABRA
+      //EN GAME HANDLER SERVICE HACER UNA FUNCION QUE PASE A LA SIGUIENTE PALABRA GUARDADA Y RENUEVE LA SIGUIENTE PALABRA
       // }
-      
+
       //we pass to the next word
       this.setNextWord(true);
       return;
     }
-      //we pass to the next LETTER
+    //we pass to the next LETTER
     this.setNextLetter(true);
   }
 
   setNextLetter(isNextLetter: boolean) {
     let indexLetterActive = this._appStateService.indexActualLetter();
 
-    if(isNextLetter){
+    if (isNextLetter) {
       this._appStateService.setIndexLetterActive(indexLetterActive + 1);
-    }else{
+    } else {
       this._appStateService.setIndexLetterActive(indexLetterActive - 1);
     }
     this._appStateService.setActualLetterIsActive(true);
-    this._appStateService.setActualLetterStatus(LetterStatus.DEFAULT)
+    this._appStateService.setActualLetterStatus(LetterStatus.DEFAULT);
     // this._gameHandlerService.updateActualLetter(this._gameHandlerService.indexLetterActive());
-    
   }
 
   // We know in advance that there is a next or previous letter
@@ -142,7 +165,7 @@ export class BoardHandlerService {
     let actualWordIndex = this._appStateService.indexActualWord();
 
     if (isNextWord) {
-      if(this._gameHandlerService.isWordCompleted()){
+      if (this._gameHandlerService.isWordCompleted()) {
         this._appStateService.setWordIsCompleted(true);
       }
       // update the current values one letter forward
@@ -155,31 +178,42 @@ export class BoardHandlerService {
       let newActualWord =
         this._appStateService.board()[this._appStateService.indexActualWord()];
       this._appStateService.setIndexLetterActive(newActualWord.word.length - 1);
-      
+
       // if it's the first letter of a word and we are stepping one letter back, we change status of the prev word
       if (auxActualIndex === 0) {
         this._appStateService.setWordIsCompleted(false);
       }
     }
     // stablish de default value for the new Letter and Word
-    if(this._appStateService.getActualWord()){
-      this._appStateService.setActualLetterStatus(LetterStatus.DEFAULT)
+    if (this._appStateService.getActualWord()) {
+      this._appStateService.setActualLetterStatus(LetterStatus.DEFAULT);
       this._appStateService.setActualWordIsActive(true);
-      this._appStateService.setActualLetterIsActive(true); 
+      this._appStateService.setActualLetterIsActive(true);
     }
   }
 
-  scrollToActualWord(){
+  scrollToActualWord() {
     let actualWord: Word = this._appStateService.getActualWord();
     const child = document.getElementById(`${actualWord.id}`);
     const container = document.querySelector('.words-board');
-    if(child&&container){
-      child.scrollIntoView()
+    if (child && container) {
+      child.scrollIntoView();
     }
   }
 
+  // playKeyPressedSound() {
+  //   const audio = new Audio('sounds/precision-mode/keyPressedSound.mp3');
+  //   audio.play();
+  // }
+
   playKeyPressedSound() {
-    const audio = new Audio('sounds/precision-mode/keyPressedSound.mp3');
-    audio.play();
+    const audios = [
+      new Audio('sounds/sprint-mode/type1.wav'),
+      new Audio('sounds/sprint-mode/type2.wav'),
+      new Audio('sounds/sprint-mode/type3.wav'),
+    ];
+
+    let indexRandomWord: number = Math.floor(Math.random() * audios.length);
+    audios[indexRandomWord].play();
   }
 }
