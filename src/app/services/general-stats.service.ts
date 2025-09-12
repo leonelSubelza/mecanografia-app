@@ -63,13 +63,17 @@ export class GeneralStatsService {
     }
   }
 
-  actualGameIsBetter(actualState: Stats): boolean {
+  actualGameIsBetter(actualState: any): boolean {
     const generalStatsValue = this.generalStats(); // guardamos el valor actual
 
-    if (!actualState.normalMode || !generalStatsValue.normalMode) return false;
+    if (!generalStatsValue.normalMode) return false;
 
+    console.log("actual game precision: "+actualState.bestAccuracy+", best precision: "+generalStatsValue.normalMode.bestAccuracy);
+    console.log("is a best score "+ (actualState.bestAccuracy >=
+      generalStatsValue.normalMode.bestAccuracy));
+    
     return (
-      actualState.normalMode.bestAccuracy >=
+      actualState.bestAccuracy >=
       generalStatsValue.normalMode.bestAccuracy
     );
   }

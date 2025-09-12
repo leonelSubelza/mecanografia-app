@@ -107,18 +107,15 @@ export class GameComponent implements OnInit {
 
 
   updateActualGameStats(): boolean {
-    const actualGameStats: Stats = {
-      username: this._generalStatsService.generalStats().username,
-      sound: this._generalStatsService.generalStats().sound,
-      normalMode: {
+    const newStatsNormalMode = {
         bestTextContent: this._appStateService.textContent(),
         bestTime: this._appStateService.userTime(),
         bestAccuracy: this._appStateService.userAccuracy(),
         cpm: this._cpmService.cpm(),
-      }
     };
-    if (this._generalStatsService.actualGameIsBetter(actualGameStats)) {
-      this._generalStatsService.setStats(actualGameStats);
+    if (this._generalStatsService.actualGameIsBetter(newStatsNormalMode)) {
+      this._generalStatsService.generalStats().normalMode = newStatsNormalMode;
+      this._generalStatsService.setStats(this._generalStatsService.generalStats());
       return true;
     }
     return false;

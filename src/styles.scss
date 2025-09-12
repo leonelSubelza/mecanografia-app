@@ -54,6 +54,7 @@ app-toolbar {
   color: var(--mat-sys-on-primary);
   /* background: var(--mat-app-background-color) */
   background-color: var(--mat-sys-primary);
+  display: flex;
 }
 
 @media screen and (max-width: 768px) {

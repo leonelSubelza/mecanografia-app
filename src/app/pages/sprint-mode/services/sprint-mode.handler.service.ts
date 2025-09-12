@@ -247,7 +247,8 @@ export class SprintModeHandlerService {
   updateSprintModeStats() {
     this.bestScore.set(this.userScore());
     let generalStatsValue = this._generalStatsService.generalStats();
-    if (generalStatsValue.sprintMode) {
+    if (generalStatsValue) {
+      console.log("se actualiza el best scrore");
       generalStatsValue.sprintMode = {
         bestScore: this.userScore(),
         totalWordsWritten: this.wordsPlayed().length,
