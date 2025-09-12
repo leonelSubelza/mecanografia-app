@@ -35,6 +35,7 @@ export class GeneralStatsService {
   constructor() {
     this.generalStats.set(this.getItem('stats'));
     
+    // cada vez que se cambie de url se actualiza el gameMode
     this._router.events
       .pipe(filter(event => event instanceof NavigationEnd))
       .subscribe((event: NavigationEnd) => {
@@ -67,11 +68,6 @@ export class GeneralStatsService {
     const generalStatsValue = this.generalStats(); // guardamos el valor actual
 
     if (!generalStatsValue.normalMode) return false;
-
-    console.log("actual game precision: "+actualState.bestAccuracy+", best precision: "+generalStatsValue.normalMode.bestAccuracy);
-    console.log("is a best score "+ (actualState.bestAccuracy >=
-      generalStatsValue.normalMode.bestAccuracy));
-    
     return (
       actualState.bestAccuracy >=
       generalStatsValue.normalMode.bestAccuracy
