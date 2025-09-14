@@ -56,8 +56,8 @@ El objetivo es mejorar la velocidad y precisión al escribir a través de dos mo
 
 1. Clona el repositorio:
    ```bash
-   git clone https://github.com/tu-usuario/tu-repo.git
-   cd tu-repo`
+   https://github.com/leonelSubelza/mecanografia-app.git
+   cd mecanografia-app
 2. Instala dependencias:
    ```bash
    npm install
