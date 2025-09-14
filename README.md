@@ -1,27 +1,71 @@
-# MecanografiaApp
+# 🧑‍💻 MecanografiaApp
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.0.2.
+Aplicación de **mecanografía** desarrollada en **Angular v18 → v20** con **Angular Material**.  
+El objetivo es mejorar la velocidad y precisión al escribir a través de dos modos de juego: **Precision Mode** y **Sprint Mode**.  
 
-## Development server
+---
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## ✨ Características principales
 
-## Code scaffolding
+### 🎯 Precision Mode (modo raíz `/`)
+- Muestra un **texto aleatorio** que el usuario debe tipear.
+- Se inicia un **contador de tiempo** al comenzar.
+- El toolbar permite **reiniciar** o **iniciar una nueva partida**.
+- Se guardan estadísticas del mejor intento:
+  - 📝 Mejor texto (por título).
+  - ⏱️ Tiempo empleado.
+  - 🎯 Precisión (pulsaciones correctas vs errores).
+  - ⚡ Velocidad (PPM: Pulsaciones por Minuto).
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+### ⚡ Sprint Mode (`/sprint-mode`)
+- El jugador tiene **30 segundos** para escribir la mayor cantidad de **palabras de 5 letras**.
+- Puntuación:
+  - ✅ Palabra sin errores: **+10 puntos**.
+  - ❌ Palabra con errores: **+5 puntos**.
+- Al finalizar se registran:
+  - 🏆 Puntuación máxima.
+  - 🔠 Total de palabras escritas.
+  - ⚡ PPM.
 
-## Build
+### 👤 Usuario (`/user`)
+- Permite guardar tu **nombre** para personalizar las estadísticas.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+### 📊 Estadísticas (`/stats`)
+- Visualiza tus **mejores resultados** en cada modo de juego.
 
-## Running unit tests
+---
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+## 🎨 Extras
+- 🔊 **Sonido por cada tecla pulsada** (con manejo para no superponer audios).
+- 🎉 **Animación de confetti** al lograr hitos importantes (usando [`canvas-confetti`](https://www.npmjs.com/package/canvas-confetti)).
+- 🌗 **Modo Light/Dark** con Angular Material Theming.
+- 💾 **Persistencia local** con `localStorage`.
+- 🖼️ Ícono dinámico en la pestaña del navegador (cambia según el tema).
 
-## Running end-to-end tests
+---
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+## 🛠️ Tecnologías usadas
+- [Angular v18 → v20](https://angular.dev)
+- [Angular Material](https://material.angular.io/)
+- [Canvas-Confetti](https://www.npmjs.com/package/canvas-confetti)
+- **LocalStorage API**
 
-## Further help
+---
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+## 🚀 Instalación y ejecución
+
+1. Clona el repositorio:
+   ```bash
+   git clone https://github.com/tu-usuario/tu-repo.git
+   cd tu-repo`
+2. Instala dependencias:
+   ```bash
+   npm install
+3. Levanta el servidor local:
+    ```bash
+    ng serve
+4. Abre en el navegador:
+    ```bash
+     http://localhost:4200
+---
+
