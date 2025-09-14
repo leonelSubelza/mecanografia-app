@@ -7,7 +7,7 @@ import {
 } from '@angular/core';
 import { GameHandlerService } from './game.handler.service';
 import { BoardComponent } from '@game-mode/components/board/board.component';
-import { Stats, Word } from '@/interfaces/entities';
+import { Word } from '@/interfaces/entities';
 import { GameInfoComponent } from './components/game-info/game-info.component';
 import {
   AppStateService,

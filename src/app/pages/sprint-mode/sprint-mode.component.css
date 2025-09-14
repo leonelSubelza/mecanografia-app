@@ -89,14 +89,6 @@
   opacity: 1;
 }
 
-/* .start-screen button {
-  flex-direction: row-reverse;
-}
-
-.start-screen button,.start-screen button mat-icon {
-  margin: auto 0  !important;
-} */
-
 .game-content {
   height: 100%;
   width: 85%;
@@ -146,8 +138,6 @@ app-sprint-board {
 
 mat-card {
   width: 50%;
-  /* margin: 5px auto auto 15px; */
-  /* background-color: #fff; */
   display: flex;
   margin: 20px auto 20px auto;
 }
@@ -177,6 +167,11 @@ app-typing-display {
   display: flex;
   flex-direction: column;
 }
+
+::ng-deep  mat-progress-bar.low-time .mdc-linear-progress__bar span {
+  border-color: var(--color-error-sprint-mode) !important;
+}
+
 @media screen and (max-width: 1000px) {
 
   app-typing-display {

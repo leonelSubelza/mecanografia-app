@@ -50,14 +50,7 @@ export class GameInfoComponent implements OnInit {
 
   updatePercentCompleted() {
     const totalWords = this._appStateService.board().length;
-    // console.log("total words: "+totalWords);
-
-    // const totalWordCompleted = this._appStateService.indexActualWord();
     const totalWordCompleted = this.getTotalWordsCompleted();
-    // console.log("total words completed: "+totalWordCompleted);
-
-    // console.log((totalWordCompleted*100));
-
     const totalPercent = (totalWordCompleted * 100) / totalWords;
     this._appStateService.setGamePercentCompleted(Math.floor(totalPercent));
   }

@@ -1,4 +1,3 @@
-<!-- <div class="current-word-container"><p>Palabra actual: "{{this.currentWord}}"</p></div> -->
 @if (this.currentWord() && this.currentWord()!=='') {
 <div class="current-word-container">
   <p>Palabra actual: "{{this.currentWord()}}"</p>
@@ -18,13 +17,7 @@
   @if(this.isPrecisionModeScreen()){
   <div class="tooltip-msg-container">
     <p class="tooltip-msg" [ngClass]="{'show-tooltip': this.showTooltipMessage}">Comienza a escribir para comenzar!</p>
-    <!-- <button mat-raised-button color="primary" class="tooltip-msg" [ngClass]="{'show-tooltip': this.showTooltipMessage}">Comienza a escribir para comenzar!</button> -->
   </div>
   }
 
 </div>
-
-<!-- <div style="display: flex; flex-direction:column; width: 100%; border: 1px solid black;">
-    <span>DATOS:</span>
-    <span>inputStack: {{ this.inputStack() }}</span>
-</div> -->

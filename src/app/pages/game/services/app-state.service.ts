@@ -11,13 +11,6 @@ const CORRECT_LETTER_DEFAULT_VALUE = {
   status: LetterStatus.DEFAULT
 }
 
-// const ACTUAL_WORD_DEFAULT_VALUE = {
-//   word: '',
-//   letterList: [],
-//   indexLetterActive: 0,
-//   isActive: false
-// }
-
 @Injectable({
   providedIn: 'root'
 })
@@ -25,7 +18,6 @@ export class AppStateService {
   board = signal<Word[]>([]);
   gameOver = signal<boolean>(false);
   textContent = signal<TextContent>(texts[0]);
-  // isSoundActive = signal<boolean>(true);
   indexActualWord = signal<number>(0);
   indexActualLetter = signal<number>(0);
 

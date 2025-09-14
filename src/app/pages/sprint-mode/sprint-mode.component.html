@@ -1,7 +1,6 @@
 <app-toolbar (onStartNewGame)="handleNewGame()" (onRestartGame)="handleRestartGame()" />
 
 <div class="start-screen" [ngClass]="{'show-in-screen': this._sprintModeHandlerService.showStartScreen()}">
-  <!-- @if(this.showButton()) { -->
   <div class="header-container" [class.fade-out]="!this._sprintModeHandlerService.showButton()"
     [class.fade-in]="this._sprintModeHandlerService.showButton()">
     <h1>Sprint Mode</h1>
@@ -15,8 +14,6 @@
       Empezar!
     </button>
   </div>
-
-  <!-- } -->
 
   <div class="countdown-seq-container">
     @if(this._sprintModeHandlerService.currentIndex() !== null) {
@@ -43,6 +40,7 @@
       <label>Tiempo:</label><mat-icon>schedule</mat-icon>{{ this._timerService.userTime() }}
     </div>
   </div>
+  <mat-progress-bar mode="determinate" [value]="this.timeLeftPercent()" [ngClass]="{'low-time': timeLeftPercent() <= 20}"></mat-progress-bar>
 
   <app-sprint-board />
   <app-typing-display [input]="this._sprintModeHandlerService.valueUserWritingSprintMode()"

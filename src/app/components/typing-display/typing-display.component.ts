@@ -28,8 +28,6 @@ export class TypingDisplayComponent implements OnInit {
   _appStateService = inject(AppStateService);
   _sprintModeHandlerService = inject(SprintModeHandlerService);
   _generalStatsService = inject(GeneralStatsService);
-  // _boardHandlerService = inject(BoardHandlerService);
-
   input = input.required<string>();
   currentWord = input<string>();
   onInput = output<string>();
@@ -40,8 +38,6 @@ export class TypingDisplayComponent implements OnInit {
 
   inputStack = signal<string[]>([]);
 
-  // currentWord!: string;
-
   showTooltipMessage: boolean = true;
 
   @ViewChild('inputRef') inputRef!: ElementRef<HTMLInputElement>;
@@ -49,12 +45,6 @@ export class TypingDisplayComponent implements OnInit {
 
   constructor() {
     effect(() => {
-      // if (!this._appStateService.gameOver()) {
-      //   this.handleUpdateCurrentWord();
-      // }
-      // if (this._appStateService.indexCorrectWord()) {
-      //   this.handleUpdateCurrentWord();
-      // }
       if (window.innerWidth < 1000) {
         this.isMobile.set(true);
       } else {
@@ -73,22 +63,8 @@ export class TypingDisplayComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // let correctWord: Word = this._appStateService.getActualWord();
-    // if (correctWord) {
-    //   this.currentWord = correctWord.word;
-    // }
-  }
 
-  // handleUpdateCurrentWord() {
-  //   let correctWord =
-  //     this._appStateService.board()[this._appStateService.indexCorrectWord()];
-  //   if (correctWord) {
-  //     if(!this.isMobile()) {
-  //       this._appStateService.setValueUserWriting('');
-  //     }
-  //     this.currentWord = correctWord.word;
-  //   }
-  // }
+  }
 
   handleInput($event: any) {
     $event.preventDefault();
@@ -106,8 +82,6 @@ export class TypingDisplayComponent implements OnInit {
       }
     }
 
-    // console.log("texto escrito: "+this.input());
-
     // if the input has text, then we handle the delete. This is because of the mobile not recognize the keyboard if the input has text
     // if(key===null&&this._appStateService.valueUserWriting()!=='') {
     if (key === null && this.input() !== '') {
@@ -118,13 +92,8 @@ export class TypingDisplayComponent implements OnInit {
     if (key === null && this.input() === '') {
       return;
     }
-    // if(this.isMobile()) {
-    // this.inputStack.set([...this.inputStack(), key]);
-    // return;
-    // }
 
     this.inputEvaluated.set(textWritten);
-    // this._boardHandlerService.handleLetterWritten(key);
     this.onInput.emit(key);
   }
 

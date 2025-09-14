@@ -1,5 +1,5 @@
-import { inject, Injectable, signal } from '@angular/core';
-import { GameMode, Letter, LetterStatus, TextContent, Word } from '@/interfaces/entities';
+import { inject, Injectable } from '@angular/core';
+import { Letter, LetterStatus, TextContent, Word } from '@/interfaces/entities';
 import { texts } from '@/shared/mock/texts.mock';
 import { generateWord } from '@game-mode/utils/entity-generator';
 import { AppStateService, CpmService, GameTimerService, UserAccuracyService } from '@/services';
@@ -13,7 +13,6 @@ export class GameHandlerService {
   private _gameTimerService = inject(GameTimerService);
   private _userAccuracyService = inject(UserAccuracyService);
   private _cpmService = inject(CpmService);
-  // private _sprintModeHandlerService = inject(SprintModeHandlerService);
 
   isAValidWord(key: string): boolean {
     const regexString: string = `^[a-zA-Z0-9\\s.,;:?!'"()\\-áéíóúÁÉÍÓÚñÑüÜ]$`;

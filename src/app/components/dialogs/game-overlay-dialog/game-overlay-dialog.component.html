@@ -1,4 +1,3 @@
-<!-- <h1 mat-dialog-title>Juego completado!</h1> -->
 <h1 mat-dialog-title>{{this.modalTitle()}}</h1>
 <label class="new-record-label" [ngClass]="{'active': this.isNewRecord()}">¡Nuevo Record!</label>
 <mat-dialog-content>
@@ -13,7 +12,6 @@
     <p>Cantidad de palabras escritas: {{ this.totalWordsWritten() }}</p>
     <p>Velocidad: {{this.cpmValue()}}PPM</p>
     }
-    <!-- <p>Pulsaciones totales: {{this._cpmService.characterCount()}}</p> -->
 </mat-dialog-content>
 @if(this.gameType() !== 'sprint') {
 <mat-dialog-actions align="end">

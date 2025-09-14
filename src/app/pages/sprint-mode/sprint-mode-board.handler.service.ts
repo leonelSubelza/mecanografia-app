@@ -27,31 +27,12 @@ export class SprintModeBoardHandlerService {
     }
 
     if(key != 'Backspace')  key = key.toLocaleLowerCase();
-    // console.log(
-    //   'index actual letter: ' +
-    //     this._sprintModeHandlerService.indexActualLetter()
-    // );
-    // console.log(
-    //   'index correct letter: ' +
-    //     this._sprintModeHandlerService.indexCorrectLetter()
-    // );
-    // console.log(this._sprintModeHandlerService.wordBoard());
-
     if (this.isAValidWord(key)) {
       if (this._generalStatsService.generalStats().sound) {
         this.playKeyPressedSound();
       }
 
-      // this.scrollToActualWord();
-
-      // ESTO INICIA EL JUEGO
-      // if (!this._sprintModeHandlerService.gameOver()) {
-      //   this._timerService.startCountDownGameTimer();
-      //   this._cpmService.startCPM();
-      // }
-
       let updateNewLetter: boolean = false;
-      // this._userAccuracyService.addOneTotalLettersWritten();
       this._cpmService.addCharacterCount();
 
       // Si la letra activa es igual a la letra pulsada se pasa a la siguiente
@@ -108,29 +89,14 @@ export class SprintModeBoardHandlerService {
       if (
         this._sprintModeHandlerService.valueUserWritingSprintMode().length > 0
       ) {
-        // console.log('se borra');
-
-        // console.log("texto para borrar ult letra: "+this._sprintModeHandlerService.valueUserWritingSprintMode());
-
         const valueUserWithoutLastCharacter = this._sprintModeHandlerService
           .valueUserWritingSprintMode()
           .slice(0, -1);
         this._sprintModeHandlerService.valueUserWritingSprintMode.set(
           valueUserWithoutLastCharacter
         );
-        // console.log("texto sin ult letra: "+this._sprintModeHandlerService.valueUserWritingSprintMode());
       }
     }
-    // console.log('nuevos datos:');
-    // console.log(
-    //   'NUEVO INDEX LETRA ACTUAL: ' +
-    //     this._sprintModeHandlerService.indexActualLetter()
-    // );
-    // console.log(
-    //   'NUEVO INDEX LETRA CORRECTA: ' +
-    //     this._sprintModeHandlerService.indexCorrectLetter()
-    // );
-    // console.log('---------------------------');
   }
 
   // UTILS FUNCTIONS
@@ -157,15 +123,6 @@ export class SprintModeBoardHandlerService {
       this._sprintModeHandlerService.indexActualLetter();
     return this._sprintModeHandlerService.wordBoard()[indexActualLetter];
   }
-
-  // isLastLetter() {
-  //   const indexActualLetter =
-  //     this._sprintModeHandlerService.indexActualLetter();
-  //   return (
-  //     this._sprintModeHandlerService.wordBoard().length - 1 ===
-  //     indexActualLetter
-  //   );
-  // }
 
   moveNextLetter() {
     let indexActualLetter = this._sprintModeHandlerService.indexActualLetter();

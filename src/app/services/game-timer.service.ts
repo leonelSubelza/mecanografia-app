@@ -16,28 +16,14 @@ export class GameTimerService {
   formattedTime = computed(() => this.formatTime(this.elapsedTime()));
 
   direction = signal<'up' | 'down'>('up'); // o 'down'
-  countdownDuration = signal<number>(USER_TIME_DEFAULT_VALUE_COUNTDOWN_VALUE); // por ejemplo: 1 minuto (en ms)
+  countdownDuration = signal<number>(USER_TIME_DEFAULT_VALUE_COUNTDOWN_VALUE);
+  countdownTimeMillisRemaining = signal<number>(USER_TIME_DEFAULT_VALUE_COUNTDOWN_VALUE);
 
   constructor() {}
 
   private formatTimeUnit(unit: number): string {
     return unit < 10 ? `0${unit}` : `${unit}`; // Asegura que siempre tenga dos dígitos
   }
-
-  // private runTimer() {
-  //   const elapsed = performance.now() - this.startTime;
-
-  //   const minutes: number = Math.floor((elapsed / 60000) % 60);
-  //   const seconds: number = Math.floor((elapsed / 1000) % 60);
-  //   const milliseconds: number = Math.floor((elapsed % 1000) / 10);
-
-  //   const minutesFormated: string = this.formatTimeUnit(minutes);
-  //   const secondsFormated: string = this.formatTimeUnit(seconds);
-  //   const millisecondsFormated: string = this.formatTimeUnit(milliseconds);
-  //   // console.log(`${this.minutes}:${this.seconds}:${this.milliseconds}`);
-  //   this.userTime.set(minutesFormated +':'+ secondsFormated+':'+millisecondsFormated);
-  //   this.intervalId = requestAnimationFrame(() => this.runTimer());
-  // }
 
   startGameTimer() {
     if (!this.intervalId) {
@@ -71,6 +57,7 @@ export class GameTimerService {
   resetUserTimeCountdown() {
     this.stopGameTimer();
     this.countdownDuration.set(USER_TIME_DEFAULT_VALUE_COUNTDOWN_VALUE);
+    this.countdownTimeMillisRemaining.set(USER_TIME_DEFAULT_VALUE_COUNTDOWN_VALUE);
     this.userTime.set(this.getTimeFormatted(this.countdownDuration()));
   }
 
@@ -94,6 +81,7 @@ export class GameTimerService {
       displayTime = elapsed;
     } else {
       displayTime = Math.max(this.countdownDuration() - elapsed, 0);
+      this.countdownTimeMillisRemaining.set(displayTime);
     }
 
     this.userTime.set(this.getTimeFormatted(displayTime));

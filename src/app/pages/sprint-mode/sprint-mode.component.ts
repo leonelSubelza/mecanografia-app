@@ -16,6 +16,7 @@ import { GameTimerService, GeneralStatsService } from '@/services';
 import { ToolbarComponent, TypingDisplayComponent } from '@/components';
 import { MatIconModule } from '@angular/material/icon';
 import { NgClass } from '@angular/common';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 const ANGULAR_MATERIAL_IMPORTS = [
   MatCardModule,
@@ -23,6 +24,7 @@ const ANGULAR_MATERIAL_IMPORTS = [
   MatCardModule,
   MatButtonModule,
   MatIconModule,
+  MatProgressBarModule,
 ];
 
 @Component({
@@ -46,15 +48,9 @@ export class SprintModeComponent implements OnInit {
 
   _timerService = inject(GameTimerService);
 
-  // sequence = ['', '3', '2', '1', 'GO!'];
-  // currentIndex = signal<number | null>(null); // cuál mostrar
-  // isVisible = signal(false); // para animación fade
-  // intervalTime = 300; // 0.5s
-  // private countdownTimer: any;
-  // showButton = signal(true);
-
   inputElement = viewChild<HTMLInputElement>('inputRef');
-
+  timeLeftPercent = signal<number>(100);
+  
   isMobile = signal<boolean>(false);
 
   constructor() {
@@ -64,6 +60,14 @@ export class SprintModeComponent implements OnInit {
       } else {
         this.isMobile.set(false);
       }
+      if(this._timerService.countdownTimeMillisRemaining()) {
+        // ASUMIMOS QUE SIEMPRE SE TENDRÁ 30seg (30000) como total
+        /**30000---100 
+         * 2500
+        */
+        this.timeLeftPercent.set(Math.round(this._timerService.countdownTimeMillisRemaining()*100/30000));
+      }
+      
     });
   }
 

@@ -20,11 +20,6 @@ export class GameOverlayDialogService {
       width: '400px',
       data,
     })
-    // const config = {data};
-    // this._dialog.open(componentRef, {
-      // data: config,
-      // width: '600px'
-    // });
   }
 
   closeModal(): void {

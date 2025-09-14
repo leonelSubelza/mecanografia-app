@@ -3,14 +3,6 @@ mat-toolbar mat-icon,
 mat-toolbar label,
 mat-toolbar span {
   padding: 0;
-  /* background-color: var(--mat-badge-background-color);
-    color: var(--mat-badge-text-color); */
-
-  /*#005cbb*/
-  /* background-color: var(--mat-toolbar-container-background-color);
-    color:var(--mat-toolbar-container-text-color); */
-  /* background-color: var(--toolbar-bg-color);
-    color: var(--toolbar-color); */
   background-color: var(--mat-sys-primary);
   color: var(--mat-sys-on-primary);
 }

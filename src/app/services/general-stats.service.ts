@@ -1,4 +1,4 @@
-import { effect, inject, Injectable, signal } from '@angular/core';
+import { inject, Injectable, signal } from '@angular/core';
 import { GameMode, Stats } from '../interfaces/entities';
 import { NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs';
@@ -73,10 +73,6 @@ export class GeneralStatsService {
       generalStatsValue.normalMode.bestAccuracy
     );
   }
-  // private loadInitialStats(): Stats | null {
-  //   const storedStats = this.getItem<Stats>('stats');
-  //   return storedStats ?? DEFAULT_GENERAL_STATE_VALUE;
-  // }
 
   setFavicon(isLightMode: boolean) {
     let iconPath: string = 'images/keyboard-light.svg';

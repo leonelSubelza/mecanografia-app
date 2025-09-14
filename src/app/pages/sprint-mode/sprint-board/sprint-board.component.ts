@@ -10,20 +10,12 @@ import { SprintModeHandlerService } from '@/services';
     templateUrl: './sprint-board.component.html',
     styleUrl: './sprint-board.component.css'
 })
-export class SprintBoardComponent implements OnInit {
+export class SprintBoardComponent {
   _sprintModeHandlerService = inject(SprintModeHandlerService);
-  // _sprintModeBoardHandlerService = inject(SprintModeBoardHandlerService);
 
   isMobile = signal<boolean>(false);
-  // textAux = '';
-
-
 
   constructor() { }
-
-  ngOnInit(): void {
-    // Initialization logic for the sprint board can go here
-  }  
 
   getLetterStatus(letter: Letter) {
     return letter.status

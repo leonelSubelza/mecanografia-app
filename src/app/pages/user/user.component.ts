@@ -36,9 +36,4 @@ export class UserComponent {
 
     this._snackBarService.showSnackBar('Nombre guardado!')
   }
-
-  // loadInitialUsername(): string {
-  //   const initialStats: Stats = this._generalStatsService.getItem('stats');
-  //   return initialStats.username;
-  // }
 }

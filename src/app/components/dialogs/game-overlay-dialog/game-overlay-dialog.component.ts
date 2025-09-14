@@ -1,5 +1,4 @@
 import {
-  AfterViewInit,
   Component,
   effect,
   inject,
@@ -34,10 +33,6 @@ export class GameOverlayDialogComponent implements OnInit {
   private readonly _modalData = inject(MAT_DIALOG_DATA);
 
   private dialogRef = inject(MatDialogRef<GameOverlayDialogComponent>);
-  // _gameTimerService = inject(GameTimerService);
-  // _appStateService = inject(AppStateService);
-  // _gameHandlerService = inject(GameHandlerService);
-  // _cpmService = inject(CpmService);
 
   gameType = signal<'precision' | 'sprint'>(this._modalData.gameType);
   modalTitle = signal<string>(this._modalData.title);
@@ -55,18 +50,6 @@ export class GameOverlayDialogComponent implements OnInit {
 
   private confettiInstance: any;
 
-  /**
-   *     <p>Texto: {{this._appStateService.textContent().title}}</p>
-    <p>Precisión: {{this._appStateService.userAccuracy()}}%</p>
-    <p>Tiempo: {{this._gameTimerService.userTime()}}</p>
-    <!-- <p>Pulsaciones totales: {{this._cpmService.characterCount()}}</p> -->
-    <p>Velocidad: {{this._cpmService.cpm()}}PPM</p>
-   * 
-   */
-
-  // modalTitle: string = '';
-  // isNewRecord!: boolean;
-
   constructor() {
     effect(() => {
       if (
@@ -80,10 +63,6 @@ export class GameOverlayDialogComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // this.modalTitle = this._matDialog.title;
-    // this.isNewRecord = this._matDialog.isNewRecord;
-    // if (this._matDialog.isNewRecord) {
-    // }
   }
 
   ngAfterViewInit() {}
@@ -112,23 +91,13 @@ export class GameOverlayDialogComponent implements OnInit {
     setTimeout(() => this.confettiInstance.reset(), duration);
   }
 
-  // posiblemente borrar
-  // closeModal() {
-  // this._modalService.closeModal();
-  // this.dialogRef.close();
-  // }
-
   newGame() {
     this._modalService.closeModal();
     this.dialogRef.close({ action: 'newGame' });
-    // this.onNewGame.emit();
-    // this._gameHandlerService.startNewGame();
   }
 
   resetGame() {
     this._modalService.closeModal();
     this.dialogRef.close({ action: 'resetGame' });
-    // this.onResetwGame.emit();
-    // this._gameHandlerService.restartGame();
   }
 }
